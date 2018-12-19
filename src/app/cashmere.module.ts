@@ -1,13 +1,32 @@
 import { NgModule } from '@angular/core';
 import {
-    NavbarModule,
+    AccordionModule,
     AppSwitcherModule,
+    BreadcrumbsModule,
+    ButtonModule,
+    CheckboxModule,
+    ChipModule,
+    DrawerModule,
+    FormFieldModule,
     IconModule,
-    PopoverModule,
+    InputModule,
     ListModule,
+    ModalModule,
+    NavbarModule,
+    PaginationModule,
+    PicklistModule,
+    PopoverModule,
+    ProgressIndicatorsModule,
+    RadioButtonModule,
     SelectModule,
-    APP_SWITCHER_SERVICE,
-    IDiscoveryRequest
+    SortModule,
+    SubnavModule,
+    TableModule,
+    TabsModule,
+    TileModule,
+    TypeformSurveyModule,
+    IDiscoveryRequest,
+    APP_SWITCHER_SERVICE
 } from '@healthcatalyst/cashmere';
 import { of, Observable } from 'rxjs';
 
@@ -29,7 +48,7 @@ const applications: IDiscoveryRequest = {
     ]
 };
 
-class CustomAppSwitcherService {
+export class CustomAppSwitcherService {
     readonly allApplicationsUri = 'http://example.com/';
 
     getApplications(): Observable<IDiscoveryRequest> {
@@ -39,9 +58,59 @@ class CustomAppSwitcherService {
 
 @NgModule({
     imports: [
-        AppSwitcherModule
+        AccordionModule,
+        AppSwitcherModule,
+        BreadcrumbsModule,
+        ButtonModule,
+        CheckboxModule,
+        ChipModule,
+        DrawerModule,
+        FormFieldModule,
+        IconModule,
+        InputModule,
+        ListModule,
+        ModalModule,
+        NavbarModule,
+        PaginationModule,
+        PicklistModule,
+        PopoverModule,
+        ProgressIndicatorsModule,
+        RadioButtonModule,
+        SelectModule,
+        SortModule,
+        SubnavModule,
+        TableModule,
+        TabsModule,
+        TileModule,
+        TypeformSurveyModule
     ],
-    exports: [NavbarModule, AppSwitcherModule, IconModule, PopoverModule, ListModule, SelectModule],
+    exports: [
+        AccordionModule,
+        AppSwitcherModule,
+        BreadcrumbsModule,
+        ButtonModule,
+        CheckboxModule,
+        ChipModule,
+        DrawerModule,
+        FormFieldModule,
+        IconModule,
+        InputModule,
+        ListModule,
+        ModalModule,
+        NavbarModule,
+        PaginationModule,
+        PicklistModule,
+        PopoverModule,
+        ProgressIndicatorsModule,
+        RadioButtonModule,
+        SelectModule,
+        SortModule,
+        SubnavModule,
+        TableModule,
+        TabsModule,
+        TileModule,
+        TypeformSurveyModule
+    ],
     providers: [
         {
             provide: APP_SWITCHER_SERVICE,

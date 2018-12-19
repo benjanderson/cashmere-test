@@ -6,8 +6,7 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-    title = 'cashmere-test';
-    user = 'Ben A';
+    username = 'Ben A';
 
     pageSize = 0;
     totalMembers = 0;
