@@ -1,4 +1,5 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import { Component, ViewEncapsulation, ViewChild, OnInit, ChangeDetectorRef } from '@angular/core';
+import { PopoverContentComponent } from '@healthcatalyst/cashmere';
 
 /** The datepicker allows user to select a date or date range by choosing dates from a calendar.*/
 @Component({
@@ -7,8 +8,19 @@ import {Component, ViewEncapsulation} from '@angular/core';
     styleUrls: ['./hc-datepicker.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class HcDatepickerComponent {
-    _pickerMode: number = 1;
+export class HcDatepickerComponent implements OnInit {
+    _pickerMode = 1;
+
+    @ViewChild(PopoverContentComponent) popoverContentComponent: PopoverContentComponent;
+
+    constructor() {}
+
+    ngOnInit(): void {
+        this.popoverContentComponent._popperOptions = {
+            placement: 'bottom',
+            hideOnScroll: false,
+        };
+    }
 
     _togglePicker(newMode: number) {
         this._pickerMode = newMode;

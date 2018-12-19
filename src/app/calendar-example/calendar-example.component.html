@@ -1,20 +1,18 @@
-
 <div class="example-date-input">
-  <hc-form-field>
-      <hc-label>Start Date:</hc-label>
-      <input hcInput placeholder="Select date..." class="cursor-pointer">
-      <hc-icon hcSuffix fontSet="fa" fontIcon="fa-calendar"  [hcPopover]="rangeExample" popperPlacement="bottom"></hc-icon>
-  </hc-form-field>
+    <hc-form-field>
+        <hc-label>Start Date:</hc-label>
+        <input hcInput placeholder="Select date..." class="cursor-pointer" />
+        <hc-datepicker-toggle hcSuffix [for]="picker1"></hc-datepicker-toggle>
+    </hc-form-field>
 </div>
 
 <div class="example-date-input">
-  <hc-form-field>
-      <hc-label>End Date:</hc-label>
-      <input hcInput placeholder="Select date..." class="cursor-pointer">
-      <hc-icon hcSuffix fontSet="fa" fontIcon="fa-calendar"  [hcPopover]="rangeExample" popperPlacement="bottom"></hc-icon>
-  </hc-form-field>
+    <hc-form-field>
+        <hc-label>End Date:</hc-label>
+        <input hcInput placeholder="Select date..." class="cursor-pointer" />
+        <hc-datepicker-toggle hcSuffix [for]="picker2"></hc-datepicker-toggle>
+    </hc-form-field>
 </div>
 
-<hc-popover-content #rangeExample>
-  <hc-datepicker></hc-datepicker>
-</hc-popover-content>
+<hc-datepicker #picker1></hc-datepicker>
+<hc-datepicker #picker2></hc-datepicker>
