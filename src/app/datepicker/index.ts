@@ -1,2 +1,10 @@
-export {HcDatepickerComponent} from './hc-datepicker.component';
-export {DatepickerModule} from './hc-datepicker.module';
+export { MatCalendar, MatCalendarHeader } from './calendar/calendar.component';
+export { MatCalendarBody } from './calendar-body/calendar-body.component';
+export { MatDatepicker, MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER } from './hc-datepicker.component';
+export { MatDatepickerContent } from './datepicker-content/datepicker-content.component';
+export { MatDatepickerToggle, MatDatepickerToggleIcon } from './datepicker-toggle/datepicker-toggle.component';
+export { MatMonthView } from './month-view/month-view.component';
+export { MatYearView } from './year-view/year-view.component';
+export { MatMultiYearView } from './multi-year-view/multi-year-view.component';
+export { MatDatepickerIntl } from './datepicker-intl';
+export { DatepickerInputDirective } from './datepicker-input/datepicker-input.directive';

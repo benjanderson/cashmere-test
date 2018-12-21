@@ -1,0 +1,24 @@
+.hc-form-field-appearance-legacy {
+    .hc-form-field-prefix,
+    .hc-form-field-suffix {
+      .mat-datepicker-toggle-default-icon {
+        width: 1em;
+      }
+    }
+  }
+  
+  .hc-form-field:not(.hc-form-field-appearance-legacy) {
+    .hc-form-field-prefix,
+    .hc-form-field-suffix {
+      .mat-datepicker-toggle-default-icon {
+        display: block;
+        width: 1.5em;
+        height: 1.5em;
+      }
+  
+      .mat-icon-button .mat-datepicker-toggle-default-icon {
+        margin: auto;
+      }
+    }
+  }
+  
