@@ -1,24 +1,20 @@
-.hc-form-field-appearance-legacy {
-    .hc-form-field-prefix,
-    .hc-form-field-suffix {
-      .mat-datepicker-toggle-default-icon {
-        width: 1em;
-      }
-    }
-  }
-  
-  .hc-form-field:not(.hc-form-field-appearance-legacy) {
-    .hc-form-field-prefix,
-    .hc-form-field-suffix {
-      .mat-datepicker-toggle-default-icon {
-        display: block;
-        width: 1.5em;
-        height: 1.5em;
-      }
-  
-      .mat-icon-button .mat-datepicker-toggle-default-icon {
-        margin: auto;
-      }
-    }
-  }
-  
+.calendar-button {
+    box-sizing: border-box;
+    position: relative;
+    user-select: none;
+    cursor: pointer;
+    outline: 0;
+    border: none;
+    -webkit-tap-highlight-color: transparent;
+    display: inline-block;
+    white-space: nowrap;
+    text-decoration: none;
+    vertical-align: baseline;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    color: inherit;
+    background: 0 0;
+    line-height: 1.5;
+}

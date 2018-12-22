@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ButtonModule } from '@healthcatalyst/cashmere';
+import { ButtonModule, IconModule } from '@healthcatalyst/cashmere';
 import { MatDialogModule } from '../dialog/dialog-module';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { A11yModule } from '@angular/cdk/a11y';
@@ -18,7 +18,7 @@ import { DatepickerInputDirective } from './datepicker-input/datepicker-input.di
 
 
 @NgModule({
-    imports: [CommonModule, ButtonModule, MatDialogModule, OverlayModule, A11yModule, PortalModule],
+    imports: [CommonModule, ButtonModule, IconModule, MatDialogModule, OverlayModule, A11yModule, PortalModule],
     exports: [
         MatCalendar,
         MatCalendarBody,
