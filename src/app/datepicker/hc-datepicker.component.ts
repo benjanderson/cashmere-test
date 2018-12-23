@@ -64,6 +64,7 @@ export class MatDatepickerContentBase {
     selector: 'mat-datepicker',
     template: '',
     exportAs: 'matDatepicker',
+    styleUrls: ['hc-datepicker.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })

@@ -149,6 +149,7 @@ export class MatCalendarHeader {
     // moduleId: module.id,
     selector: 'mat-calendar',
     templateUrl: './calendar.component.html',
+    styleUrls: ['calendar.component.scss'],
     host: {
         class: 'mat-calendar'
     },

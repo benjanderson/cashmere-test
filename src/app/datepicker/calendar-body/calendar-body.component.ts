@@ -40,6 +40,7 @@ export class MatCalendarCell {
     // moduleId: module.id,
     selector: '[mat-calendar-body]',
     templateUrl: './calendar-body.component.html',
+    styleUrls: ['calendar-body.component.scss'],
     host: {
         class: 'mat-calendar-body',
         role: 'grid',
