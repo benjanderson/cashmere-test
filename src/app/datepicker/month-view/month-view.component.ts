@@ -133,7 +133,7 @@ export class MatMonthView implements AfterContentInit {
         }
 
         const firstDayOfWeek = this._dateAdapter.getFirstDayOfWeek();
-        const narrowWeekdays = this._dateAdapter.getDayOfWeekNames('narrow');
+        const narrowWeekdays = this._dateAdapter.getDayOfWeekNames('short');
         const longWeekdays = this._dateAdapter.getDayOfWeekNames('long');
 
         // Rotate the labels for days of the week based on the configured first day of the week.
