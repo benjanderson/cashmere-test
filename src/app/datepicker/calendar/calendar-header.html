@@ -24,7 +24,14 @@
             (click)="previousClicked()"
             [attr.aria-label]="prevButtonLabel"
         ></button>
-
+        <button
+            hc-button
+            buttonStyle="link"
+            class="mat-calendar-today-button"
+            (click)="todayClicked()"
+            [attr.aria-label]="prevButtonLabel">
+            Today
+        </button>
         <button
             hc-button
             buttonStyle="link"

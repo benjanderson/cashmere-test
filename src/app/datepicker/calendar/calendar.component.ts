@@ -112,6 +112,12 @@ export class MatCalendarHeader {
                 : this._dateAdapter.addCalendarYears(this.calendar.activeDate, this.calendar.currentView === 'year' ? 1 : yearsPerPage);
     }
 
+    todayClicked(): void {
+        this.calendar.currentView = 'month';
+        this.calendar._dateSelected(this._dateAdapter.today());
+        this.calendar._userSelection.emit();
+    }
+
     /** Whether the previous period button is enabled. */
     previousEnabled(): boolean {
         if (!this.calendar.minDate) {
