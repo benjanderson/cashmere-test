@@ -1,8 +1,8 @@
 <div class="mat-calendar-header">
     <div class="mat-calendar-controls">
         <button
-            mat-button
-            type="button"
+            hc-button
+            buttonStyle="link"
             class="mat-calendar-period-button"
             (click)="currentPeriodClicked()"
             [attr.aria-label]="periodButtonLabel"
@@ -17,8 +17,8 @@
         <ng-content></ng-content>
 
         <button
-            mat-icon-button
-            type="button"
+            hc-button
+            buttonStyle="link"
             class="mat-calendar-previous-button"
             [disabled]="!previousEnabled()"
             (click)="previousClicked()"
@@ -26,8 +26,8 @@
         ></button>
 
         <button
-            mat-icon-button
-            type="button"
+            hc-button
+            buttonStyle="link"
             class="mat-calendar-next-button"
             [disabled]="!nextEnabled()"
             (click)="nextClicked()"
