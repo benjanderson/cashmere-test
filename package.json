@@ -21,12 +21,13 @@
     "@angular/platform-browser": "^6.1.0",
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
-    "@healthcatalyst/cashmere": "^3.4.1",
+    "@healthcatalyst/cashmere": "file:../../../../source/github/Fabric.Cashmere/dist/cashmere/healthcatalyst-cashmere-0.0.0-development.tgz",
     "core-js": "^2.5.4",
     "font-awesome": "^4.7.0",
     "npm-font-open-sans": "^1.1.0",
     "popper.js": "^1.14.4",
     "rxjs": "~6.2.0",
+    "sugar": "^2.0.6",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

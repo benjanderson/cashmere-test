@@ -11,6 +11,7 @@ import { MatDialogModule } from './dialog';
 import { DialogExampleComponent, DialogOverviewExampleDialog } from './dialog-example/dialog-example.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatNativeDateModule } from './datepicker/datetime';
+import { SugarDateModule } from './sugar-date.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { MatNativeDateModule } from './datepicker/datetime';
     BrowserAnimationsModule,
     CashmereModule,
     MatDatepickerModule,
-    MatNativeDateModule,
+    SugarDateModule,
     MatDialogModule,
     FormsModule,
     RouterModule.forRoot(
