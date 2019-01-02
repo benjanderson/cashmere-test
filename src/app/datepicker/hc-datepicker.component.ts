@@ -402,7 +402,9 @@ export class MatDatepicker implements OnDestroy {
                     originX: 'start',
                     originY: 'bottom',
                     overlayX: 'start',
-                    overlayY: 'top'
+                    overlayY: 'top',
+                    // hc form field wrapper bottom margin
+                    offsetY: -20
                 },
                 {
                     originX: 'start',

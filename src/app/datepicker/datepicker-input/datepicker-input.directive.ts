@@ -9,7 +9,7 @@ import {
     ControlValueAccessor,
     Validators
 } from '@angular/forms';
-import { HcFormControlComponent } from '@healthcatalyst/cashmere';
+import { HcFormControlComponent, HcFormFieldComponent } from '@healthcatalyst/cashmere';
 import { DateAdapter, D, MAT_DATE_FORMATS, MatDateFormats } from '../datetime';
 import { createMissingDateImplError } from '../datetime/datepicker-errors';
 import { MatDatepicker } from '../hc-datepicker.component';
@@ -228,7 +228,8 @@ export class DatepickerInputDirective implements ControlValueAccessor, OnDestroy
     constructor(
         private _elementRef: ElementRef<HTMLInputElement>,
         @Optional() public _dateAdapter: DateAdapter<D>,
-        @Optional() @Inject(MAT_DATE_FORMATS) private _dateFormats: MatDateFormats
+        @Optional() @Inject(MAT_DATE_FORMATS) private _dateFormats: MatDateFormats,
+        @Optional() private _formField: HcFormFieldComponent
     ) {
         if (!this._dateAdapter) {
             throw createMissingDateImplError('DateAdapter');
@@ -261,20 +262,11 @@ export class DatepickerInputDirective implements ControlValueAccessor, OnDestroy
     }
 
     /**
-     * @deprecated
-     * @breaking-change 8.0.0 Use `getConnectedOverlayOrigin` instead
-     */
-    getPopupConnectionElementRef(): ElementRef {
-        return this.getConnectedOverlayOrigin();
-    }
-
-    /**
      * Gets the element that the datepicker popup should be connected to.
      * @return The element to connect the popup to.
      */
     getConnectedOverlayOrigin(): ElementRef {
-        // return this._formField ? this._formField.getConnectedOverlayOrigin() : this._elementRef;
-        return this._elementRef;
+        return this._formField ? this._formField.getConnectedOverlayOrigin() : this._elementRef;
     }
 
     // Implemented as part of ControlValueAccessor.
