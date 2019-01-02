@@ -60,7 +60,6 @@ export class MatDatepickerContentBase {
 // if angular adds support for `exportAs: '$implicit'` on directives.
 /** Component responsible for managing the datepicker popup/dialog. */
 @Component({
-    // moduleId: module.id,
     selector: 'mat-datepicker',
     template: '',
     exportAs: 'matDatepicker',

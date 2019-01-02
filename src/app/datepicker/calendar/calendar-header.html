@@ -3,6 +3,7 @@
         <button
             hc-button
             buttonStyle="link"
+            type="button"
             class="mat-calendar-period-button"
             (click)="currentPeriodClicked()"
             [attr.aria-label]="periodButtonLabel"
@@ -19,6 +20,7 @@
         <button
             hc-button
             buttonStyle="link"
+            type="button"
             class="mat-calendar-previous-button"
             [disabled]="!previousEnabled()"
             (click)="previousClicked()"
@@ -27,6 +29,7 @@
         <button
             hc-button
             buttonStyle="link"
+            type="button"
             class="mat-calendar-today-button"
             (click)="todayClicked()"
             [attr.aria-label]="prevButtonLabel">
@@ -35,6 +38,7 @@
         <button
             hc-button
             buttonStyle="link"
+            type="button"
             class="mat-calendar-next-button"
             [disabled]="!nextEnabled()"
             (click)="nextClicked()"

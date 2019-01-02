@@ -324,39 +324,41 @@ describe('MatDatepicker', () => {
             .toBe('input', 'popup should be attached to native input');
       });
 
-      // it('input should aria-owns calendar after opened in non-touch mode', fakeAsync(() => {
-      //   const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
-      //   expect(inputEl.getAttribute('aria-owns')).toBeNull();
+      // test purposely skipped. hc input doesn't support aria-owns, yet...
+      xit('input should aria-owns calendar after opened in non-touch mode', fakeAsync(() => {
+        const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
+        expect(inputEl.getAttribute('ccc-owns')).toBeNull();
 
-      //   testComponent.datepicker.open();
-      //   fixture.detectChanges();
-      //   flush();
+        testComponent.datepicker.open();
+        fixture.detectChanges();
+        flush();
 
-      //   const ownedElementId = inputEl.getAttribute('aria-owns');
-      //   expect(ownedElementId).not.toBeNull();
+        const ownedElementId = inputEl.getAttribute('aria-owns');
+        expect(ownedElementId).not.toBeNull();
 
-      //   const ownedElement = document.getElementById(ownedElementId);
-      //   expect(ownedElement).not.toBeNull();
-      //   expect((ownedElement as Element).tagName.toLowerCase()).toBe('mat-calendar');
-      // }));
+        const ownedElement = document.getElementById(ownedElementId);
+        expect(ownedElement).not.toBeNull();
+        expect((ownedElement as Element).tagName.toLowerCase()).toBe('mat-calendar');
+      }));
 
-      // it('input should aria-owns calendar after opened in touch mode', () => {
-      //   testComponent.touch = true;
-      //   fixture.detectChanges();
+      // test purposely skipped. hc input doesn't support aria-owns, yet...
+      xit('input should aria-owns calendar after opened in touch mode', () => {
+        testComponent.touch = true;
+        fixture.detectChanges();
 
-      //   const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
-      //   expect(inputEl.getAttribute('aria-owns')).toBeNull();
+        const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
+        expect(inputEl.getAttribute('aria-owns')).toBeNull();
 
-      //   testComponent.datepicker.open();
-      //   fixture.detectChanges();
+        testComponent.datepicker.open();
+        fixture.detectChanges();
 
-      //   const ownedElementId = inputEl.getAttribute('aria-owns');
-      //   expect(ownedElementId).not.toBeNull();
+        const ownedElementId = inputEl.getAttribute('aria-owns');
+        expect(ownedElementId).not.toBeNull();
 
-      //   const ownedElement = document.getElementById(ownedElementId);
-      //   expect(ownedElement).not.toBeNull();
-      //   expect((ownedElement as Element).tagName.toLowerCase()).toBe('mat-calendar');
-      // });
+        const ownedElement = document.getElementById(ownedElementId);
+        expect(ownedElement).not.toBeNull();
+        expect((ownedElement as Element).tagName.toLowerCase()).toBe('mat-calendar');
+      });
 
       it('should not throw when given wrong data type', () => {
         testComponent.date = '1/1/2017' as any;
@@ -943,11 +945,6 @@ describe('MatDatepicker', () => {
         expect(toggle.getAttribute('type')).toBe('button');
       });
 
-      it('should remove the underlying SVG icon from the tab order', () => {
-        const icon = fixture.debugElement.nativeElement.querySelector('svg');
-        expect(icon.getAttribute('focusable')).toBe('false');
-      });
-
       it('should restore focus to the toggle after the calendar is closed', () => {
         const toggle = fixture.debugElement.query(By.css('button')).nativeElement;
 
@@ -1034,21 +1031,6 @@ describe('MatDatepicker', () => {
 
         expect(host.getAttribute('tabindex')).toBe('-1');
       });
-
-      it('should forward focus to the underlying button when the host is focused', () => {
-        const fixture = createComponent(DatepickerWithTabindexOnToggle, [MatNativeDateModule]);
-        fixture.detectChanges();
-
-        const host = fixture.nativeElement.querySelector('.mat-datepicker-toggle');
-        const button = host.querySelector('button');
-
-        expect(document.activeElement).not.toBe(button);
-
-        host.focus();
-
-        expect(document.activeElement).toBe(button);
-      });
-
     });
 
     describe('datepicker inside hc-form-field', () => {
@@ -1066,53 +1048,6 @@ describe('MatDatepicker', () => {
         fixture.detectChanges();
         flush();
       }));
-
-      it('should float the placeholder when an invalid value is entered', () => {
-        testComponent.datepickerInput.value = 'totally-not-a-date' as any;
-        fixture.debugElement.nativeElement.querySelector('input').value = 'totally-not-a-date';
-        fixture.detectChanges();
-
-        expect(fixture.debugElement.nativeElement.querySelector('hc-form-field').classList)
-          .toContain('hc-form-field-should-float');
-      });
-
-    //   it('should pass the form field theme color to the overlay', fakeAsync(() => {
-    //     testComponent.formField.color = 'primary';
-    //     testComponent.datepicker.open();
-    //     fixture.detectChanges();
-    //     flush();
-
-    //     let contentEl = document.querySelector('.mat-datepicker-content')!;
-
-    //     expect(contentEl.classList).toContain('mat-primary');
-
-    //     testComponent.datepicker.close();
-    //     fixture.detectChanges();
-    //     flush();
-
-    //     testComponent.formField.color = 'warn';
-    //     testComponent.datepicker.open();
-
-    //     contentEl = document.querySelector('.mat-datepicker-content')!;
-    //     fixture.detectChanges();
-    //     flush();
-
-    //     expect(contentEl.classList).toContain('mat-warn');
-    //     expect(contentEl.classList).not.toContain('mat-primary');
-    //   }));
-
-    //   it('should prefer the datepicker color over the form field one', fakeAsync(() => {
-    //     testComponent.datepicker.color = 'accent';
-    //     testComponent.formField.color = 'warn';
-    //     testComponent.datepicker.open();
-    //     fixture.detectChanges();
-    //     flush();
-
-    //     const contentEl = document.querySelector('.mat-datepicker-content')!;
-
-    //     expect(contentEl.classList).toContain('mat-accent');
-    //     expect(contentEl.classList).not.toContain('mat-warn');
-    //   }));
     });
 
     describe('datepicker with min and max dates and validation', () => {
@@ -1501,7 +1436,7 @@ describe('MatDatepicker', () => {
   describe('with missing DateAdapter and MAT_DATE_FORMATS', () => {
     it('should throw when created', () => {
       expect(() => createComponent(StandardDatepicker))
-        .toThrowError(/MatDatepicker: No provider found for .*/);
+        .toThrowError(/HcDatepicker: No provider found for .*/);
     });
   });
 

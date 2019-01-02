@@ -9,6 +9,9 @@ export class CalendarExampleComponent implements OnInit {
 
   constructor() { }
 
+  date1 = new Date(2010, 1, 1);
+  date2 = new Date(2010, 1, 1);
+
   ngOnInit() {
   }
 

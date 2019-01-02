@@ -1,16 +1,4 @@
-import {
-    OnInit,
-    forwardRef,
-    Directive,
-    HostBinding,
-    ElementRef,
-    Optional,
-    Inject,
-    Input,
-    EventEmitter,
-    Output,
-    OnDestroy
-} from '@angular/core';
+import { forwardRef, Directive, ElementRef, Optional, Inject, Input, EventEmitter, Output, OnDestroy } from '@angular/core';
 import {
     NG_VALUE_ACCESSOR,
     NG_VALIDATORS,
@@ -21,7 +9,7 @@ import {
     ControlValueAccessor,
     Validators
 } from '@angular/forms';
-import { InputDirective, HcFormControlComponent, HcFormFieldComponent } from '@healthcatalyst/cashmere';
+import { HcFormControlComponent } from '@healthcatalyst/cashmere';
 import { DateAdapter, D, MAT_DATE_FORMATS, MatDateFormats } from '../datetime';
 import { createMissingDateImplError } from '../datetime/datepicker-errors';
 import { MatDatepicker } from '../hc-datepicker.component';
@@ -65,6 +53,17 @@ export class MatDatepickerInputEvent {
 // tslint:disable:member-ordering
 @Directive({
     selector: 'input[matDatepicker]',
+    host: {
+        '[attr.aria-haspopup]': 'true',
+        '[attr.aria-owns]': '(_datepicker?.opened && _datepicker.id) || null',
+        '[attr.min]': 'min ? _dateAdapter.toIso8601(min) : null',
+        '[attr.max]': 'max ? _dateAdapter.toIso8601(max) : null',
+        '[disabled]': 'disabled',
+        '(input)': '_onInput($event.target.value)',
+        '(change)': '_onChange()',
+        '(blur)': '_onBlur()',
+        '(keydown)': '_onKeydown($event)'
+    },
     providers: [
         MAT_DATEPICKER_VALUE_ACCESSOR,
         MAT_DATEPICKER_VALIDATORS,
@@ -229,8 +228,7 @@ export class DatepickerInputDirective implements ControlValueAccessor, OnDestroy
     constructor(
         private _elementRef: ElementRef<HTMLInputElement>,
         @Optional() public _dateAdapter: DateAdapter<D>,
-        @Optional() @Inject(MAT_DATE_FORMATS) private _dateFormats: MatDateFormats,
-        @Optional() private _formField: HcFormFieldComponent
+        @Optional() @Inject(MAT_DATE_FORMATS) private _dateFormats: MatDateFormats
     ) {
         if (!this._dateAdapter) {
             throw createMissingDateImplError('DateAdapter');

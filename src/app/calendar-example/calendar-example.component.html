@@ -1,7 +1,7 @@
 <div class="example-date-input">
     <hc-form-field>
         <hc-label>Start Date:</hc-label>
-        <input hcInput [matDatepicker]="picker1" placeholder="Select date..." class="cursor-pointer" />
+        <input hcInput [matDatepicker]="picker1" [(ngModel)]="date1" placeholder="Select date..." class="cursor-pointer" />
         <mat-datepicker-toggle hcSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
     </hc-form-field>
@@ -10,7 +10,7 @@
 <div class="example-date-input">
     <hc-form-field>
         <hc-label>End Date:</hc-label>
-        <input hcInput [matDatepicker]="picker2" placeholder="Select date..." class="cursor-pointer" />
+        <input hcInput [matDatepicker]="picker2" [(ngModel)]="date2" placeholder="Select date..." class="cursor-pointer" />
         <mat-datepicker-toggle hcSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
     </hc-form-field>
