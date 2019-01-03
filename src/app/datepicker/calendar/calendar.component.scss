@@ -138,3 +138,8 @@ $mat-calendar-next-icon-transform: translateX(-2px) rotate(45deg);
         height: $mat-calendar-header-divider-width;
     }
 }
+
+.mat-calendar-table-header th {
+    @include fontSize(9px);
+    color: $gray-500;
+}

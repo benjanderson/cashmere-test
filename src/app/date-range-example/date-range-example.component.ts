@@ -74,11 +74,4 @@ export class DateRangeExampleComponent implements OnInit {
             }
         ];
     }
-
-    reset() {
-        const today = new Date();
-        const currMonthStart = new Date(today.getFullYear(), today.getMonth(), 1);
-        const currMonthEnd = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-        this.pickerOne.resetDates({ fromDate: currMonthStart, toDate: currMonthEnd });
-    }
 }
