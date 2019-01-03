@@ -1,0 +1,12 @@
+<input hcInput [(ngModel)]="selectedDate" />
+<mat-calendar
+    [startAt]="selectedDate"
+    [selected]="selectedDate"
+    [minDate]="minDate"
+    [maxDate]="maxDate"
+    (selectedChange)="onSelectedChange($event)"
+    (yearSelected)="onYearSelected($event)"
+    (_userSelection)="onUserSelection($event)"
+    [dateFilter]="weekendFilter"
+>
+</mat-calendar>

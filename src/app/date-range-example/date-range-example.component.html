@@ -1,0 +1,9 @@
+<div class="demo-main">
+    <button (click)="reset()">Reset Dates</button>
+    <div class="demo-box">
+        <button hc-button title="Date Range" buttonStyle="link" popperPlacement="bottom" ngx-mat-drp (selectedDateRangeChanged)="updateRange($event)" [options]="options" #pickerOne >
+            <span class="label">Date Range:</span> <span class="value"> {{ range.fromDate | date }} - {{ range.toDate | date }} </span>
+            <hc-icon fontSet="fa" fontIcon="fa-chevron-down" class="icon-right" hcIconSm></hc-icon>
+        </button>
+    </div>
+</div>
