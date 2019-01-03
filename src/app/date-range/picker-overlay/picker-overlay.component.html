@@ -21,10 +21,16 @@
     </div>
     <div class="ngx-mat-drp-calendar-item">
         <div class="ngx-mat-drp-menu">
-            <mat-drp-presets [presets]="presets" (presetChanged)="updateRangeByPreset($event)"></mat-drp-presets>
+            <hc-radio-group (change)="updateRangeByPreset($event)" [(ngModel)]="selectedPreset">
+                <hc-radio-button *ngFor="let p of presets" [value]="p.range">{{p.presetLabel}}</hc-radio-button>
+            </hc-radio-group>
             <div class="ngx-mat-drp-controls">
-                <button mat-button color="primary" (click)="applyNewDates($event)">{{ applyLabel }}</button>
-                <button mat-button (click)="discardNewDates($event)">{{ cancelLabel }}</button>
+                <button hc-button buttonStyle="link" (click)="discardNewDates($event)" [title]="cancelLabel">
+                    {{ cancelLabel }}
+                </button>
+                <button hc-button buttonStyle="primary" (click)="applyNewDates($event)" [title]="applyLabel">
+                    {{ applyLabel }}
+                </button>
             </div>
         </div>
     </div>

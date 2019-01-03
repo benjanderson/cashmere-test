@@ -1,15 +1,15 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { PresetItem, NgxDrpOptions } from '../model/model';
 import { RangeStoreService } from '../services/range-store.service';
 import { OverlayRef } from '@angular/cdk/overlay';
 import { ConfigStoreService } from '../services/config-store.service';
-import { matDatepickerAnimations } from 'src/app/datepicker/datepicker-animations';
+import { RadioButtonChangeEvent, RadioGroupDirective } from '@healthcatalyst/cashmere';
+import { Range } from '../model/model';
 
 @Component({
     selector: 'ngx-mat-drp-picker-overlay',
     templateUrl: './picker-overlay.component.html',
-    styleUrls: ['./picker-overlay.component.css'],
-    // animations: [matDatepickerAnimations.transformPanel, matDatepickerAnimations.fadeInCalendar],
+    styleUrls: ['./picker-overlay.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
 export class PickerOverlayComponent implements OnInit {
@@ -25,6 +25,7 @@ export class PickerOverlayComponent implements OnInit {
     applyLabel: string;
     cancelLabel: string;
     shouldAnimate: string;
+    selectedPreset: Range | null;
 
     constructor(
         private rangeStoreService: RangeStoreService,
@@ -35,8 +36,8 @@ export class PickerOverlayComponent implements OnInit {
     ngOnInit() {
         this.fromDate = this.rangeStoreService.fromDate;
         this.toDate = this.rangeStoreService.toDate;
-        this.startDatePrefix = this.configStoreService.ngxDrpOptions.startDatePrefix || 'FROM:';
-        this.endDatePrefix = this.configStoreService.ngxDrpOptions.endDatePrefix || 'TO:';
+        this.startDatePrefix = this.configStoreService.ngxDrpOptions.startDatePrefix || 'Start Date';
+        this.endDatePrefix = this.configStoreService.ngxDrpOptions.endDatePrefix || 'End Date';
         this.applyLabel = this.configStoreService.ngxDrpOptions.applyLabel || 'Apply';
         this.cancelLabel = this.configStoreService.ngxDrpOptions.cancelLabel || 'Cancel';
         this.presets = this.configStoreService.ngxDrpOptions.presets;
@@ -46,15 +47,18 @@ export class PickerOverlayComponent implements OnInit {
 
     updateFromDate(date) {
         this.fromDate = date;
+        this.selectedPreset = null;
     }
 
     updateToDate(date) {
         this.toDate = date;
+        this.selectedPreset = null;
     }
 
-    updateRangeByPreset(presetItem: PresetItem) {
-        this.updateFromDate(presetItem.range.fromDate);
-        this.updateToDate(presetItem.range.toDate);
+    updateRangeByPreset(presetItem: RadioButtonChangeEvent) {
+        const range: Range = presetItem.value;
+        this.fromDate = range.fromDate;
+        this.toDate = range.toDate;
     }
 
     applyNewDates(e) {
@@ -63,7 +67,6 @@ export class PickerOverlayComponent implements OnInit {
     }
 
     discardNewDates(e) {
-        // this.rangeStoreService.updateRange();
         this.disposeOverLay();
     }
 

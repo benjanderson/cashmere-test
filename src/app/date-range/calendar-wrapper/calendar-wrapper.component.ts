@@ -6,7 +6,8 @@ import {
   EventEmitter,
   ChangeDetectionStrategy,
   OnChanges,
-  SimpleChanges
+  SimpleChanges,
+  ViewEncapsulation
 } from '@angular/core';
 // import { MatCalendar } from '@angular/material/datepicker';
 import { ConfigStoreService } from '../services/config-store.service';
@@ -15,8 +16,9 @@ import { MatCalendar } from 'src/app/datepicker/calendar/calendar.component';
 @Component({
   selector: 'calendar-wrapper',
   templateUrl: './calendar-wrapper.component.html',
-  styleUrls: ['./calendar-wrapper.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./calendar-wrapper.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
 export class CalendarWrapperComponent implements OnChanges {
   @ViewChild(MatCalendar)

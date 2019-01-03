@@ -1,4 +1,10 @@
-<input hcInput [(ngModel)]="selectedDate" />
+<div class="form-container">
+    <hc-form-field class="calendar-wrapper-form-field">
+        <hc-label [innerText]="prefixLabel"></hc-label>
+        <input hcInput [(ngModel)]="selectedDate" required>
+        <hc-error>TODO</hc-error>
+    </hc-form-field>
+</div>
 <mat-calendar
     [startAt]="selectedDate"
     [selected]="selectedDate"

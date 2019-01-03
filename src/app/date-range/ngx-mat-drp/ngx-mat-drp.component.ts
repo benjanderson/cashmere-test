@@ -22,9 +22,7 @@ import { Subscription } from 'rxjs';
     host: {
         '(click)': '_onClick($event)'
     },
-    // styleUrls: ['./ngx-mat-drp.component.css'],
     providers: [CalendarOverlayService, RangeStoreService, ConfigStoreService, DatePipe]
-    // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NgxMatDrpComponent implements OnInit, OnDestroy {
     @Output()
@@ -62,6 +60,10 @@ export class NgxMatDrpComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         if (this.rangeUpdate$) {
             this.rangeUpdate$.unsubscribe();
+        }
+
+        if (this._overlayRef) {
+            this._overlayRef.detach();
         }
     }
 

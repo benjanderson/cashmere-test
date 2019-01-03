@@ -12,10 +12,9 @@ import { PickerOverlayComponent } from './picker-overlay/picker-overlay.componen
 import { OverlayModule } from '@angular/cdk/overlay';
 
 import { CalendarWrapperComponent } from './calendar-wrapper/calendar-wrapper.component';
-import { PresetsComponent } from './presets/presets.component';
 import { DATE } from './services/range-store.service';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule, InputModule, FormFieldModule } from '@healthcatalyst/cashmere';
+import { ButtonModule, InputModule, FormFieldModule, RadioButtonModule } from '@healthcatalyst/cashmere';
 import { MatNativeDateModule } from '../datepicker/datetime';
 import { MatDatepickerModule } from '../datepicker/hc-datepicker.module';
 
@@ -27,14 +26,14 @@ import { MatDatepickerModule } from '../datepicker/hc-datepicker.module';
     MatNativeDateModule,
     InputModule,
     ButtonModule,
+    RadioButtonModule,
     OverlayModule,
     FormsModule
   ],
   declarations: [
     NgxMatDrpComponent,
     CalendarWrapperComponent,
-    PickerOverlayComponent,
-    PresetsComponent
+    PickerOverlayComponent
   ],
   providers: [
     {provide: DATE, useValue: new Date()}
