@@ -1,9 +1,9 @@
 export interface PresetItem {
   presetLabel: string;
-  range: Range;
+  range: DateRange;
 }
 
-export interface Range {
+export interface DateRange {
   fromDate: Date;
   toDate: Date;
 }
@@ -11,11 +11,11 @@ export interface Range {
 export interface NgxDrpOptions {
   presets: Array<PresetItem>;
   format: string;
-  range: Range;
+  range: DateRange;
   excludeWeekends?: boolean;
   locale?: string;
-  fromMinMax?: Range;
-  toMinMax?: Range;
+  fromMinMax?: DateRange;
+  toMinMax?: DateRange;
   applyLabel?: string;
   cancelLabel?: string;
   placeholder?: string;

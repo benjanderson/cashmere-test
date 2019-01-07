@@ -35,7 +35,7 @@ describe('CalendarWrapperComponent', () => {
     });
 
     it('should set date format from options', () => {
-        expect(component.dateFormat).toEqual(configStoreService.ngxDrpOptions.format);
+        expect(component._dateFormat).toEqual(configStoreService.ngxDrpOptions.format);
     });
 
     it('should setup weekend filter', () => {

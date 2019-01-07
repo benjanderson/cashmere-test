@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
-import { PresetItem, NgxDrpOptions } from '../model/model';
+import { Component, OnInit, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
+import { PresetItem } from '../model/model';
 import { RangeStoreService } from '../services/range-store.service';
 import { OverlayRef } from '@angular/cdk/overlay';
 import { ConfigStoreService } from '../services/config-store.service';
-import { RadioButtonChangeEvent, RadioGroupDirective } from '@healthcatalyst/cashmere';
-import { Range } from '../model/model';
+import { RadioButtonChangeEvent } from '@healthcatalyst/cashmere';
+import { DateRange } from '../model/model';
+import { D } from 'src/app/datepicker/datetime';
 
 @Component({
     selector: 'ngx-mat-drp-picker-overlay',
@@ -25,12 +26,13 @@ export class PickerOverlayComponent implements OnInit {
     applyLabel: string;
     cancelLabel: string;
     shouldAnimate: string;
-    selectedPreset: Range | null;
+    selectedPreset: DateRange | null;
 
     constructor(
         private rangeStoreService: RangeStoreService,
         private configStoreService: ConfigStoreService,
-        private overlayRef: OverlayRef
+        private overlayRef: OverlayRef,
+        private cd: ChangeDetectorRef
     ) {}
 
     ngOnInit() {
@@ -45,18 +47,34 @@ export class PickerOverlayComponent implements OnInit {
         ({ fromDate: this.toMinDate, toDate: this.toMaxDate } = this.configStoreService.ngxDrpOptions.toMinMax);
     }
 
-    updateFromDate(date) {
-        this.fromDate = date;
-        this.selectedPreset = null;
+    updateFromDate(date: D | null) {
+        if (date) {
+            this.fromDate = date;
+        }
+
+        if (this.selectedPreset && this.selectedPreset.fromDate !== date) {
+            setTimeout(() => {
+                this.selectedPreset = null;
+                this.cd.detectChanges();
+            });
+        }
     }
 
-    updateToDate(date) {
-        this.toDate = date;
-        this.selectedPreset = null;
+    updateToDate(date: D | null) {
+        if (date) {
+            this.toDate = date;
+        }
+
+        if (this.selectedPreset && this.selectedPreset.toDate !== date) {
+            setTimeout(() => {
+                this.selectedPreset = null;
+                this.cd.detectChanges();
+            });
+        }
     }
 
     updateRangeByPreset(presetItem: RadioButtonChangeEvent) {
-        const range: Range = presetItem.value;
+        const range: DateRange = presetItem.value;
         this.fromDate = range.fromDate;
         this.toDate = range.toDate;
     }

@@ -25,10 +25,10 @@
                 <hc-radio-button *ngFor="let p of presets" [value]="p.range">{{p.presetLabel}}</hc-radio-button>
             </hc-radio-group>
             <div class="ngx-mat-drp-controls">
-                <button hc-button buttonStyle="link" (click)="discardNewDates($event)" [title]="cancelLabel">
+                <button hc-button buttonStyle="link" (click)="discardNewDates($event)">
                     {{ cancelLabel }}
                 </button>
-                <button hc-button buttonStyle="primary" (click)="applyNewDates($event)" [title]="applyLabel">
+                <button hc-button buttonStyle="primary" (click)="applyNewDates($event)">
                     {{ applyLabel }}
                 </button>
             </div>

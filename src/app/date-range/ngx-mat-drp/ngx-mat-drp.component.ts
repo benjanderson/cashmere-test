@@ -13,7 +13,7 @@ import { DatePipe } from '@angular/common';
 import { OverlayRef } from '@angular/cdk/overlay';
 import { CalendarOverlayService } from '../services/calendar-overlay.service';
 import { RangeStoreService } from '../services/range-store.service';
-import { Range, NgxDrpOptions } from '../model/model';
+import { DateRange, NgxDrpOptions } from '../model/model';
 import { ConfigStoreService } from '../services/config-store.service';
 import { Subscription } from 'rxjs';
 
@@ -26,7 +26,7 @@ import { Subscription } from 'rxjs';
 })
 export class NgxMatDrpComponent implements OnInit, OnDestroy {
     @Output()
-    readonly selectedDateRangeChanged: EventEmitter<Range> = new EventEmitter<Range>();
+    readonly selectedDateRangeChanged: EventEmitter<DateRange> = new EventEmitter<DateRange>();
     @Input()
     options: NgxDrpOptions;
     private rangeUpdate$: Subscription;
@@ -75,7 +75,7 @@ export class NgxMatDrpComponent implements OnInit, OnDestroy {
         this._overlayRef = this.calendarOverlayService.open(this._elementRef);
     }
 
-    public resetDates(range: Range) {
+    public resetDates(range: DateRange) {
         this.rangeStoreService.updateRange(range.fromDate, range.toDate);
     }
 }

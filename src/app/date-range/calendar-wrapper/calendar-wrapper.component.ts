@@ -1,59 +1,74 @@
 import {
-  Component,
-  ViewChild,
-  Output,
-  Input,
-  EventEmitter,
-  ChangeDetectionStrategy,
-  OnChanges,
-  SimpleChanges,
-  ViewEncapsulation
+    Component,
+    ViewChild,
+    Input,
+    ChangeDetectionStrategy,
+    ViewEncapsulation,
+    OnInit,
+    Output,
+    EventEmitter,
+    OnChanges,
+    SimpleChanges
 } from '@angular/core';
-// import { MatCalendar } from '@angular/material/datepicker';
 import { ConfigStoreService } from '../services/config-store.service';
 import { MatCalendar } from 'src/app/datepicker/calendar/calendar.component';
+import { DatepickerInputDirective, MatDatepickerInputEvent } from 'src/app/datepicker/datepicker-input/datepicker-input.directive';
+import { D } from 'src/app/datepicker/datetime/date-formats';
 
 @Component({
-  selector: 'calendar-wrapper',
-  templateUrl: './calendar-wrapper.component.html',
-  styleUrls: ['./calendar-wrapper.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+    selector: 'calendar-wrapper',
+    templateUrl: './calendar-wrapper.component.html',
+    styleUrls: ['./calendar-wrapper.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None
 })
-export class CalendarWrapperComponent implements OnChanges {
-  @ViewChild(MatCalendar)
-  matCalendar: MatCalendar;
+export class CalendarWrapperComponent implements OnInit, OnChanges {
+    @ViewChild(MatCalendar)
+    matCalendar: MatCalendar;
 
-  @Output()
-  readonly selectedDateChange: EventEmitter<Date> = new EventEmitter<Date>();
+    @ViewChild(DatepickerInputDirective)
+    datePickerInput: DatepickerInputDirective;
 
-  dateFormat: string;
-  @Input() selectedDate: Date;
-  @Input() prefixLabel: string;
-  @Input() minDate: Date;
-  @Input() maxDate: Date;
-  weekendFilter = (d: Date) => true;
+    @Output()
+    readonly selectedDateChange: EventEmitter<D> = new EventEmitter<D>();
 
-  constructor(private configStore: ConfigStoreService) {
-    this.dateFormat = configStore.ngxDrpOptions.format;
-    if (configStore.ngxDrpOptions.excludeWeekends) {
-      this.weekendFilter = (d: Date): boolean => {
-        const day = d.getDay();
-        return day !== 0 && day !== 6;
-      };
+    @Input()
+    selectedDate: D;
+
+    _dateFormat: string;
+
+    @Input() prefixLabel: string;
+    @Input() minDate: D;
+    @Input() maxDate: D;
+    weekendFilter = (d: D) => true;
+
+    constructor(configStore: ConfigStoreService) {
+        this._dateFormat = configStore.ngxDrpOptions.format;
+        if (configStore.ngxDrpOptions.excludeWeekends) {
+            this.weekendFilter = (d: Date): boolean => {
+                const day = d.getDay();
+                return day !== 0 && day !== 6;
+            };
+        }
     }
-  }
 
-  ngOnChanges(changes: SimpleChanges) {
-    // Necessary to force view refresh
-    this.matCalendar.activeDate = changes.selectedDate.currentValue;
-  }
+    ngOnInit(): void {}
 
-  onSelectedChange(date) {
-    this.selectedDateChange.emit(date);
-  }
+    ngOnChanges(changes: SimpleChanges) {
+        // Necessary to force view refresh
+        const date: D = changes.selectedDate.currentValue;
+        if (date) {
+            this.matCalendar.activeDate = date;
+            this.datePickerInput.setDate(date);
+            this.selectedDateChange.emit(date);
+        }
+    }
 
-  onYearSelected(e) {}
+    onCalendarChange(date: D) {
+        this.selectedDateChange.emit(date);
+    }
 
-  onUserSelection(e) {}
+    onInputChange(event: MatDatepickerInputEvent) {
+        this.selectedDateChange.emit(event.value);
+    }
 }

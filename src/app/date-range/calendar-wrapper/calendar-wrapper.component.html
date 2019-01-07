@@ -1,8 +1,8 @@
 <div class="form-container">
     <hc-form-field class="calendar-wrapper-form-field">
         <hc-label [innerText]="prefixLabel"></hc-label>
-        <input hcInput [(ngModel)]="selectedDate" required>
-        <hc-error>TODO</hc-error>
+        <input hcInput matDatepicker [(ngModel)]="selectedDate" required (dateChange)="onInputChange($event)">
+        <hc-error>Please enter valid date</hc-error>
     </hc-form-field>
 </div>
 <mat-calendar
@@ -10,9 +10,7 @@
     [selected]="selectedDate"
     [minDate]="minDate"
     [maxDate]="maxDate"
-    (selectedChange)="onSelectedChange($event)"
-    (yearSelected)="onYearSelected($event)"
-    (_userSelection)="onUserSelection($event)"
+    (selectedChange)="onCalendarChange($event)"
     [dateFilter]="weekendFilter"
 >
 </mat-calendar>

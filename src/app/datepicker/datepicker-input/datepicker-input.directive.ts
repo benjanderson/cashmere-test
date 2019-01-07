@@ -83,11 +83,7 @@ export class DatepickerInputDirective implements ControlValueAccessor, OnDestroy
         this._datepickerSubscription.unsubscribe();
 
         this._datepickerSubscription = this._datepicker._selectedChanged.subscribe((selected: D) => {
-            this.value = selected;
-            this._cvaOnChange(selected);
-            this._onTouched();
-            this.dateInput.emit(new MatDatepickerInputEvent(this, this._elementRef.nativeElement));
-            this.dateChange.emit(new MatDatepickerInputEvent(this, this._elementRef.nativeElement));
+            this.setDate(selected);
         });
     }
     _datepicker: MatDatepicker;
@@ -287,6 +283,15 @@ export class DatepickerInputDirective implements ControlValueAccessor, OnDestroy
     // Implemented as part of ControlValueAccessor.
     setDisabledState(isDisabled: boolean): void {
         this.disabled = isDisabled;
+    }
+
+    // Set the date programmatically
+    setDate(selected: D) {
+        this.value = selected;
+        this._cvaOnChange(selected);
+        this._onTouched();
+        this.dateInput.emit(new MatDatepickerInputEvent(this, this._elementRef.nativeElement));
+        this.dateChange.emit(new MatDatepickerInputEvent(this, this._elementRef.nativeElement));
     }
 
     _onKeydown(event: KeyboardEvent) {

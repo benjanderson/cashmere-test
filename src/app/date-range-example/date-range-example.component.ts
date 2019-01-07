@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgxDrpOptions, PresetItem } from '../date-range/model/model';
-import { Range } from '../date-range/model/model';
+import { DateRange } from '../date-range/model/model';
 
 @Component({
     selector: 'hc-date-range-example',
@@ -8,7 +8,7 @@ import { Range } from '../date-range/model/model';
     styleUrls: ['./date-range-example.component.css']
 })
 export class DateRangeExampleComponent implements OnInit {
-    range: Range = { fromDate: new Date(), toDate: new Date() };
+    range: DateRange = { fromDate: new Date(), toDate: new Date() };
     options: NgxDrpOptions;
     presets: Array<PresetItem> = [];
     @ViewChild('pickerOne') pickerOne;
@@ -32,7 +32,7 @@ export class DateRangeExampleComponent implements OnInit {
         };
     }
 
-    updateRange(range: Range) {
+    updateRange(range: DateRange) {
         this.range = range;
     }
 
