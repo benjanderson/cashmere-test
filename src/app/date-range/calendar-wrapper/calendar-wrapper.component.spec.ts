@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CalendarWrapperComponent } from './calendar-wrapper.component';
 import { ConfigStoreService } from '../services/config-store.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { MatDatepickerInputEvent } from 'src/app/datepicker/datepicker-input/datepicker-input.directive';
 
 describe('CalendarWrapperComponent', () => {
     let component: CalendarWrapperComponent;
@@ -43,10 +44,19 @@ describe('CalendarWrapperComponent', () => {
         expect(component.weekendFilter).toBeDefined();
     });
 
-    it('should emit date selection change', () => {
+    it('should emit calendar date selection change', () => {
         component.selectedDateChange.subscribe(val => {
             expect(val instanceof Date).toBeTruthy();
         });
-        component.onSelectedChange(new Date());
+        component.onCalendarChange(new Date());
+    });
+
+    it('should emit input date selection change', () => {
+        component.selectedDateChange.subscribe(val => {
+            expect(val instanceof Date).toBeTruthy();
+        });
+        const change: MatDatepickerInputEvent = new MatDatepickerInputEvent(null, null);
+        change.value = new Date();
+        component.onInputChange(change);
     });
 });

@@ -27,6 +27,7 @@ export class PickerOverlayComponent implements OnInit {
     cancelLabel: string;
     shouldAnimate: string;
     selectedPreset: DateRange | null;
+    _disabled: boolean;
 
     constructor(
         private rangeStoreService: RangeStoreService,
@@ -45,12 +46,11 @@ export class PickerOverlayComponent implements OnInit {
         this.presets = this.configStoreService.ngxDrpOptions.presets;
         ({ fromDate: this.fromMinDate, toDate: this.fromMaxDate } = this.configStoreService.ngxDrpOptions.fromMinMax);
         ({ fromDate: this.toMinDate, toDate: this.toMaxDate } = this.configStoreService.ngxDrpOptions.toMinMax);
+        this._setValidity();
     }
 
     updateFromDate(date: D | null) {
-        if (date) {
-            this.fromDate = date;
-        }
+        this.fromDate = date;
 
         if (this.selectedPreset && this.selectedPreset.fromDate !== date) {
             setTimeout(() => {
@@ -58,12 +58,11 @@ export class PickerOverlayComponent implements OnInit {
                 this.cd.detectChanges();
             });
         }
+        this._setValidity();
     }
 
     updateToDate(date: D | null) {
-        if (date) {
-            this.toDate = date;
-        }
+        this.toDate = date;
 
         if (this.selectedPreset && this.selectedPreset.toDate !== date) {
             setTimeout(() => {
@@ -71,24 +70,28 @@ export class PickerOverlayComponent implements OnInit {
                 this.cd.detectChanges();
             });
         }
+        this._setValidity();
     }
 
     updateRangeByPreset(presetItem: RadioButtonChangeEvent) {
         const range: DateRange = presetItem.value;
         this.fromDate = range.fromDate;
         this.toDate = range.toDate;
+        this._setValidity();
     }
 
-    applyNewDates(e) {
-        this.rangeStoreService.updateRange(this.fromDate, this.toDate);
-        this.disposeOverLay();
+    applyNewDates() {
+        if (!!this.toDate && !!this.fromDate) {
+            this.rangeStoreService.updateRange(this.fromDate, this.toDate);
+        }
+        this.overlayRef.dispose();
     }
 
     discardNewDates(e) {
-        this.disposeOverLay();
+        this.overlayRef.dispose();
     }
 
-    private disposeOverLay() {
-        this.overlayRef.dispose();
+    _setValidity() {
+        this._disabled = !this.toDate || !this.fromDate;
     }
 }

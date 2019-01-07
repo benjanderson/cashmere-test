@@ -1,7 +1,7 @@
 <div class="form-container">
     <hc-form-field class="calendar-wrapper-form-field">
         <hc-label [innerText]="prefixLabel"></hc-label>
-        <input hcInput matDatepicker [(ngModel)]="selectedDate" required (dateChange)="onInputChange($event)">
+        <input hcInput matDatepicker [(ngModel)]="selectedDate" required (dateChange)="onInputChange($event)"/>
         <hc-error>Please enter valid date</hc-error>
     </hc-form-field>
 </div>
