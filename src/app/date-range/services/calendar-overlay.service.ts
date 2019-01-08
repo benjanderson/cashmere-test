@@ -1,7 +1,6 @@
 import { Injectable, ElementRef, Injector } from '@angular/core';
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal, PortalInjector } from '@angular/cdk/portal';
-import { takeWhile } from 'rxjs/operators';
 import { PickerOverlayComponent } from '../picker-overlay/picker-overlay.component';
 
 @Injectable()
@@ -65,7 +64,7 @@ export class CalendarOverlayService {
         const overlayConfig = new OverlayConfig({
             hasBackdrop: true,
             backdropClass: 'mat-overlay-transparent-backdrop',
-            panelClass: 'ngx-mat-drp-overlay',
+            panelClass: 'hc-date-range-overlay',
             scrollStrategy: this.overlay.scrollStrategies.block(),
             positionStrategy
         });

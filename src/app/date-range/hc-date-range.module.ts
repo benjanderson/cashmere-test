@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgxMatDrpDirective } from './ngx-mat-drp/ngx-mat-drp.component';
+import { DateRangeDirective } from './date-range/hc-date-range.component';
 import { PickerOverlayComponent } from './picker-overlay/picker-overlay.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CalendarWrapperComponent } from './calendar-wrapper/calendar-wrapper.component';
@@ -22,9 +22,9 @@ import { MatDatepickerModule } from '../datepicker/hc-datepicker.module';
         OverlayModule,
         FormsModule
     ],
-    declarations: [NgxMatDrpDirective, CalendarWrapperComponent, PickerOverlayComponent],
+    declarations: [DateRangeDirective, CalendarWrapperComponent, PickerOverlayComponent],
     providers: [{ provide: DATE, useValue: new Date() }],
     entryComponents: [PickerOverlayComponent],
-    exports: [NgxMatDrpDirective]
+    exports: [DateRangeDirective]
 })
-export class NgxMatDrpModule {}
+export class DateRangeModule {}

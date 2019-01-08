@@ -2,7 +2,6 @@ import { Injectable, Inject, InjectionToken } from '@angular/core';
 import { DateRange } from '../model/model';
 import { Subject } from 'rxjs';
 import { D } from 'src/app/datepicker/datetime';
-/* import { DATE } from '../ngx-drp.module'; */
 
 export const DATE = new InjectionToken<D>('date');
 

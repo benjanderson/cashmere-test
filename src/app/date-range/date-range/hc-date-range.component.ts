@@ -4,31 +4,28 @@ import {
     EventEmitter,
     Input,
     OnDestroy,
-    ChangeDetectionStrategy,
     ChangeDetectorRef,
     ElementRef,
-    Directive
+    Directive,
+    HostListener
 } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { OverlayRef } from '@angular/cdk/overlay';
 import { CalendarOverlayService } from '../services/calendar-overlay.service';
 import { RangeStoreService } from '../services/range-store.service';
-import { DateRange, NgxDrpOptions } from '../model/model';
+import { DateRange, DateRangeOptions } from '../model/model';
 import { ConfigStoreService } from '../services/config-store.service';
 import { Subscription } from 'rxjs';
 
 @Directive({
-    selector: '[ngx-mat-drp]',
-    host: {
-        '(click)': '_onClick($event)'
-    },
+    selector: '[hc-date-range]',
     providers: [CalendarOverlayService, RangeStoreService, ConfigStoreService, DatePipe]
 })
-export class NgxMatDrpDirective implements OnInit, OnDestroy {
+export class DateRangeDirective implements OnInit, OnDestroy {
     @Output()
     readonly selectedDateRangeChanged: EventEmitter<DateRange> = new EventEmitter<DateRange>();
     @Input()
-    options: NgxDrpOptions;
+    options: DateRangeOptions;
     private rangeUpdate$: Subscription;
     selectedDateRange = '';
 
@@ -44,7 +41,7 @@ export class NgxMatDrpDirective implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit() {
-        this.configStoreService.ngxDrpOptions = this.options;
+        this.configStoreService.DateRangeOptions = this.options;
         this.options.placeholder = this.options.placeholder || 'Choose a date';
         this.rangeUpdate$ = this.rangeStoreService.rangeUpdate$.subscribe(range => {
             const from: string = this.formatToDateString(range.fromDate, this.options.format);
@@ -71,7 +68,8 @@ export class NgxMatDrpDirective implements OnInit, OnDestroy {
         return this.datePipe.transform(date, format);
     }
 
-    _onClick($event) {
+    @HostListener('click')
+    _onClick() {
         this._overlayRef = this.calendarOverlayService.open(this._elementRef);
     }
 

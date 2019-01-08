@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgxDrpOptions, PresetItem } from '../date-range/model/model';
+import { DateRangeOptions, PresetItem } from '../date-range/model/model';
 import { DateRange } from '../date-range/model/model';
 
 @Component({
@@ -9,7 +9,7 @@ import { DateRange } from '../date-range/model/model';
 })
 export class DateRangeExampleComponent implements OnInit {
     range: DateRange = { fromDate: new Date(), toDate: new Date() };
-    options: NgxDrpOptions;
+    options: DateRangeOptions;
     presets: Array<PresetItem> = [];
     @ViewChild('pickerOne') pickerOne;
 

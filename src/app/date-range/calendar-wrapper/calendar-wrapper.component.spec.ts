@@ -22,7 +22,7 @@ describe('CalendarWrapperComponent', () => {
 
     beforeEach(() => {
         configStoreService = TestBed.get(ConfigStoreService);
-        configStoreService.ngxDrpOptions = {
+        configStoreService.DateRangeOptions = {
             presets: [],
             format: 'mediumDate',
             range: { fromDate: new Date(), toDate: new Date() },
@@ -38,11 +38,11 @@ describe('CalendarWrapperComponent', () => {
     });
 
     it('should set date format from options', () => {
-        expect(component._dateFormat).toEqual(configStoreService.ngxDrpOptions.format);
+        expect(component._dateFormat).toEqual(configStoreService.DateRangeOptions.format);
     });
 
     it('should setup weekend filter', () => {
-        configStoreService.ngxDrpOptions.excludeWeekends = true;
+        configStoreService.DateRangeOptions.excludeWeekends = true;
         expect(component.weekendFilter).toBeDefined();
     });
 

@@ -4,8 +4,8 @@ import { CalendarOverlayService } from '../services/calendar-overlay.service';
 import { RangeStoreService, DATE } from '../services/range-store.service';
 import { ConfigStoreService } from '../services/config-store.service';
 import { DatePipe } from '@angular/common';
-import { NgxMatDrpDirective } from './ngx-mat-drp.component';
-import { NgxDrpOptions } from '../model/model';
+import { DateRangeDirective } from './hc-date-range.component';
+import { DateRangeOptions } from '../model/model';
 import { By } from '@angular/platform-browser';
 
 class MockOverlayService {
@@ -14,11 +14,11 @@ class MockOverlayService {
 
 @Component({
     template: `
-        <button ngx-mat-drp [options]="options">Click Me</button>
+        <button hc-date-range [options]="options">Click Me</button>
     `
 })
 class TestComponent {
-    options: NgxDrpOptions;
+    options: DateRangeOptions;
     constructor() {
         const today: Date = new Date();
         const fromDate: Date = new Date(today.setDate(today.getDate() - 7));
@@ -32,9 +32,9 @@ class TestComponent {
     }
 }
 
-describe('NgxMatDrpDirective', () => {
+describe('DateRangeDirective', () => {
     let component: TestComponent;
-    let directive: NgxMatDrpDirective;
+    let directive: DateRangeDirective;
     let fixture: ComponentFixture<TestComponent>;
     let overlay: MockOverlayService;
 
@@ -42,10 +42,10 @@ describe('NgxMatDrpDirective', () => {
         overlay  = new MockOverlayService();
 
         TestBed.configureTestingModule({
-            declarations: [TestComponent, NgxMatDrpDirective],
+            declarations: [TestComponent, DateRangeDirective],
             schemas: [NO_ERRORS_SCHEMA]
         })
-            .overrideComponent(NgxMatDrpDirective, {
+            .overrideComponent(DateRangeDirective, {
                 set: {
                     providers: [
                         { provide: DATE, useValue: new Date() },
@@ -62,9 +62,9 @@ describe('NgxMatDrpDirective', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(TestComponent);
         component = fixture.componentInstance;
-        const el = fixture.debugElement.query(By.directive(NgxMatDrpDirective));
+        const el = fixture.debugElement.query(By.directive(DateRangeDirective));
         fixture.detectChanges();
-        directive = el.injector.get(NgxMatDrpDirective);
+        directive = el.injector.get(DateRangeDirective);
     });
 
     it('should create', () => {
@@ -72,7 +72,7 @@ describe('NgxMatDrpDirective', () => {
     });
 
     it('should set options in config', () => {
-        expect(directive.configStoreService.ngxDrpOptions).toBeTruthy();
+        expect(directive.configStoreService.DateRangeOptions).toBeTruthy();
     });
 
     it('should set current date as per options', () => {

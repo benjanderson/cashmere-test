@@ -14,11 +14,11 @@ describe('ConfigStoreService', () => {
     }));
 
     it('should setup default options', inject([ConfigStoreService], (service: ConfigStoreService) => {
-        service.ngxDrpOptions = {
+        service.DateRangeOptions = {
             presets: [],
             format: 'mediumDate',
             range: { fromDate: null, toDate: null }
         };
-        expect(Object.keys(service.ngxDrpOptions)).toContain('excludeWeekends');
+        expect(Object.keys(service.DateRangeOptions)).toContain('excludeWeekends');
     }));
 });

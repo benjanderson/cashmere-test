@@ -8,7 +8,7 @@ import { DateRange } from '../model/model';
 import { D } from 'src/app/datepicker/datetime';
 
 @Component({
-    selector: 'ngx-mat-drp-picker-overlay',
+    selector: 'hc-date-range-picker-overlay',
     templateUrl: './picker-overlay.component.html',
     styleUrls: ['./picker-overlay.component.scss'],
     encapsulation: ViewEncapsulation.None
@@ -39,13 +39,13 @@ export class PickerOverlayComponent implements OnInit {
     ngOnInit() {
         this.fromDate = this.rangeStoreService.fromDate;
         this.toDate = this.rangeStoreService.toDate;
-        this.startDatePrefix = this.configStoreService.ngxDrpOptions.startDatePrefix || 'Start Date';
-        this.endDatePrefix = this.configStoreService.ngxDrpOptions.endDatePrefix || 'End Date';
-        this.applyLabel = this.configStoreService.ngxDrpOptions.applyLabel || 'Apply';
-        this.cancelLabel = this.configStoreService.ngxDrpOptions.cancelLabel || 'Cancel';
-        this.presets = this.configStoreService.ngxDrpOptions.presets;
-        ({ fromDate: this.fromMinDate, toDate: this.fromMaxDate } = this.configStoreService.ngxDrpOptions.fromMinMax);
-        ({ fromDate: this.toMinDate, toDate: this.toMaxDate } = this.configStoreService.ngxDrpOptions.toMinMax);
+        this.startDatePrefix = this.configStoreService.DateRangeOptions.startDatePrefix || 'Start Date';
+        this.endDatePrefix = this.configStoreService.DateRangeOptions.endDatePrefix || 'End Date';
+        this.applyLabel = this.configStoreService.DateRangeOptions.applyLabel || 'Apply';
+        this.cancelLabel = this.configStoreService.DateRangeOptions.cancelLabel || 'Cancel';
+        this.presets = this.configStoreService.DateRangeOptions.presets;
+        ({ fromDate: this.fromMinDate, toDate: this.fromMaxDate } = this.configStoreService.DateRangeOptions.fromMinMax);
+        ({ fromDate: this.toMinDate, toDate: this.toMaxDate } = this.configStoreService.DateRangeOptions.toMinMax);
         this._setValidity();
     }
 

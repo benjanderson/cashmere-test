@@ -16,7 +16,7 @@ import { DatepickerInputDirective, MatDatepickerInputEvent } from 'src/app/datep
 import { D } from 'src/app/datepicker/datetime/date-formats';
 
 @Component({
-    selector: 'calendar-wrapper',
+    selector: 'hc-calendar-wrapper',
     templateUrl: './calendar-wrapper.component.html',
     styleUrls: ['./calendar-wrapper.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -43,8 +43,8 @@ export class CalendarWrapperComponent implements OnInit, OnChanges {
     weekendFilter = (d: D) => true;
 
     constructor(configStore: ConfigStoreService) {
-        this._dateFormat = configStore.ngxDrpOptions.format;
-        if (configStore.ngxDrpOptions.excludeWeekends) {
+        this._dateFormat = configStore.DateRangeOptions.format;
+        if (configStore.DateRangeOptions.excludeWeekends) {
             this.weekendFilter = (d: Date): boolean => {
                 const day = d.getDay();
                 return day !== 0 && day !== 6;

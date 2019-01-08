@@ -1,10 +1,10 @@
-.ngx-mat-drp-calendar-container {
+.hc-date-range-calendar-container {
     display: flex;
     justify-content: space-around;
     min-width: 650px;
 }
 
-.ngx-mat-drp-calendar-item {
+.hc-date-range-calendar-item {
     flex-basis: 33.33%;
     min-width: 210px;
     padding: 1em;
@@ -13,10 +13,10 @@
     font-weight: 400;
 }
 
-.ngx-mat-drp-menu {
+.hc-date-range-menu {
     height: 100%;    
 }
-.ngx-mat-drp-controls {
+.hc-date-range-controls {
     display: flex;
     justify-content: space-around;
     margin: 10% auto;
@@ -25,13 +25,13 @@
     }
 }
 
-.ngx-mat-drp-overlay {
+.hc-date-range-overlay {
     box-shadow: 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12);
     background: white;
     border-radius: 2px;
 }
 
-.ngx-mat-drp-overlay-backdrop {
+.hc-date-range-overlay-backdrop {
     background-color: rgba(0,0,0,.2);
     opacity: 0.2;
 }

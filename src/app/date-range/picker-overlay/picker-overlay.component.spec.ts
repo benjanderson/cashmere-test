@@ -32,7 +32,7 @@ describe('RangeComponent', () => {
 
     beforeEach(() => {
         configStoreService = TestBed.get(ConfigStoreService);
-        configStoreService.ngxDrpOptions = {
+        configStoreService.DateRangeOptions = {
             presets: [],
             format: 'mediumDate',
             range: { fromDate: new Date(), toDate: new Date() },

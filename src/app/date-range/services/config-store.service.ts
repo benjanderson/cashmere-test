@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { NgxDrpOptions } from '../model/model';
+import { DateRangeOptions } from '../model/model';
 
 @Injectable()
 export class ConfigStoreService {
-    private _ngxDrpOptions: NgxDrpOptions;
+    private _dateRangeOptions: DateRangeOptions;
     private defaultOptions = {
         excludeWeekends: false,
         locale: 'en-US',
@@ -13,11 +13,11 @@ export class ConfigStoreService {
 
     constructor() {}
 
-    get ngxDrpOptions(): NgxDrpOptions {
-        return this._ngxDrpOptions;
+    get DateRangeOptions(): DateRangeOptions {
+        return this._dateRangeOptions;
     }
 
-    set ngxDrpOptions(options: NgxDrpOptions) {
-        this._ngxDrpOptions = { ...this.defaultOptions, ...options };
+    set DateRangeOptions(options: DateRangeOptions) {
+        this._dateRangeOptions = { ...this.defaultOptions, ...options };
     }
 }

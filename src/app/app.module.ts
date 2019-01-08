@@ -13,8 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatNativeDateModule } from './datepicker/datetime';
 import { SugarDateModule } from './sugar-date.module';
 import { DateRangeExampleComponent } from './date-range-example/date-range-example.component';
-import { NgxMatDrpModule } from './date-range/ngx-mat-drp.module';
-import { DeleteMeDirective } from './delete-me.directive';
+import { DateRangeModule } from './date-range/hc-date-range.module';
 
 @NgModule({
   declarations: [
@@ -23,14 +22,13 @@ import { DeleteMeDirective } from './delete-me.directive';
     DialogExampleComponent,
     DialogOverviewExampleDialog,
     DateRangeExampleComponent,
-    DeleteMeDirective
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     CashmereModule,
     MatDatepickerModule,
-    NgxMatDrpModule,
+    DateRangeModule,
     SugarDateModule,
     MatDialogModule,
     FormsModule,

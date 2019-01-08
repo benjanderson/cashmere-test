@@ -8,7 +8,7 @@ export interface DateRange {
   toDate: Date;
 }
 
-export interface NgxDrpOptions {
+export interface DateRangeOptions {
   presets: Array<PresetItem>;
   format: string;
   range: DateRange;
