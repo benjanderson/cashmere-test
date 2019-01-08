@@ -14,6 +14,7 @@ import { MatNativeDateModule } from './datepicker/datetime';
 import { SugarDateModule } from './sugar-date.module';
 import { DateRangeExampleComponent } from './date-range-example/date-range-example.component';
 import { NgxMatDrpModule } from './date-range/ngx-mat-drp.module';
+import { DeleteMeDirective } from './delete-me.directive';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { NgxMatDrpModule } from './date-range/ngx-mat-drp.module';
     CalendarExampleComponent,
     DialogExampleComponent,
     DialogOverviewExampleDialog,
-    DateRangeExampleComponent
+    DateRangeExampleComponent,
+    DeleteMeDirective
   ],
   imports: [
     BrowserModule,

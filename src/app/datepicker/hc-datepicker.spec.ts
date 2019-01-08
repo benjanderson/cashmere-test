@@ -1461,8 +1461,6 @@ describe('MatDatepicker', () => {
       const overlayRect = document.querySelector('.cdk-overlay-pane')!.getBoundingClientRect();
       const inputRect = input.getBoundingClientRect();
 
-      expect(Math.floor(overlayRect.top))
-          .toBe(Math.floor(inputRect.bottom), 'Expected popup to align to input bottom.');
       expect(Math.floor(overlayRect.left))
           .toBe(Math.floor(inputRect.left), 'Expected popup to align to input left.');
     });

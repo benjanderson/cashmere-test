@@ -24,7 +24,7 @@ import { Subscription } from 'rxjs';
     },
     providers: [CalendarOverlayService, RangeStoreService, ConfigStoreService, DatePipe]
 })
-export class NgxMatDrpComponent implements OnInit, OnDestroy {
+export class NgxMatDrpDirective implements OnInit, OnDestroy {
     @Output()
     readonly selectedDateRangeChanged: EventEmitter<DateRange> = new EventEmitter<DateRange>();
     @Input()
