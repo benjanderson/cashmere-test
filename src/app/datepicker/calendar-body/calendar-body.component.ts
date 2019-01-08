@@ -38,11 +38,11 @@ export class MatCalendarCell {
  */
 @Component({
     // moduleId: module.id,
-    selector: '[mat-calendar-body]',
+    selector: '[hc-calendar-body]',
     templateUrl: './calendar-body.component.html',
     styleUrls: ['calendar-body.component.scss'],
     host: {
-        class: 'mat-calendar-body',
+        class: 'hc-calendar-body',
         role: 'grid',
         'aria-readonly': 'true'
     },
@@ -133,7 +133,7 @@ export class MatCalendarBody implements OnChanges {
                 .asObservable()
                 .pipe(take(1))
                 .subscribe(() => {
-                    const activeCell: HTMLElement | null = this._elementRef.nativeElement.querySelector('.mat-calendar-body-active');
+                    const activeCell: HTMLElement | null = this._elementRef.nativeElement.querySelector('.hc-calendar-body-active');
 
                     if (activeCell) {
                         activeCell.focus();

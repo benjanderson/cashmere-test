@@ -38,11 +38,11 @@ export const MAT_DIALOG_DATA = new InjectionToken<any>('MatDialogData');
 
 /** Injection token that can be used to specify default dialog options. */
 export const MAT_DIALOG_DEFAULT_OPTIONS =
-    new InjectionToken<MatDialogConfig>('mat-dialog-default-options');
+    new InjectionToken<MatDialogConfig>('hc-dialog-default-options');
 
 /** Injection token that determines the scroll handling while the dialog is open. */
 export const MAT_DIALOG_SCROLL_STRATEGY =
-    new InjectionToken<() => ScrollStrategy>('mat-dialog-scroll-strategy');
+    new InjectionToken<() => ScrollStrategy>('hc-dialog-scroll-strategy');
 
 /** @docs-private */
 export function MAT_DIALOG_SCROLL_STRATEGY_FACTORY(overlay: Overlay): () => ScrollStrategy {

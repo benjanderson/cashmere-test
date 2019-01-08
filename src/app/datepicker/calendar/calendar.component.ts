@@ -36,7 +36,7 @@ export type MatCalendarView = 'month' | 'year' | 'multi-year';
 /** Default header for MatCalendar */
 @Component({
     // moduleId: module.id,
-    selector: 'mat-calendar-header',
+    selector: 'hc-calendar-header',
     templateUrl: 'calendar-header.html',
     exportAs: 'matCalendarHeader',
     encapsulation: ViewEncapsulation.None,
@@ -153,11 +153,11 @@ export class MatCalendarHeader {
  */
 @Component({
     // moduleId: module.id,
-    selector: 'mat-calendar',
+    selector: 'hc-calendar',
     templateUrl: './calendar.component.html',
     styleUrls: ['calendar.component.scss'],
     host: {
-        class: 'mat-calendar'
+        class: 'hc-calendar'
     },
     exportAs: 'matCalendar',
     encapsulation: ViewEncapsulation.None,

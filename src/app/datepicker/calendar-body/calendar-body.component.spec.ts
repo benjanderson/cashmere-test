@@ -30,8 +30,8 @@ describe('MatCalendarBody', () => {
 
     function refreshElementLists() {
       rowEls = Array.from(calendarBodyNativeElement.querySelectorAll('tr'));
-      labelEls = Array.from(calendarBodyNativeElement.querySelectorAll('.mat-calendar-body-label'));
-      cellEls = Array.from(calendarBodyNativeElement.querySelectorAll('.mat-calendar-body-cell'));
+      labelEls = Array.from(calendarBodyNativeElement.querySelectorAll('.hc-calendar-body-label'));
+      cellEls = Array.from(calendarBodyNativeElement.querySelectorAll('.hc-calendar-body-cell'));
     }
 
     beforeEach(() => {
@@ -52,13 +52,13 @@ describe('MatCalendarBody', () => {
     });
 
     it('highlights today', () => {
-      const todayCell = calendarBodyNativeElement.querySelector('.mat-calendar-body-today')!;
+      const todayCell = calendarBodyNativeElement.querySelector('.hc-calendar-body-today')!;
       expect(todayCell).not.toBeNull();
       expect(todayCell.innerHTML.trim()).toBe('3');
     });
 
     it('highlights selected', () => {
-      const selectedCell = calendarBodyNativeElement.querySelector('.mat-calendar-body-selected')!;
+      const selectedCell = calendarBodyNativeElement.querySelector('.hc-calendar-body-selected')!;
       expect(selectedCell).not.toBeNull();
       expect(selectedCell.innerHTML.trim()).toBe('4');
     });
@@ -82,23 +82,23 @@ describe('MatCalendarBody', () => {
       expect(labelEls.length).toBe(1);
       expect(cellEls.length).toBe(11);
       expect(rowEls[0].firstElementChild!.classList)
-          .toContain('mat-calendar-body-label', 'first cell should be the label');
+          .toContain('hc-calendar-body-label', 'first cell should be the label');
       expect(labelEls[0].getAttribute('colspan')).toBe('3');
     });
 
     it('cell should be selected on click', () => {
       const todayElement =
-          calendarBodyNativeElement.querySelector('.mat-calendar-body-today') as HTMLElement;
+          calendarBodyNativeElement.querySelector('.hc-calendar-body-today') as HTMLElement;
       todayElement.click();
       fixture.detectChanges();
 
       expect(todayElement.classList)
-          .toContain('mat-calendar-body-selected', 'today should be selected');
+          .toContain('hc-calendar-body-selected', 'today should be selected');
     });
 
     it('should mark active date', () => {
       expect((cellEls[10] as HTMLElement).innerText.trim()).toBe('11');
-      expect(cellEls[10].classList).toContain('mat-calendar-body-active');
+      expect(cellEls[10].classList).toContain('hc-calendar-body-active');
     });
 
     it('should set a class on even dates', () => {
@@ -114,7 +114,7 @@ describe('MatCalendarBody', () => {
 
 
 @Component({
-  template: `<table mat-calendar-body
+  template: `<table hc-calendar-body
                     [label]="label"
                     [rows]="rows"
                     [todayValue]="todayValue"

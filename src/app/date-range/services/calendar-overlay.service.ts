@@ -63,7 +63,7 @@ export class CalendarOverlayService {
 
         const overlayConfig = new OverlayConfig({
             hasBackdrop: true,
-            backdropClass: 'mat-overlay-transparent-backdrop',
+            backdropClass: 'hc-overlay-transparent-backdrop',
             panelClass: 'hc-date-range-overlay',
             scrollStrategy: this.overlay.scrollStrategies.block(),
             positionStrategy

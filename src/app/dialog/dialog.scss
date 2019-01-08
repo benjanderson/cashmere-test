@@ -1,15 +1,15 @@
 // @import '../core/style/vendor-prefixes';
 //  @import '~@angular/cdk/a11y/a11y';
 
-$mat-dialog-padding: 24px !default;
-$mat-dialog-border-radius: 4px !default;
-$mat-dialog-max-height: 65vh !default;
-$mat-dialog-button-margin: 8px !default;
+$hc-dialog-padding: 24px !default;
+$hc-dialog-border-radius: 4px !default;
+$hc-dialog-max-height: 65vh !default;
+$hc-dialog-button-margin: 8px !default;
 
-.mat-dialog-container {
+.hc-dialog-container {
   display: block;
-  padding: $mat-dialog-padding;
-  border-radius: $mat-dialog-border-radius;
+  padding: $hc-dialog-padding;
+  border-radius: $hc-dialog-border-radius;
   box-sizing: border-box;
   overflow: auto;
   outline: 0;
@@ -28,21 +28,21 @@ $mat-dialog-button-margin: 8px !default;
   // }
 }
 
-.mat-dialog-content {
+.hc-dialog-content {
   display: block;
-  margin: 0 $mat-dialog-padding * -1;
-  padding: 0 $mat-dialog-padding;
-  max-height: $mat-dialog-max-height;
+  margin: 0 $hc-dialog-padding * -1;
+  padding: 0 $hc-dialog-padding;
+  max-height: $hc-dialog-max-height;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 }
 
-.mat-dialog-title {
+.hc-dialog-title {
   margin: 0 0 20px;
   display: block;
 }
 
-.mat-dialog-actions {
+.hc-dialog-actions {
   padding: 8px 0;
   display: flex;
   flex-wrap: wrap;
@@ -50,7 +50,7 @@ $mat-dialog-button-margin: 8px !default;
   align-items: center;
 
   // Pull the actions down to avoid their padding stacking with the dialog's padding.
-  margin-bottom: -$mat-dialog-padding;
+  margin-bottom: -$hc-dialog-padding;
 
   &[align='end'] {
     justify-content: flex-end;
@@ -60,15 +60,15 @@ $mat-dialog-button-margin: 8px !default;
     justify-content: center;
   }
 
-  .mat-button + .mat-button,
-  .mat-raised-button + .mat-raised-button,
-  .mat-button + .mat-raised-button,
-  .mat-raised-button + .mat-button {
-    margin-left: $mat-dialog-button-margin;
+  .hc-button + .hc-button,
+  .hc-raised-button + .hc-raised-button,
+  .hc-button + .hc-raised-button,
+  .hc-raised-button + .hc-button {
+    margin-left: $hc-dialog-button-margin;
 
     [dir='rtl'] & {
       margin-left: 0;
-      margin-right: $mat-dialog-button-margin;
+      margin-right: $hc-dialog-button-margin;
     }
   }
 }

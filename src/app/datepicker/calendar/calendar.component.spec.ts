@@ -51,7 +51,7 @@ describe('MatCalendar', () => {
 
       const calendarDebugElement = fixture.debugElement.query(By.directive(MatCalendar));
       calendarElement = calendarDebugElement.nativeElement;
-      periodButton = calendarElement.querySelector('.mat-calendar-period-button') as HTMLElement;
+      periodButton = calendarElement.querySelector('.hc-calendar-period-button') as HTMLElement;
 
       calendarInstance = calendarDebugElement.componentInstance;
       testComponent = fixture.componentInstance;
@@ -65,7 +65,7 @@ describe('MatCalendar', () => {
       calendarInstance.updateTodaysDate();
       fixture.detectChanges();
 
-      let todayCell = calendarElement.querySelector('.mat-calendar-body-today')!;
+      let todayCell = calendarElement.querySelector('.hc-calendar-body-today')!;
       expect(todayCell).not.toBeNull();
       expect(todayCell.innerHTML.trim()).toBe('1');
 
@@ -73,7 +73,7 @@ describe('MatCalendar', () => {
       calendarInstance.updateTodaysDate();
       fixture.detectChanges();
 
-      todayCell = calendarElement.querySelector('.mat-calendar-body-today')!;
+      todayCell = calendarElement.querySelector('.hc-calendar-body-today')!;
       expect(todayCell).not.toBeNull();
       expect(todayCell.innerHTML.trim()).toBe('10');
     }));
@@ -84,7 +84,7 @@ describe('MatCalendar', () => {
     });
 
     it('should select date in month view', () => {
-      const monthCells = calendarElement.querySelectorAll('.mat-calendar-body-cell');
+      const monthCells = calendarElement.querySelectorAll('.hc-calendar-body-cell');
       (monthCells[monthCells.length - 1] as HTMLElement).click();
       fixture.detectChanges();
 
@@ -99,13 +99,13 @@ describe('MatCalendar', () => {
       expect(calendarInstance.currentView).toBe('multi-year');
       expect(calendarInstance.activeDate).toEqual(new Date(2017, JAN, 31));
 
-      (calendarElement.querySelector('.mat-calendar-body-active') as HTMLElement).click();
+      (calendarElement.querySelector('.hc-calendar-body-active') as HTMLElement).click();
 
       fixture.detectChanges();
 
       expect(calendarInstance.currentView).toBe('year');
 
-      (calendarElement.querySelector('.mat-calendar-body-active') as HTMLElement).click();
+      (calendarElement.querySelector('.hc-calendar-body-active') as HTMLElement).click();
 
       const normalizedMonth: Date = fixture.componentInstance.selectedMonth;
       expect(normalizedMonth.getMonth()).toEqual(0);
@@ -118,7 +118,7 @@ describe('MatCalendar', () => {
       expect(calendarInstance.currentView).toBe('multi-year');
       expect(calendarInstance.activeDate).toEqual(new Date(2017, JAN, 31));
 
-      (calendarElement.querySelector('.mat-calendar-body-active') as HTMLElement).click();
+      (calendarElement.querySelector('.hc-calendar-body-active') as HTMLElement).click();
 
       fixture.detectChanges();
 
@@ -129,7 +129,7 @@ describe('MatCalendar', () => {
     it('should re-render when the i18n labels have changed',
       inject([MatDatepickerIntl], (intl: MatDatepickerIntl) => {
         const button = fixture.debugElement.nativeElement
-            .querySelector('.mat-calendar-period-button');
+            .querySelector('.hc-calendar-period-button');
 
         intl.switchToMultiYearViewLabel = 'Go to multi-year view?';
         intl.changes.next();
@@ -158,7 +158,7 @@ describe('MatCalendar', () => {
         let calendarBodyEl: HTMLElement;
 
         beforeEach(() => {
-          calendarBodyEl = calendarElement.querySelector('.mat-calendar-content') as HTMLElement;
+          calendarBodyEl = calendarElement.querySelector('.hc-calendar-content') as HTMLElement;
           expect(calendarBodyEl).not.toBeNull();
 
           dispatchFakeEvent(calendarBodyEl, 'focus');
@@ -175,7 +175,7 @@ describe('MatCalendar', () => {
 
         it('should not move focus to the active cell on init', () => {
           const activeCell =
-              calendarBodyEl.querySelector('.mat-calendar-body-active')! as HTMLElement;
+              calendarBodyEl.querySelector('.hc-calendar-body-active')! as HTMLElement;
 
           spyOn(activeCell, 'focus').and.callThrough();
           fixture.detectChanges();
@@ -186,7 +186,7 @@ describe('MatCalendar', () => {
 
         it('should move focus to the active cell when the view changes', () => {
           const activeCell =
-              calendarBodyEl.querySelector('.mat-calendar-body-active')! as HTMLElement;
+              calendarBodyEl.querySelector('.hc-calendar-body-active')! as HTMLElement;
 
           spyOn(activeCell, 'focus').and.callThrough();
           fixture.detectChanges();
@@ -208,14 +208,14 @@ describe('MatCalendar', () => {
 
             expect(calendarInstance.currentView).toBe('multi-year');
 
-            (calendarBodyEl.querySelector('.mat-calendar-body-active') as HTMLElement).click();
+            (calendarBodyEl.querySelector('.hc-calendar-body-active') as HTMLElement).click();
             fixture.detectChanges();
 
             expect(calendarInstance.currentView).toBe('year');
           });
 
           it('should return to month view on enter', () => {
-            const tableBodyEl = calendarBodyEl.querySelector('.mat-calendar-body') as HTMLElement;
+            const tableBodyEl = calendarBodyEl.querySelector('.hc-calendar-body') as HTMLElement;
 
             dispatchKeyboardEvent(tableBodyEl, 'keydown', RIGHT_ARROW);
             fixture.detectChanges();
@@ -229,7 +229,7 @@ describe('MatCalendar', () => {
           });
 
           it('should return to month view on space', () => {
-            const tableBodyEl = calendarBodyEl.querySelector('.mat-calendar-body') as HTMLElement;
+            const tableBodyEl = calendarBodyEl.querySelector('.hc-calendar-body') as HTMLElement;
 
             dispatchKeyboardEvent(tableBodyEl, 'keydown', RIGHT_ARROW);
             fixture.detectChanges();
@@ -252,7 +252,7 @@ describe('MatCalendar', () => {
           });
 
           it('should go to year view on enter', () => {
-            const tableBodyEl = calendarBodyEl.querySelector('.mat-calendar-body') as HTMLElement;
+            const tableBodyEl = calendarBodyEl.querySelector('.hc-calendar-body') as HTMLElement;
 
             dispatchKeyboardEvent(tableBodyEl, 'keydown', RIGHT_ARROW);
             fixture.detectChanges();
@@ -266,7 +266,7 @@ describe('MatCalendar', () => {
           });
 
           it('should go to year view on space', () => {
-            const tableBodyEl = calendarBodyEl.querySelector('.mat-calendar-body') as HTMLElement;
+            const tableBodyEl = calendarBodyEl.querySelector('.hc-calendar-body') as HTMLElement;
 
             dispatchKeyboardEvent(tableBodyEl, 'keydown', RIGHT_ARROW);
             fixture.detectChanges();
@@ -320,7 +320,7 @@ describe('MatCalendar', () => {
       fixture.detectChanges();
 
       const prevButton =
-          calendarElement.querySelector('.mat-calendar-previous-button') as HTMLButtonElement;
+          calendarElement.querySelector('.hc-calendar-previous-button') as HTMLButtonElement;
 
       expect(prevButton.disabled).toBe(false, 'previous button should not be disabled');
       expect(calendarInstance.activeDate).toEqual(new Date(2016, FEB, 1));
@@ -342,7 +342,7 @@ describe('MatCalendar', () => {
       fixture.detectChanges();
 
       const nextButton =
-          calendarElement.querySelector('.mat-calendar-next-button') as HTMLButtonElement;
+          calendarElement.querySelector('.hc-calendar-next-button') as HTMLButtonElement;
 
       expect(nextButton.disabled).toBe(false, 'next button should not be disabled');
       expect(calendarInstance.activeDate).toEqual(new Date(2017, DEC, 1));
@@ -382,11 +382,11 @@ describe('MatCalendar', () => {
     it('should re-render the year view when the minDate changes', () => {
       fixture.detectChanges();
       const periodButton =
-          calendarElement.querySelector('.mat-calendar-period-button') as HTMLElement;
+          calendarElement.querySelector('.hc-calendar-period-button') as HTMLElement;
       periodButton.click();
       fixture.detectChanges();
 
-      (calendarElement.querySelector('.mat-calendar-body-active') as HTMLElement).click();
+      (calendarElement.querySelector('.hc-calendar-body-active') as HTMLElement).click();
       fixture.detectChanges();
 
       spyOn(calendarInstance.yearView, '_init').and.callThrough();
@@ -400,11 +400,11 @@ describe('MatCalendar', () => {
     it('should re-render the year view when the maxDate changes', () => {
       fixture.detectChanges();
       const periodButton =
-          calendarElement.querySelector('.mat-calendar-period-button') as HTMLElement;
+          calendarElement.querySelector('.hc-calendar-period-button') as HTMLElement;
       periodButton.click();
       fixture.detectChanges();
 
-      (calendarElement.querySelector('.mat-calendar-body-active') as HTMLElement).click();
+      (calendarElement.querySelector('.hc-calendar-body-active') as HTMLElement).click();
       fixture.detectChanges();
 
       spyOn(calendarInstance.yearView, '_init').and.callThrough();
@@ -418,7 +418,7 @@ describe('MatCalendar', () => {
     it('should re-render the multi-year view when the minDate changes', () => {
       fixture.detectChanges();
       const periodButton =
-          calendarElement.querySelector('.mat-calendar-period-button') as HTMLElement;
+          calendarElement.querySelector('.hc-calendar-period-button') as HTMLElement;
       periodButton.click();
       fixture.detectChanges();
 
@@ -433,7 +433,7 @@ describe('MatCalendar', () => {
     it('should re-render the multi-year view when the maxDate changes', () => {
       fixture.detectChanges();
       const periodButton =
-          calendarElement.querySelector('.mat-calendar-period-button') as HTMLElement;
+          calendarElement.querySelector('.hc-calendar-period-button') as HTMLElement;
       periodButton.click();
       fixture.detectChanges();
 
@@ -452,11 +452,11 @@ describe('MatCalendar', () => {
       dynamicFixture.detectChanges();
 
       const calendarDebugElement = dynamicFixture.debugElement.query(By.directive(MatCalendar));
-      const disabledClass = 'mat-calendar-body-disabled';
+      const disabledClass = 'hc-calendar-body-disabled';
       calendarElement = calendarDebugElement.nativeElement;
       calendarInstance = calendarDebugElement.componentInstance;
 
-      let cells = Array.from(calendarElement.querySelectorAll('.mat-calendar-body-cell'));
+      let cells = Array.from(calendarElement.querySelectorAll('.hc-calendar-body-cell'));
 
       expect(cells.slice(0, 9).every(c => c.classList.contains(disabledClass)))
           .toBe(true, 'Expected dates up to the 10th to be disabled.');
@@ -466,7 +466,7 @@ describe('MatCalendar', () => {
 
       (cells[14] as HTMLElement).click();
       dynamicFixture.detectChanges();
-      cells = Array.from(calendarElement.querySelectorAll('.mat-calendar-body-cell'));
+      cells = Array.from(calendarElement.querySelectorAll('.hc-calendar-body-cell'));
 
       expect(cells.slice(0, 14).every(c => c.classList.contains(disabledClass)))
           .toBe(true, 'Expected dates up to the 14th to be disabled.');
@@ -494,7 +494,7 @@ describe('MatCalendar', () => {
     });
 
     it('should disable and prevent selection of filtered dates', () => {
-      const cells = calendarElement.querySelectorAll('.mat-calendar-body-cell');
+      const cells = calendarElement.querySelectorAll('.hc-calendar-body-cell');
       (cells[0] as HTMLElement).click();
       fixture.detectChanges();
 
@@ -510,7 +510,7 @@ describe('MatCalendar', () => {
       let tableBodyEl: HTMLElement;
 
       beforeEach(() => {
-        tableBodyEl = calendarElement.querySelector('.mat-calendar-body') as HTMLElement;
+        tableBodyEl = calendarElement.querySelector('.hc-calendar-body') as HTMLElement;
         expect(tableBodyEl).not.toBeNull();
 
         dispatchFakeEvent(tableBodyEl, 'focus');
@@ -529,11 +529,11 @@ describe('MatCalendar', () => {
 
       it('should allow entering month view at disabled month', () => {
         const periodButton =
-            calendarElement.querySelector('.mat-calendar-period-button') as HTMLElement;
+            calendarElement.querySelector('.hc-calendar-period-button') as HTMLElement;
         dispatchMouseEvent(periodButton, 'click');
         fixture.detectChanges();
 
-        (calendarElement.querySelector('.mat-calendar-body-active') as HTMLElement).click();
+        (calendarElement.querySelector('.hc-calendar-body-active') as HTMLElement).click();
         fixture.detectChanges();
 
         calendarInstance.activeDate = new Date(2017, NOV, 1);
@@ -541,7 +541,7 @@ describe('MatCalendar', () => {
 
         expect(calendarInstance.currentView).toBe('year');
 
-        tableBodyEl = calendarElement.querySelector('.mat-calendar-body') as HTMLElement;
+        tableBodyEl = calendarElement.querySelector('.hc-calendar-body') as HTMLElement;
         dispatchKeyboardEvent(tableBodyEl, 'keydown', ENTER);
         fixture.detectChanges();
 
@@ -556,12 +556,12 @@ describe('MatCalendar', () => {
 
 @Component({
   template: `
-    <mat-calendar
+    <hc-calendar
         [startAt]="startDate"
         [(selected)]="selected"
         (yearSelected)="selectedYear=$event"
         (monthSelected)="selectedMonth=$event">
-    </mat-calendar>`
+    </hc-calendar>`
 })
 class StandardCalendar {
   selected: Date;
@@ -573,7 +573,7 @@ class StandardCalendar {
 
 @Component({
   template: `
-    <mat-calendar [startAt]="startAt" [minDate]="minDate" [maxDate]="maxDate"></mat-calendar>
+    <hc-calendar [startAt]="startAt" [minDate]="minDate" [maxDate]="maxDate"></hc-calendar>
   `
 })
 class CalendarWithMinMax {
@@ -585,8 +585,8 @@ class CalendarWithMinMax {
 
 @Component({
   template: `
-    <mat-calendar [startAt]="startDate" [(selected)]="selected" [dateFilter]="dateFilter">
-    </mat-calendar>
+    <hc-calendar [startAt]="startDate" [(selected)]="selected" [dateFilter]="dateFilter">
+    </hc-calendar>
   `
 })
 class CalendarWithDateFilter {
@@ -601,12 +601,12 @@ class CalendarWithDateFilter {
 
 @Component({
   template: `
-    <mat-calendar
+    <hc-calendar
       [startAt]="startAt"
       (selectedChange)="select($event)"
       [selected]="selected"
       [minDate]="selected">
-    </mat-calendar>
+    </hc-calendar>
   `
 })
 class CalendarWithSelectableMinDate {

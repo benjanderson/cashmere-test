@@ -40,9 +40,9 @@ describe('MatCalendarHeader', () => {
 
             const calendarDebugElement = fixture.debugElement.query(By.directive(MatCalendar));
             calendarElement = calendarDebugElement.nativeElement;
-            periodButton = calendarElement.querySelector('.mat-calendar-period-button') as HTMLElement;
-            prevButton = calendarElement.querySelector('.mat-calendar-previous-button') as HTMLElement;
-            nextButton = calendarElement.querySelector('.mat-calendar-next-button') as HTMLElement;
+            periodButton = calendarElement.querySelector('.hc-calendar-period-button') as HTMLElement;
+            prevButton = calendarElement.querySelector('.hc-calendar-previous-button') as HTMLElement;
+            nextButton = calendarElement.querySelector('.hc-calendar-next-button') as HTMLElement;
 
             calendarInstance = calendarDebugElement.componentInstance;
             testComponent = fixture.componentInstance;
@@ -88,7 +88,7 @@ describe('MatCalendarHeader', () => {
             expect(calendarInstance.currentView).toBe('multi-year');
             expect(calendarInstance.activeDate).toEqual(new Date(2017, JAN, 31));
 
-            (calendarElement.querySelector('.mat-calendar-body-active') as HTMLElement).click();
+            (calendarElement.querySelector('.hc-calendar-body-active') as HTMLElement).click();
             fixture.detectChanges();
 
             expect(calendarInstance.currentView).toBe('year');
@@ -129,14 +129,14 @@ describe('MatCalendarHeader', () => {
             expect(calendarInstance.currentView).toBe('multi-year');
             expect(calendarInstance.activeDate).toEqual(new Date(2017, JAN, 31));
 
-            const yearCells = calendarElement.querySelectorAll('.mat-calendar-body-cell');
+            const yearCells = calendarElement.querySelectorAll('.hc-calendar-body-cell');
             (yearCells[0] as HTMLElement).click();
             fixture.detectChanges();
 
             expect(calendarInstance.currentView).toBe('year');
             expect(calendarInstance.activeDate).toEqual(new Date(2016, JAN, 31));
 
-            const monthCells = calendarElement.querySelectorAll('.mat-calendar-body-cell');
+            const monthCells = calendarElement.querySelectorAll('.hc-calendar-body-cell');
             (monthCells[monthCells.length - 1] as HTMLElement).click();
             fixture.detectChanges();
 
@@ -149,13 +149,13 @@ describe('MatCalendarHeader', () => {
 
 @Component({
     template: `
-        <mat-calendar
+        <hc-calendar
             [startAt]="startDate"
             [(selected)]="selected"
             (yearSelected)="selectedYear = $event"
             (monthSelected)="selectedMonth = $event"
         >
-        </mat-calendar>
+        </hc-calendar>
     `
 })
 class StandardCalendar {

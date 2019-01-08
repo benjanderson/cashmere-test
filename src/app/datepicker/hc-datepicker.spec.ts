@@ -84,24 +84,24 @@ describe('MatDatepicker', () => {
       });
 
       it('open non-touch should open popup', () => {
-        expect(document.querySelector('.cdk-overlay-pane.mat-datepicker-popup')).toBeNull();
+        expect(document.querySelector('.cdk-overlay-pane.hc-datepicker-popup')).toBeNull();
 
         testComponent.datepicker.open();
         fixture.detectChanges();
 
-        expect(document.querySelector('.cdk-overlay-pane.mat-datepicker-popup')).not.toBeNull();
+        expect(document.querySelector('.cdk-overlay-pane.hc-datepicker-popup')).not.toBeNull();
       });
 
       it('touch should open dialog', () => {
         testComponent.touch = true;
         fixture.detectChanges();
 
-        expect(document.querySelector('.mat-datepicker-dialog mat-dialog-container')).toBeNull();
+        expect(document.querySelector('.hc-datepicker-dialog hc-dialog-container')).toBeNull();
 
         testComponent.datepicker.open();
         fixture.detectChanges();
 
-        expect(document.querySelector('.mat-datepicker-dialog mat-dialog-container'))
+        expect(document.querySelector('.hc-datepicker-dialog hc-dialog-container'))
             .not.toBeNull();
       });
 
@@ -109,14 +109,14 @@ describe('MatDatepicker', () => {
         testComponent.touch = true;
         fixture.detectChanges();
 
-        expect(document.querySelectorAll('.mat-datepicker-dialog').length).toBe(0);
+        expect(document.querySelectorAll('.hc-datepicker-dialog').length).toBe(0);
 
         testComponent.datepicker.open();
         fixture.detectChanges();
         tick(500);
         fixture.detectChanges();
 
-        dispatchKeyboardEvent(document.querySelector('.mat-calendar-body')!, 'keydown', ENTER);
+        dispatchKeyboardEvent(document.querySelector('.hc-calendar-body')!, 'keydown', ENTER);
         fixture.detectChanges();
         tick(100);
 
@@ -124,7 +124,7 @@ describe('MatDatepicker', () => {
         tick(500);
         fixture.detectChanges();
 
-        expect(document.querySelectorAll('.mat-datepicker-dialog').length).toBe(1);
+        expect(document.querySelectorAll('.hc-datepicker-dialog').length).toBe(1);
       }));
 
       it('should open datepicker if opened input is set to true', fakeAsync(() => {
@@ -132,13 +132,13 @@ describe('MatDatepicker', () => {
         fixture.detectChanges();
         flush();
 
-        expect(document.querySelector('.mat-datepicker-content')).not.toBeNull();
+        expect(document.querySelector('.hc-datepicker-content')).not.toBeNull();
 
         testComponent.opened = false;
         fixture.detectChanges();
         flush();
 
-        expect(document.querySelector('.mat-datepicker-content')).toBeNull();
+        expect(document.querySelector('.hc-datepicker-content')).toBeNull();
       }));
 
       it('open in disabled mode should not open the calendar', () => {
@@ -146,13 +146,13 @@ describe('MatDatepicker', () => {
         fixture.detectChanges();
 
         expect(document.querySelector('.cdk-overlay-pane')).toBeNull();
-        expect(document.querySelector('mat-dialog-container')).toBeNull();
+        expect(document.querySelector('hc-dialog-container')).toBeNull();
 
         testComponent.datepicker.open();
         fixture.detectChanges();
 
         expect(document.querySelector('.cdk-overlay-pane')).toBeNull();
-        expect(document.querySelector('mat-dialog-container')).toBeNull();
+        expect(document.querySelector('hc-dialog-container')).toBeNull();
       });
 
       it('disabled datepicker input should open the calendar if datepicker is enabled', () => {
@@ -214,13 +214,13 @@ describe('MatDatepicker', () => {
         testComponent.datepicker.open();
         fixture.detectChanges();
 
-        expect(document.querySelector('mat-dialog-container')).not.toBeNull();
+        expect(document.querySelector('hc-dialog-container')).not.toBeNull();
 
         testComponent.datepicker.close();
         fixture.detectChanges();
         flush();
 
-        expect(document.querySelector('mat-dialog-container')).toBeNull();
+        expect(document.querySelector('hc-dialog-container')).toBeNull();
       }));
 
       it('setting selected via click should update input and close calendar', fakeAsync(() => {
@@ -231,15 +231,15 @@ describe('MatDatepicker', () => {
         fixture.detectChanges();
         flush();
 
-        expect(document.querySelector('mat-dialog-container')).not.toBeNull();
+        expect(document.querySelector('hc-dialog-container')).not.toBeNull();
         expect(testComponent.datepickerInput.value).toEqual(new Date(2020, JAN, 1));
 
-        const cells = document.querySelectorAll('.mat-calendar-body-cell');
+        const cells = document.querySelectorAll('.hc-calendar-body-cell');
         dispatchMouseEvent(cells[1], 'click');
         fixture.detectChanges();
         flush();
 
-        expect(document.querySelector('mat-dialog-container')).toBeNull();
+        expect(document.querySelector('hc-dialog-container')).toBeNull();
         expect(testComponent.datepickerInput.value).toEqual(new Date(2020, JAN, 2));
       }));
 
@@ -252,10 +252,10 @@ describe('MatDatepicker', () => {
           fixture.detectChanges();
           flush();
 
-          expect(document.querySelector('mat-dialog-container')).not.toBeNull();
+          expect(document.querySelector('hc-dialog-container')).not.toBeNull();
           expect(testComponent.datepickerInput.value).toEqual(new Date(2020, JAN, 1));
 
-          const calendarBodyEl = document.querySelector('.mat-calendar-body') as HTMLElement;
+          const calendarBodyEl = document.querySelector('.hc-calendar-body') as HTMLElement;
 
           dispatchKeyboardEvent(calendarBodyEl, 'keydown', RIGHT_ARROW);
           fixture.detectChanges();
@@ -264,7 +264,7 @@ describe('MatDatepicker', () => {
           fixture.detectChanges();
           flush();
 
-          expect(document.querySelector('mat-dialog-container')).toBeNull();
+          expect(document.querySelector('hc-dialog-container')).toBeNull();
           expect(testComponent.datepickerInput.value).toEqual(new Date(2020, JAN, 2));
         }));
 
@@ -278,17 +278,17 @@ describe('MatDatepicker', () => {
           testComponent.datepicker.open();
           fixture.detectChanges();
 
-          expect(document.querySelector('mat-datepicker-content')).not.toBeNull();
+          expect(document.querySelector('hc-datepicker-content')).not.toBeNull();
           expect(testComponent.datepickerInput.value).toEqual(new Date(2020, JAN, currentDay));
 
-          const cells = document.querySelectorAll('.mat-calendar-body-cell');
+          const cells = document.querySelectorAll('.hc-calendar-body-cell');
           dispatchMouseEvent(cells[1], 'click');
           fixture.detectChanges();
           flush();
         }
 
         expect(selectedChangedSpy.calls.count()).toEqual(1);
-        expect(document.querySelector('mat-dialog-container')).toBeNull();
+        expect(document.querySelector('hc-dialog-container')).toBeNull();
         expect(testComponent.datepickerInput.value).toEqual(new Date(2020, JAN, 2));
       }));
 
@@ -300,7 +300,7 @@ describe('MatDatepicker', () => {
         testComponent.datepicker.open();
         fixture.detectChanges();
 
-        const calendarBodyEl = document.querySelector('.mat-calendar-body') as HTMLElement;
+        const calendarBodyEl = document.querySelector('.hc-calendar-body') as HTMLElement;
         expect(calendarBodyEl).not.toBeNull();
         expect(testComponent.datepickerInput.value).toEqual(new Date(2020, JAN, 1));
 
@@ -309,7 +309,7 @@ describe('MatDatepicker', () => {
 
         fixture.whenStable().then(() => {
           expect(selectedChangedSpy.calls.count()).toEqual(0);
-          expect(document.querySelector('mat-dialog-container')).toBeNull();
+          expect(document.querySelector('hc-dialog-container')).toBeNull();
           expect(testComponent.datepickerInput.value).toEqual(new Date(2020, JAN, 1));
         });
       });
@@ -338,7 +338,7 @@ describe('MatDatepicker', () => {
 
         const ownedElement = document.getElementById(ownedElementId);
         expect(ownedElement).not.toBeNull();
-        expect((ownedElement as Element).tagName.toLowerCase()).toBe('mat-calendar');
+        expect((ownedElement as Element).tagName.toLowerCase()).toBe('hc-calendar');
       }));
 
       // test purposely skipped. hc input doesn't support aria-owns, yet...
@@ -357,7 +357,7 @@ describe('MatDatepicker', () => {
 
         const ownedElement = document.getElementById(ownedElementId);
         expect(ownedElement).not.toBeNull();
-        expect((ownedElement as Element).tagName.toLowerCase()).toBe('mat-calendar');
+        expect((ownedElement as Element).tagName.toLowerCase()).toBe('hc-calendar');
       });
 
       it('should not throw when given wrong data type', () => {
@@ -591,7 +591,7 @@ describe('MatDatepicker', () => {
         testComponent.datepicker.open();
         fixture.detectChanges();
 
-        const firstCalendarCell = document.querySelector('.mat-calendar-body-cell')!;
+        const firstCalendarCell = document.querySelector('.hc-calendar-body-cell')!;
 
         // When the calendar is in year view, the first cell should be for a month rather than
         // for a date.
@@ -607,7 +607,7 @@ describe('MatDatepicker', () => {
           testComponent.datepicker.open();
           fixture.detectChanges();
 
-          const cells = document.querySelectorAll('.mat-calendar-body-cell');
+          const cells = document.querySelectorAll('.hc-calendar-body-cell');
 
           dispatchMouseEvent(cells[0], 'click');
           fixture.detectChanges();
@@ -641,7 +641,7 @@ describe('MatDatepicker', () => {
         testComponent.datepicker.open();
         fixture.detectChanges();
 
-        const firstCalendarCell = document.querySelector('.mat-calendar-body-cell')!;
+        const firstCalendarCell = document.querySelector('.hc-calendar-body-cell')!;
 
         // When the calendar is in year view, the first cell should be for a month rather than
         // for a date.
@@ -656,7 +656,7 @@ describe('MatDatepicker', () => {
           testComponent.datepicker.open();
           fixture.detectChanges();
 
-          const cells = document.querySelectorAll('.mat-calendar-body-cell');
+          const cells = document.querySelectorAll('.hc-calendar-body-cell');
 
           dispatchMouseEvent(cells[0], 'click');
           fixture.detectChanges();
@@ -876,7 +876,7 @@ describe('MatDatepicker', () => {
       });
     });
 
-    describe('datepicker with mat-datepicker-toggle', () => {
+    describe('datepicker with hc-datepicker-toggle', () => {
       let fixture: ComponentFixture<DatepickerWithToggle>;
       let testComponent: DatepickerWithToggle;
 
@@ -901,13 +901,13 @@ describe('MatDatepicker', () => {
       });
 
       it('should open calendar when toggle clicked', () => {
-        expect(document.querySelector('mat-dialog-container')).toBeNull();
+        expect(document.querySelector('hc-dialog-container')).toBeNull();
 
         const toggle = fixture.debugElement.query(By.css('button'));
         dispatchMouseEvent(toggle.nativeElement, 'click');
         fixture.detectChanges();
 
-        expect(document.querySelector('mat-dialog-container')).not.toBeNull();
+        expect(document.querySelector('hc-dialog-container')).not.toBeNull();
       });
 
       it('should not open calendar when toggle clicked if datepicker is disabled', () => {
@@ -916,12 +916,12 @@ describe('MatDatepicker', () => {
         const toggle = fixture.debugElement.query(By.css('button')).nativeElement;
 
         expect(toggle.hasAttribute('disabled')).toBe(true);
-        expect(document.querySelector('mat-dialog-container')).toBeNull();
+        expect(document.querySelector('hc-dialog-container')).toBeNull();
 
         dispatchMouseEvent(toggle, 'click');
         fixture.detectChanges();
 
-        expect(document.querySelector('mat-dialog-container')).toBeNull();
+        expect(document.querySelector('hc-dialog-container')).toBeNull();
       });
 
       it('should not open calendar when toggle clicked if input is disabled', () => {
@@ -932,12 +932,12 @@ describe('MatDatepicker', () => {
         const toggle = fixture.debugElement.query(By.css('button')).nativeElement;
 
         expect(toggle.hasAttribute('disabled')).toBe(true);
-        expect(document.querySelector('mat-dialog-container')).toBeNull();
+        expect(document.querySelector('hc-dialog-container')).toBeNull();
 
         dispatchMouseEvent(toggle, 'click');
         fixture.detectChanges();
 
-        expect(document.querySelector('mat-dialog-container')).toBeNull();
+        expect(document.querySelector('hc-dialog-container')).toBeNull();
       });
 
       it('should set the `button` type on the trigger to prevent form submissions', () => {
@@ -981,53 +981,53 @@ describe('MatDatepicker', () => {
         }));
 
       it('should toggle the active state of the datepicker toggle', fakeAsync(() => {
-        const toggle = fixture.debugElement.query(By.css('mat-datepicker-toggle')).nativeElement;
+        const toggle = fixture.debugElement.query(By.css('hc-datepicker-toggle')).nativeElement;
 
-        expect(toggle.classList).not.toContain('mat-datepicker-toggle-active');
+        expect(toggle.classList).not.toContain('hc-datepicker-toggle-active');
 
         fixture.componentInstance.datepicker.open();
         fixture.detectChanges();
         flush();
 
-        expect(toggle.classList).toContain('mat-datepicker-toggle-active');
+        expect(toggle.classList).toContain('hc-datepicker-toggle-active');
 
         fixture.componentInstance.datepicker.close();
         fixture.detectChanges();
         flush();
         fixture.detectChanges();
 
-        expect(toggle.classList).not.toContain('mat-datepicker-toggle-active');
+        expect(toggle.classList).not.toContain('hc-datepicker-toggle-active');
       }));
     });
 
-    describe('datepicker with custom mat-datepicker-toggle icon', () => {
-      it('should be able to override the mat-datepicker-toggle icon', fakeAsync(() => {
+    describe('datepicker with custom hc-datepicker-toggle icon', () => {
+      it('should be able to override the hc-datepicker-toggle icon', fakeAsync(() => {
         const fixture = createComponent(DatepickerWithCustomIcon, [MatNativeDateModule]);
         fixture.detectChanges();
 
-        expect(fixture.nativeElement.querySelector('.mat-datepicker-toggle .custom-icon'))
+        expect(fixture.nativeElement.querySelector('.hc-datepicker-toggle .custom-icon'))
             .toBeTruthy('Expected custom icon to be rendered.');
 
-        expect(fixture.nativeElement.querySelector('.mat-datepicker-toggle mat-icon'))
+        expect(fixture.nativeElement.querySelector('.hc-datepicker-toggle hc-icon'))
             .toBeFalsy('Expected default icon to be removed.');
       }));
     });
 
-    describe('datepicker with tabindex on mat-datepicker-toggle', () => {
+    describe('datepicker with tabindex on hc-datepicker-toggle', () => {
       it('should forward the tabindex to the underlying button', () => {
         const fixture = createComponent(DatepickerWithTabindexOnToggle, [MatNativeDateModule]);
         fixture.detectChanges();
 
-        const button = fixture.nativeElement.querySelector('.mat-datepicker-toggle button');
+        const button = fixture.nativeElement.querySelector('.hc-datepicker-toggle button');
 
         expect(button.getAttribute('tabindex')).toBe('7');
       });
 
-      it('should clear the tabindex from the mat-datepicker-toggle host', () => {
+      it('should clear the tabindex from the hc-datepicker-toggle host', () => {
         const fixture = createComponent(DatepickerWithTabindexOnToggle, [MatNativeDateModule]);
         fixture.detectChanges();
 
-        const host = fixture.nativeElement.querySelector('.mat-datepicker-toggle');
+        const host = fixture.nativeElement.querySelector('.hc-datepicker-toggle');
 
         expect(host.getAttribute('tabindex')).toBe('-1');
       });
@@ -1164,11 +1164,11 @@ describe('MatDatepicker', () => {
         testComponent.datepicker.open();
         fixture.detectChanges();
 
-        expect(document.querySelector('mat-dialog-container')).not.toBeNull();
+        expect(document.querySelector('hc-dialog-container')).not.toBeNull();
 
-        const cells = document.querySelectorAll('.mat-calendar-body-cell');
-        expect(cells[0].classList).toContain('mat-calendar-body-disabled');
-        expect(cells[1].classList).not.toContain('mat-calendar-body-disabled');
+        const cells = document.querySelectorAll('.hc-calendar-body-cell');
+        expect(cells[0].classList).toContain('hc-calendar-body-disabled');
+        expect(cells[1].classList).not.toContain('hc-calendar-body-disabled');
       });
     });
 
@@ -1236,9 +1236,9 @@ describe('MatDatepicker', () => {
           testComponent.datepicker.open();
           fixture.detectChanges();
 
-          expect(document.querySelector('mat-dialog-container')).not.toBeNull();
+          expect(document.querySelector('hc-dialog-container')).not.toBeNull();
 
-          const cells = document.querySelectorAll('.mat-calendar-body-cell');
+          const cells = document.querySelectorAll('.hc-calendar-body-cell');
           dispatchMouseEvent(cells[0], 'click');
           fixture.detectChanges();
           flush();
@@ -1567,7 +1567,7 @@ describe('MatDatepicker', () => {
       flush();
       fixture.detectChanges();
 
-      expect(document.querySelector('mat-calendar-header')).toBeTruthy();
+      expect(document.querySelector('hc-calendar-header')).toBeTruthy();
     }));
 
     it('should find the custom element', fakeAsync(() => {
@@ -1586,7 +1586,7 @@ describe('MatDatepicker', () => {
 @Component({
   template: `
     <input [matDatepicker]="d" [value]="date">
-    <mat-datepicker #d [touchUi]="touch" [disabled]="disabled" [opened]="opened"></mat-datepicker>
+    <hc-datepicker #d [touchUi]="touch" [disabled]="disabled" [opened]="opened"></hc-datepicker>
   `,
 })
 class StandardDatepicker {
@@ -1601,14 +1601,14 @@ class StandardDatepicker {
 
 @Component({
   template: `
-    <input [matDatepicker]="d"><input [matDatepicker]="d"><mat-datepicker #d></mat-datepicker>
+    <input [matDatepicker]="d"><input [matDatepicker]="d"><hc-datepicker #d></hc-datepicker>
   `,
 })
 class MultiInputDatepicker {}
 
 
 @Component({
-  template: `<mat-datepicker #d></mat-datepicker>`,
+  template: `<hc-datepicker #d></hc-datepicker>`,
 })
 class NoInputDatepicker {
   @ViewChild('d') datepicker: MatDatepicker;
@@ -1618,7 +1618,7 @@ class NoInputDatepicker {
 @Component({
   template: `
     <input [matDatepicker]="d" [value]="date">
-    <mat-datepicker #d [startAt]="startDate"></mat-datepicker>
+    <hc-datepicker #d [startAt]="startDate"></hc-datepicker>
   `,
 })
 class DatepickerWithStartAt {
@@ -1631,7 +1631,7 @@ class DatepickerWithStartAt {
 @Component({
   template: `
     <input [matDatepicker]="d" [value]="date">
-    <mat-datepicker #d startView="year" (monthSelected)="onYearSelection()"></mat-datepicker>
+    <hc-datepicker #d startView="year" (monthSelected)="onYearSelection()"></hc-datepicker>
   `,
 })
 class DatepickerWithStartViewYear {
@@ -1645,8 +1645,8 @@ class DatepickerWithStartViewYear {
 @Component({
   template: `
     <input [matDatepicker]="d" [value]="date">
-    <mat-datepicker #d startView="multi-year"
-        (yearSelected)="onMultiYearSelection()"></mat-datepicker>
+    <hc-datepicker #d startView="multi-year"
+        (yearSelected)="onMultiYearSelection()"></hc-datepicker>
   `,
 })
 class DatepickerWithStartViewMultiYear {
@@ -1660,7 +1660,7 @@ class DatepickerWithStartViewMultiYear {
 @Component({
   template: `
     <input [(ngModel)]="selected" [matDatepicker]="d">
-    <mat-datepicker #d></mat-datepicker>
+    <hc-datepicker #d></hc-datepicker>
   `,
 })
 class DatepickerWithNgModel {
@@ -1673,8 +1673,8 @@ class DatepickerWithNgModel {
 @Component({
   template: `
     <input [formControl]="formControl" [matDatepicker]="d">
-    <mat-datepicker-toggle [for]="d"></mat-datepicker-toggle>
-    <mat-datepicker #d></mat-datepicker>
+    <hc-datepicker-toggle [for]="d"></hc-datepicker-toggle>
+    <hc-datepicker #d></hc-datepicker>
   `,
 })
 class DatepickerWithFormControl {
@@ -1688,8 +1688,8 @@ class DatepickerWithFormControl {
 @Component({
   template: `
     <input [matDatepicker]="d">
-    <mat-datepicker-toggle [for]="d"></mat-datepicker-toggle>
-    <mat-datepicker #d [touchUi]="touchUI"></mat-datepicker>
+    <hc-datepicker-toggle [for]="d"></hc-datepicker-toggle>
+    <hc-datepicker #d [touchUi]="touchUI"></hc-datepicker>
   `,
 })
 class DatepickerWithToggle {
@@ -1702,10 +1702,10 @@ class DatepickerWithToggle {
 @Component({
   template: `
     <input [matDatepicker]="d">
-    <mat-datepicker-toggle [for]="d">
+    <hc-datepicker-toggle [for]="d">
       <div class="custom-icon" matDatepickerToggleIcon></div>
-    </mat-datepicker-toggle>
-    <mat-datepicker #d></mat-datepicker>
+    </hc-datepicker-toggle>
+    <hc-datepicker #d></hc-datepicker>
   `,
 })
 class DatepickerWithCustomIcon {}
@@ -1715,7 +1715,7 @@ class DatepickerWithCustomIcon {}
   template: `
       <hc-form-field>
         <input hcInput [matDatepicker]="d">
-        <mat-datepicker #d></mat-datepicker>
+        <hc-datepicker #d></hc-datepicker>
       </hc-form-field>
   `,
 })
@@ -1730,8 +1730,8 @@ class FormFieldDatepicker {
 @Component({
   template: `
     <input [matDatepicker]="d" [(ngModel)]="date" [min]="minDate" [max]="maxDate">
-    <mat-datepicker-toggle [for]="d"></mat-datepicker-toggle>
-    <mat-datepicker #d></mat-datepicker>
+    <hc-datepicker-toggle [for]="d"></hc-datepicker-toggle>
+    <hc-datepicker #d></hc-datepicker>
   `,
 })
 class DatepickerWithMinAndMaxValidation {
@@ -1745,8 +1745,8 @@ class DatepickerWithMinAndMaxValidation {
 @Component({
   template: `
     <input [matDatepicker]="d" [(ngModel)]="date" [matDatepickerFilter]="filter">
-    <mat-datepicker-toggle [for]="d"></mat-datepicker-toggle>
-    <mat-datepicker #d [touchUi]="true"></mat-datepicker>
+    <hc-datepicker-toggle [for]="d"></hc-datepicker-toggle>
+    <hc-datepicker #d [touchUi]="true"></hc-datepicker>
   `,
 })
 class DatepickerWithFilterAndValidation {
@@ -1760,7 +1760,7 @@ class DatepickerWithFilterAndValidation {
   template: `
     <input [matDatepicker]="d" (change)="onChange()" (input)="onInput()"
            (dateChange)="onDateChange()" (dateInput)="onDateInput()">
-    <mat-datepicker #d [touchUi]="true"></mat-datepicker>
+    <hc-datepicker #d [touchUi]="true"></hc-datepicker>
   `
 })
 class DatepickerWithChangeAndInputEvents {
@@ -1779,7 +1779,7 @@ class DatepickerWithChangeAndInputEvents {
 @Component({
   template: `
     <input [matDatepicker]="d" [(ngModel)]="date">
-    <mat-datepicker #d></mat-datepicker>
+    <hc-datepicker #d></hc-datepicker>
   `
 })
 class DatepickerWithi18n {
@@ -1792,7 +1792,7 @@ class DatepickerWithi18n {
 @Component({
   template: `
     <input [matDatepicker]="d" [(ngModel)]="value" [min]="min" [max]="max">
-    <mat-datepicker #d [startAt]="startAt"></mat-datepicker>
+    <hc-datepicker #d [startAt]="startAt"></hc-datepicker>
   `
 })
 class DatepickerWithISOStrings {
@@ -1808,7 +1808,7 @@ class DatepickerWithISOStrings {
 @Component({
   template: `
     <input [(ngModel)]="selected" [matDatepicker]="d">
-    <mat-datepicker (opened)="openedSpy()" (closed)="closedSpy()" #d></mat-datepicker>
+    <hc-datepicker (opened)="openedSpy()" (closed)="closedSpy()" #d></hc-datepicker>
   `,
 })
 class DatepickerWithEvents {
@@ -1822,7 +1822,7 @@ class DatepickerWithEvents {
 @Component({
   template: `
     <input (focus)="d.open()" [matDatepicker]="d">
-    <mat-datepicker #d="matDatepicker"></mat-datepicker>
+    <hc-datepicker #d="matDatepicker"></hc-datepicker>
   `,
 })
 class DatepickerOpeningOnFocus {
@@ -1833,7 +1833,7 @@ class DatepickerOpeningOnFocus {
 @Component({
   template: `
     <input [matDatepicker]="ch">
-    <mat-datepicker #ch [calendarHeaderComponent]="customHeaderForDatePicker"></mat-datepicker>
+    <hc-datepicker #ch [calendarHeaderComponent]="customHeaderForDatePicker"></hc-datepicker>
   `,
 })
 class DatepickerWithCustomHeader {
@@ -1844,7 +1844,7 @@ class DatepickerWithCustomHeader {
 @Component({
   template: `
     <div class="custom-element">Custom element</div>
-    <mat-calendar-header></mat-calendar-header>
+    <hc-calendar-header></hc-calendar-header>
   `,
 })
 class CustomHeaderForDatepicker {}
@@ -1852,7 +1852,7 @@ class CustomHeaderForDatepicker {}
 @Component({
   template: `
     <input [matDatepicker]="assignedDatepicker" [value]="date">
-    <mat-datepicker #d [touchUi]="touch"></mat-datepicker>
+    <hc-datepicker #d [touchUi]="touch"></hc-datepicker>
   `,
 })
 class DelayedDatepicker {
@@ -1867,10 +1867,10 @@ class DelayedDatepicker {
 @Component({
   template: `
     <input [matDatepicker]="d">
-    <mat-datepicker-toggle tabIndex="7" [for]="d">
+    <hc-datepicker-toggle tabIndex="7" [for]="d">
       <div class="custom-icon" matDatepickerToggleIcon></div>
-    </mat-datepicker-toggle>
-    <mat-datepicker #d></mat-datepicker>
+    </hc-datepicker-toggle>
+    <hc-datepicker #d></hc-datepicker>
   `,
 })
 class DatepickerWithTabindexOnToggle {}

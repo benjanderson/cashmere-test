@@ -58,17 +58,17 @@ describe('MatYearView', () => {
     });
 
     it('has correct year label', () => {
-      const labelEl = yearViewNativeElement.querySelector('.mat-calendar-body-label')!;
+      const labelEl = yearViewNativeElement.querySelector('.hc-calendar-body-label')!;
       expect(labelEl.innerHTML.trim()).toBe('2017');
     });
 
     it('has 12 months', () => {
-      const cellEls = yearViewNativeElement.querySelectorAll('.mat-calendar-body-cell')!;
+      const cellEls = yearViewNativeElement.querySelectorAll('.hc-calendar-body-cell')!;
       expect(cellEls.length).toBe(12);
     });
 
     it('shows selected month if in same year', () => {
-      const selectedEl = yearViewNativeElement.querySelector('.mat-calendar-body-selected')!;
+      const selectedEl = yearViewNativeElement.querySelector('.hc-calendar-body-selected')!;
       expect(selectedEl.innerHTML.trim()).toBe('MAR');
     });
 
@@ -76,21 +76,21 @@ describe('MatYearView', () => {
       testComponent.selected = new Date(2016, MAR, 10);
       fixture.detectChanges();
 
-      const selectedEl = yearViewNativeElement.querySelector('.mat-calendar-body-selected');
+      const selectedEl = yearViewNativeElement.querySelector('.hc-calendar-body-selected');
       expect(selectedEl).toBeNull();
     });
 
     it('fires selected change event on cell clicked', () => {
-      const cellEls = yearViewNativeElement.querySelectorAll('.mat-calendar-body-cell');
+      const cellEls = yearViewNativeElement.querySelectorAll('.hc-calendar-body-cell');
       (cellEls[cellEls.length - 1] as HTMLElement).click();
       fixture.detectChanges();
 
-      const selectedEl = yearViewNativeElement.querySelector('.mat-calendar-body-selected')!;
+      const selectedEl = yearViewNativeElement.querySelector('.hc-calendar-body-selected')!;
       expect(selectedEl.innerHTML.trim()).toBe('DEC');
     });
 
     it('should emit the selected month on cell clicked', () => {
-      const cellEls = yearViewNativeElement.querySelectorAll('.mat-calendar-body-cell');
+      const cellEls = yearViewNativeElement.querySelectorAll('.hc-calendar-body-cell');
 
       (cellEls[cellEls.length - 1] as HTMLElement).click();
       fixture.detectChanges();
@@ -100,9 +100,9 @@ describe('MatYearView', () => {
     });
 
     it('should mark active date', () => {
-      const cellEls = yearViewNativeElement.querySelectorAll('.mat-calendar-body-cell');
+      const cellEls = yearViewNativeElement.querySelectorAll('.hc-calendar-body-cell');
       expect((cellEls[0] as HTMLElement).innerText.trim()).toBe('JAN');
-      expect(cellEls[0].classList).toContain('mat-calendar-body-active');
+      expect(cellEls[0].classList).toContain('hc-calendar-body-active');
     });
 
     it('should allow selection of month with less days than current active date', () => {
@@ -123,7 +123,7 @@ describe('MatYearView', () => {
         beforeEach(() => {
           calendarInstance = fixture.componentInstance;
           calendarBodyEl =
-            fixture.debugElement.nativeElement.querySelector('.mat-calendar-body') as HTMLElement;
+            fixture.debugElement.nativeElement.querySelector('.hc-calendar-body') as HTMLElement;
           expect(calendarBodyEl).not.toBeNull();
           dir.value = 'ltr';
           fixture.componentInstance.date = new Date(2017, JAN, 5);
@@ -305,9 +305,9 @@ describe('MatYearView', () => {
     });
 
     it('should disable months with no enabled days', () => {
-      const cells = yearViewNativeElement.querySelectorAll('.mat-calendar-body-cell');
-      expect(cells[0].classList).not.toContain('mat-calendar-body-disabled');
-      expect(cells[1].classList).toContain('mat-calendar-body-disabled');
+      const cells = yearViewNativeElement.querySelectorAll('.hc-calendar-body-cell');
+      expect(cells[0].classList).not.toContain('hc-calendar-body-disabled');
+      expect(cells[1].classList).toContain('hc-calendar-body-disabled');
     });
   });
 });
@@ -315,8 +315,8 @@ describe('MatYearView', () => {
 
 @Component({
   template: `
-    <mat-year-view [(activeDate)]="date" [(selected)]="selected"
-                   (monthSelected)="selectedMonth=$event"></mat-year-view>`
+    <hc-year-view [(activeDate)]="date" [(selected)]="selected"
+                   (monthSelected)="selectedMonth=$event"></hc-year-view>`
 })
 class StandardYearView {
   date = new Date(2017, JAN, 5);
@@ -328,7 +328,7 @@ class StandardYearView {
 
 
 @Component({
-  template: `<mat-year-view [activeDate]="activeDate" [dateFilter]="dateFilter"></mat-year-view>`
+  template: `<hc-year-view [activeDate]="activeDate" [dateFilter]="dateFilter"></hc-year-view>`
 })
 class YearViewWithDateFilter {
   activeDate = new Date(2017, JAN, 1);

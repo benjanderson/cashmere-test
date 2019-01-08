@@ -47,7 +47,7 @@ export class MatDialogRef<T, R = any> {
     public _containerInstance: MatDialogContainer,
     // @breaking-change 8.0.0 `_location` parameter to be removed.
     _location?: Location,
-    readonly id: string = `mat-dialog-${uniqueId++}`) {
+    readonly id: string = `hc-dialog-${uniqueId++}`) {
 
     // Pass the id along to the container.
     _containerInstance._id = id;

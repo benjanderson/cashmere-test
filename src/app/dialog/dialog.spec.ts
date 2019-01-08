@@ -94,7 +94,7 @@ describe('MatDialog', () => {
     expect(dialogRef.componentInstance.dialogRef).toBe(dialogRef);
 
     viewContainerFixture.detectChanges();
-    const dialogContainerElement = overlayContainerElement.querySelector('mat-dialog-container')!;
+    const dialogContainerElement = overlayContainerElement.querySelector('hc-dialog-container')!;
     expect(dialogContainerElement.getAttribute('role')).toBe('dialog');
   });
 
@@ -114,7 +114,7 @@ describe('MatDialog', () => {
 
     viewContainerFixture.detectChanges();
 
-    const dialogContainerElement = overlayContainerElement.querySelector('mat-dialog-container')!;
+    const dialogContainerElement = overlayContainerElement.querySelector('hc-dialog-container')!;
     expect(dialogContainerElement.getAttribute('role')).toBe('dialog');
 
     dialogRef.close();
@@ -160,7 +160,7 @@ describe('MatDialog', () => {
     expect(dialogRef.componentInstance.dialogRef).toBe(dialogRef);
 
     viewContainerFixture.detectChanges();
-    const dialogContainerElement = overlayContainerElement.querySelector('mat-dialog-container')!;
+    const dialogContainerElement = overlayContainerElement.querySelector('hc-dialog-container')!;
     expect(dialogContainerElement.getAttribute('role')).toBe('dialog');
   });
 
@@ -169,7 +169,7 @@ describe('MatDialog', () => {
 
     viewContainerFixture.detectChanges();
 
-    const dialogContainerElement = overlayContainerElement.querySelector('mat-dialog-container')!;
+    const dialogContainerElement = overlayContainerElement.querySelector('hc-dialog-container')!;
     expect(dialogContainerElement.getAttribute('role')).toBe('alertdialog');
   });
 
@@ -178,7 +178,7 @@ describe('MatDialog', () => {
 
     viewContainerFixture.detectChanges();
 
-    const dialogContainerElement = overlayContainerElement.querySelector('mat-dialog-container')!;
+    const dialogContainerElement = overlayContainerElement.querySelector('hc-dialog-container')!;
     expect(dialogContainerElement.getAttribute('aria-describedby')).toBe('description-element');
   });
 
@@ -192,7 +192,7 @@ describe('MatDialog', () => {
     flush();
 
     expect(afterCloseCallback).toHaveBeenCalledWith('Charmander');
-    expect(overlayContainerElement.querySelector('mat-dialog-container')).toBeNull();
+    expect(overlayContainerElement.querySelector('hc-dialog-container')).toBeNull();
   }));
 
   it('should dispatch the beforeClose and afterClose events when the ' +
@@ -223,7 +223,7 @@ describe('MatDialog', () => {
 
     // beforeClose should emit before dialog container is destroyed
     const beforeCloseHandler = jasmine.createSpy('beforeClose callback').and.callFake(() => {
-      expect(overlayContainerElement.querySelector('mat-dialog-container'))
+      expect(overlayContainerElement.querySelector('hc-dialog-container'))
           .not.toBeNull('dialog container exists when beforeClose is called');
     });
 
@@ -233,7 +233,7 @@ describe('MatDialog', () => {
     flush();
 
     expect(beforeCloseHandler).toHaveBeenCalledWith('Bulbasaur');
-    expect(overlayContainerElement.querySelector('mat-dialog-container')).toBeNull();
+    expect(overlayContainerElement.querySelector('hc-dialog-container')).toBeNull();
   }));
 
   it('should close a dialog via the escape key', fakeAsync(() => {
@@ -245,7 +245,7 @@ describe('MatDialog', () => {
     viewContainerFixture.detectChanges();
     flush();
 
-    expect(overlayContainerElement.querySelector('mat-dialog-container')).toBeNull();
+    expect(overlayContainerElement.querySelector('hc-dialog-container')).toBeNull();
   }));
 
   it('should close from a ViewContainerRef with OnPush change detection', fakeAsync(() => {
@@ -261,7 +261,7 @@ describe('MatDialog', () => {
     onPushFixture.detectChanges();
     flushMicrotasks();
 
-    expect(overlayContainerElement.querySelectorAll('mat-dialog-container').length)
+    expect(overlayContainerElement.querySelectorAll('hc-dialog-container').length)
         .toBe(1, 'Expected one open dialog.');
 
     dialogRef.close();
@@ -269,7 +269,7 @@ describe('MatDialog', () => {
     onPushFixture.detectChanges();
     tick(500);
 
-    expect(overlayContainerElement.querySelectorAll('mat-dialog-container').length)
+    expect(overlayContainerElement.querySelectorAll('hc-dialog-container').length)
         .toBe(0, 'Expected no open dialogs.');
   }));
 
@@ -286,7 +286,7 @@ describe('MatDialog', () => {
     viewContainerFixture.detectChanges();
     flush();
 
-    expect(overlayContainerElement.querySelector('mat-dialog-container')).toBeFalsy();
+    expect(overlayContainerElement.querySelector('hc-dialog-container')).toBeFalsy();
   }));
 
   it('should emit the backdropClick stream when clicking on the overlay backdrop', fakeAsync(() => {
@@ -321,7 +321,7 @@ describe('MatDialog', () => {
     viewContainerFixture.detectChanges();
 
     const backdrop = overlayContainerElement.querySelector('.cdk-overlay-backdrop') as HTMLElement;
-    const container = overlayContainerElement.querySelector('mat-dialog-container') as HTMLElement;
+    const container = overlayContainerElement.querySelector('hc-dialog-container') as HTMLElement;
     dispatchKeyboardEvent(document.body, 'keydown', A);
     dispatchKeyboardEvent(document.body, 'keydown', A, backdrop);
     dispatchKeyboardEvent(document.body, 'keydown', A, container);
@@ -591,13 +591,13 @@ describe('MatDialog', () => {
     dialog.open(PizzaMsg);
     dialog.open(PizzaMsg);
 
-    expect(overlayContainerElement.querySelectorAll('mat-dialog-container').length).toBe(3);
+    expect(overlayContainerElement.querySelectorAll('hc-dialog-container').length).toBe(3);
 
     dialog.closeAll();
     viewContainerFixture.detectChanges();
     flush();
 
-    expect(overlayContainerElement.querySelectorAll('mat-dialog-container').length).toBe(0);
+    expect(overlayContainerElement.querySelectorAll('hc-dialog-container').length).toBe(0);
   }));
 
   it('should set the proper animation states', () => {
@@ -617,13 +617,13 @@ describe('MatDialog', () => {
     dialog.open(PizzaMsg);
     dialog.open(PizzaMsg);
 
-    expect(overlayContainerElement.querySelectorAll('mat-dialog-container').length).toBe(2);
+    expect(overlayContainerElement.querySelectorAll('hc-dialog-container').length).toBe(2);
 
     mockLocation.simulateUrlPop('');
     viewContainerFixture.detectChanges();
     flush();
 
-    expect(overlayContainerElement.querySelectorAll('mat-dialog-container').length).toBe(0);
+    expect(overlayContainerElement.querySelectorAll('hc-dialog-container').length).toBe(0);
   }));
 
   // skipping test because I am not sure we are properly simulating a navigation event
@@ -631,13 +631,13 @@ describe('MatDialog', () => {
     dialog.open(PizzaMsg);
     dialog.open(PizzaMsg);
 
-    expect(overlayContainerElement.querySelectorAll('mat-dialog-container').length).toBe(2);
+    expect(overlayContainerElement.querySelectorAll('hc-dialog-container').length).toBe(2);
 
     mockLocation.simulateHashChange('');
     viewContainerFixture.detectChanges();
     flush();
 
-    expect(overlayContainerElement.querySelectorAll('mat-dialog-container').length).toBe(0);
+    expect(overlayContainerElement.querySelectorAll('hc-dialog-container').length).toBe(0);
   }));
 
   it('should close all of the dialogs when the injectable is destroyed', fakeAsync(() => {
@@ -645,13 +645,13 @@ describe('MatDialog', () => {
     dialog.open(PizzaMsg);
     dialog.open(PizzaMsg);
 
-    expect(overlayContainerElement.querySelectorAll('mat-dialog-container').length).toBe(3);
+    expect(overlayContainerElement.querySelectorAll('hc-dialog-container').length).toBe(3);
 
     dialog.ngOnDestroy();
     viewContainerFixture.detectChanges();
     flush();
 
-    expect(overlayContainerElement.querySelectorAll('mat-dialog-container').length).toBe(0);
+    expect(overlayContainerElement.querySelectorAll('hc-dialog-container').length).toBe(0);
   }));
 
   it('should complete open and close streams when the injectable is destroyed', fakeAsync(() => {
@@ -676,13 +676,13 @@ describe('MatDialog', () => {
     dialog.open(PizzaMsg);
     dialog.open(PizzaMsg, {closeOnNavigation: false});
 
-    expect(overlayContainerElement.querySelectorAll('mat-dialog-container').length).toBe(2);
+    expect(overlayContainerElement.querySelectorAll('hc-dialog-container').length).toBe(2);
 
     mockLocation.simulateUrlPop('');
     viewContainerFixture.detectChanges();
     flush();
 
-    expect(overlayContainerElement.querySelectorAll('mat-dialog-container').length).toBe(1);
+    expect(overlayContainerElement.querySelectorAll('hc-dialog-container').length).toBe(1);
   }));
 
   it('should have the componentInstance available in the afterClosed callback', fakeAsync(() => {
@@ -848,7 +848,7 @@ describe('MatDialog', () => {
       viewContainerFixture.detectChanges();
       flush();
 
-      expect(overlayContainerElement.querySelector('mat-dialog-container')).toBeTruthy();
+      expect(overlayContainerElement.querySelector('hc-dialog-container')).toBeTruthy();
     }));
 
     it('should prevent closing via the escape key', fakeAsync(() => {
@@ -862,7 +862,7 @@ describe('MatDialog', () => {
       viewContainerFixture.detectChanges();
       flush();
 
-      expect(overlayContainerElement.querySelector('mat-dialog-container')).toBeTruthy();
+      expect(overlayContainerElement.querySelector('hc-dialog-container')).toBeTruthy();
     }));
 
     it('should allow for the disableClose option to be updated while open', fakeAsync(() => {
@@ -876,14 +876,14 @@ describe('MatDialog', () => {
       const backdrop = overlayContainerElement.querySelector('.cdk-overlay-backdrop') as HTMLElement;
       backdrop.click();
 
-      expect(overlayContainerElement.querySelector('mat-dialog-container')).toBeTruthy();
+      expect(overlayContainerElement.querySelector('hc-dialog-container')).toBeTruthy();
 
       dialogRef.disableClose = false;
       backdrop.click();
       viewContainerFixture.detectChanges();
       flush();
 
-      expect(overlayContainerElement.querySelector('mat-dialog-container')).toBeFalsy();
+      expect(overlayContainerElement.querySelector('hc-dialog-container')).toBeFalsy();
     }));
   });
 
@@ -1046,7 +1046,7 @@ describe('MatDialog', () => {
         flushMicrotasks();
 
         expect(document.activeElement!.tagName)
-            .toBe('MAT-DIALOG-CONTAINER', 'Expected dialog container to be focused.');
+            .toBe('hc-DIALOG-CONTAINER', 'Expected dialog container to be focused.');
       }));
 
     it('should be able to disable focus restoration', fakeAsync(() => {
@@ -1113,21 +1113,21 @@ describe('MatDialog', () => {
 
     function runContentElementTests() {
       it('should close the dialog when clicking on the close button', fakeAsync(() => {
-        expect(overlayContainerElement.querySelectorAll('.mat-dialog-container').length).toBe(1);
+        expect(overlayContainerElement.querySelectorAll('.hc-dialog-container').length).toBe(1);
 
-        (overlayContainerElement.querySelector('button[mat-dialog-close]') as HTMLElement).click();
+        (overlayContainerElement.querySelector('button[hc-dialog-close]') as HTMLElement).click();
         viewContainerFixture.detectChanges();
         flush();
 
-        expect(overlayContainerElement.querySelectorAll('.mat-dialog-container').length).toBe(0);
+        expect(overlayContainerElement.querySelectorAll('.hc-dialog-container').length).toBe(0);
       }));
 
-      it('should not close if [mat-dialog-close] is applied on a non-button node', () => {
-        expect(overlayContainerElement.querySelectorAll('.mat-dialog-container').length).toBe(1);
+      it('should not close if [hc-dialog-close] is applied on a non-button node', () => {
+        expect(overlayContainerElement.querySelectorAll('.hc-dialog-container').length).toBe(1);
 
-        (overlayContainerElement.querySelector('div[mat-dialog-close]') as HTMLElement).click();
+        (overlayContainerElement.querySelector('div[hc-dialog-close]') as HTMLElement).click();
 
-        expect(overlayContainerElement.querySelectorAll('.mat-dialog-container').length).toBe(1);
+        expect(overlayContainerElement.querySelectorAll('.hc-dialog-container').length).toBe(1);
       });
 
       it('should allow for a user-specified aria-label on the close button', fakeAsync(() => {
@@ -1136,12 +1136,12 @@ describe('MatDialog', () => {
       }));
 
       it('should override the "type" attribute of the close button', () => {
-        const button = overlayContainerElement.querySelector('button[mat-dialog-close]')!;
+        const button = overlayContainerElement.querySelector('button[hc-dialog-close]')!;
 
         expect(button.getAttribute('type')).toBe('button');
       });
 
-      it('should return the [mat-dialog-close] result when clicking the close button',
+      it('should return the [hc-dialog-close] result when clicking the close button',
         fakeAsync(() => {
           const afterCloseCallback = jasmine.createSpy('afterClose callback');
           dialogRef.afterClosed().subscribe(afterCloseCallback);
@@ -1154,8 +1154,8 @@ describe('MatDialog', () => {
         }));
 
       it('should set the aria-labelledby attribute to the id of the title', fakeAsync(() => {
-        const title = overlayContainerElement.querySelector('[mat-dialog-title]')!;
-        const container = overlayContainerElement.querySelector('mat-dialog-container')!;
+        const title = overlayContainerElement.querySelector('[hc-dialog-title]')!;
+        const container = overlayContainerElement.querySelector('hc-dialog-container')!;
 
         flush();
         viewContainerFixture.detectChanges();
@@ -1175,7 +1175,7 @@ describe('MatDialog', () => {
       });
       viewContainerFixture.detectChanges();
 
-      const container = overlayContainerElement.querySelector('mat-dialog-container')!;
+      const container = overlayContainerElement.querySelector('hc-dialog-container')!;
       expect(container.getAttribute('aria-label')).toBe('Hello there');
     });
 
@@ -1188,7 +1188,7 @@ describe('MatDialog', () => {
       tick();
       viewContainerFixture.detectChanges();
 
-      const container = overlayContainerElement.querySelector('mat-dialog-container')!;
+      const container = overlayContainerElement.querySelector('hc-dialog-container')!;
       expect(container.hasAttribute('aria-labelledby')).toBe(false);
     }));
   });
@@ -1269,7 +1269,7 @@ describe('MatDialog with a parent MatDialog', () => {
     fixture.detectChanges();
     flush();
 
-    expect(overlayContainerElement.querySelector('mat-dialog-container')).toBeNull();
+    expect(overlayContainerElement.querySelector('hc-dialog-container')).toBeNull();
   }));
 
   it('should not close the parent dialogs when a child is destroyed', fakeAsync(() => {
@@ -1346,7 +1346,7 @@ describe('MatDialog with default options', () => {
     expect(overlayContainerElement.querySelector('.cdk-overlay-backdrop')).toBeFalsy();
 
     dispatchKeyboardEvent(document.body, 'keydown', ESCAPE);
-    expect(overlayContainerElement.querySelector('mat-dialog-container')).toBeTruthy();
+    expect(overlayContainerElement.querySelector('hc-dialog-container')).toBeTruthy();
 
     expect(document.activeElement!.tagName).not.toBe('INPUT');
 
@@ -1374,7 +1374,7 @@ describe('MatDialog with default options', () => {
     viewContainerFixture.detectChanges();
     flush();
 
-    expect(overlayContainerElement.querySelector('mat-dialog-container')).toBeFalsy();
+    expect(overlayContainerElement.querySelector('hc-dialog-container')).toBeFalsy();
   }));
 });
 
@@ -1431,17 +1431,17 @@ class PizzaMsg {
 
 @Component({
   template: `
-    <h1 mat-dialog-title>This is the title</h1>
-    <mat-dialog-content>Lorem ipsum dolor sit amet.</mat-dialog-content>
-    <mat-dialog-actions>
-      <button mat-dialog-close>Close</button>
-      <button class="close-with-true" [mat-dialog-close]="true">Close and return true</button>
+    <h1 hc-dialog-title>This is the title</h1>
+    <hc-dialog-content>Lorem ipsum dolor sit amet.</hc-dialog-content>
+    <hc-dialog-actions>
+      <button hc-dialog-close>Close</button>
+      <button class="close-with-true" [hc-dialog-close]="true">Close and return true</button>
       <button
         class="close-with-aria-label"
         aria-label="Best close button ever"
-        [mat-dialog-close]="true">Close</button>
-      <div mat-dialog-close>Should not close</div>
-    </mat-dialog-actions>
+        [hc-dialog-close]="true">Close</button>
+      <div hc-dialog-close>Should not close</div>
+    </hc-dialog-actions>
   `
 })
 class ContentElementDialog {}
@@ -1449,17 +1449,17 @@ class ContentElementDialog {}
 @Component({
   template: `
     <ng-template>
-      <h1 mat-dialog-title>This is the title</h1>
-      <mat-dialog-content>Lorem ipsum dolor sit amet.</mat-dialog-content>
-      <mat-dialog-actions>
-        <button mat-dialog-close>Close</button>
-        <button class="close-with-true" [mat-dialog-close]="true">Close and return true</button>
+      <h1 hc-dialog-title>This is the title</h1>
+      <hc-dialog-content>Lorem ipsum dolor sit amet.</hc-dialog-content>
+      <hc-dialog-actions>
+        <button hc-dialog-close>Close</button>
+        <button class="close-with-true" [hc-dialog-close]="true">Close and return true</button>
         <button
           class="close-with-aria-label"
           aria-label="Best close button ever"
-          [mat-dialog-close]="true">Close</button>
-        <div mat-dialog-close>Should not close</div>
-      </mat-dialog-actions>
+          [hc-dialog-close]="true">Close</button>
+        <div hc-dialog-close>Should not close</div>
+      </hc-dialog-actions>
     </ng-template>
   `
 })

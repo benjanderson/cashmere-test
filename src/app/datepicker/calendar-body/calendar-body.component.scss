@@ -1,33 +1,33 @@
 @import '~@healthcatalyst/cashmere/scss/colors';
 @import '~@healthcatalyst/cashmere/scss/typography';
 
-$mat-calendar-body-label-padding-start: 5% !default;
+$hc-calendar-body-label-padding-start: 5% !default;
 // We don't want the label to jump around when we switch between month and year views, so we use
 // the same amount of padding regardless of the number of columns. We align the header label with
 // the one third mark of the first cell, this was chosen somewhat arbitrarily to make it look
 // roughly like the mock. Half way is too far since the cell text is center aligned.
-$mat-calendar-body-label-side-padding: 33% / 7 !default;
-$mat-calendar-body-cell-min-size: 32px !default;
-$mat-calendar-body-cell-content-margin: 5% !default;
-$mat-calendar-body-cell-content-border-width: 1px !default;
+$hc-calendar-body-label-side-padding: 33% / 7 !default;
+$hc-calendar-body-cell-min-size: 32px !default;
+$hc-calendar-body-cell-content-margin: 5% !default;
+$hc-calendar-body-cell-content-border-width: 1px !default;
 
-$mat-calendar-body-min-size: 7 * $mat-calendar-body-cell-min-size !default;
-$mat-calendar-body-cell-content-size: 100% - $mat-calendar-body-cell-content-margin * 2 !default;
+$hc-calendar-body-min-size: 7 * $hc-calendar-body-cell-min-size !default;
+$hc-calendar-body-cell-content-size: 100% - $hc-calendar-body-cell-content-margin * 2 !default;
 $hc-calendar-body-disabled-color: $slate-gray-300 !default;
 
-.mat-calendar-body {
-    min-width: $mat-calendar-body-min-size;
+.hc-calendar-body {
+    min-width: $hc-calendar-body-min-size;
 }
 
-.mat-calendar-body-label {
+.hc-calendar-body-label {
   height: 0;
   line-height: 0;
   text-align: left;
-  padding-left: $mat-calendar-body-label-side-padding;
-  padding-right: $mat-calendar-body-label-side-padding;
+  padding-left: $hc-calendar-body-label-side-padding;
+  padding-right: $hc-calendar-body-label-side-padding;
 }
 
-.mat-calendar-body-cell {
+.hc-calendar-body-cell {
   position: relative;
   height: 0;
   line-height: 0;
@@ -36,27 +36,27 @@ $hc-calendar-body-disabled-color: $slate-gray-300 !default;
   cursor: pointer;
 }
 
-.mat-calendar-body-disabled {
+.hc-calendar-body-disabled {
   cursor: default;
 }
 
-.mat-calendar-body-cell-content {
+.hc-calendar-body-cell-content {
   position: absolute;
-  top: $mat-calendar-body-cell-content-margin;
-  left: $mat-calendar-body-cell-content-margin;
+  top: $hc-calendar-body-cell-content-margin;
+  left: $hc-calendar-body-cell-content-margin;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
   box-sizing: border-box;
-  width: $mat-calendar-body-cell-content-size;
-  height: $mat-calendar-body-cell-content-size;
+  width: $hc-calendar-body-cell-content-size;
+  height: $hc-calendar-body-cell-content-size;
 
   // Prevents text being off-center on Android.
   line-height: 1;
 
-  border-width: $mat-calendar-body-cell-content-border-width;
+  border-width: $hc-calendar-body-cell-content-border-width;
   border-style: solid;
 
   // Choosing a value clearly larger than the height ensures we get the correct capsule shape.
@@ -65,92 +65,92 @@ $hc-calendar-body-disabled-color: $slate-gray-300 !default;
 }
 
 [dir='rtl'] {
-  .mat-calendar-body-label {
+  .hc-calendar-body-label {
     text-align: right;
   }
 }
 
-$mat-datepicker-selected-today-box-shadow-width: 1px;
-$mat-datepicker-selected-fade-amount: 0.6;
-$mat-datepicker-today-fade-amount: 0.2;
-$mat-calendar-body-font-size: 13px !default;
-$mat-calendar-weekday-table-font-size: 11px !default;
+$hc-datepicker-selected-today-box-shadow-width: 1px;
+$hc-datepicker-selected-fade-amount: 0.6;
+$hc-datepicker-today-fade-amount: 0.2;
+$hc-calendar-body-font-size: 13px !default;
+$hc-calendar-weekday-table-font-size: 11px !default;
 
-.mat-calendar-body {
+.hc-calendar-body {
   font-size: $default-font-size;
 }
 
-.mat-calendar-body-label,
-.mat-calendar-period-button {
+.hc-calendar-body-label,
+.hc-calendar-period-button {
   font: {
       size: $default-font-size;
   }
 }
 
-.mat-calendar-body-selected {
+.hc-calendar-body-selected {
     background-color: darken($primary-brand, 10%);
     color: $white;
     font-weight: 700;
 }
 
-.mat-calendar-body-disabled > .mat-calendar-body-selected {
+.hc-calendar-body-disabled > .hc-calendar-body-selected {
     background-color: $hc-calendar-body-disabled-color;
 }
 
-.mat-calendar-body-today.mat-calendar-body-selected {
-    box-shadow: inset 0 0 0 $mat-datepicker-selected-today-box-shadow-width $hc-calendar-body-disabled-color;
+.hc-calendar-body-today.hc-calendar-body-selected {
+    box-shadow: inset 0 0 0 $hc-datepicker-selected-today-box-shadow-width $hc-calendar-body-disabled-color;
 }
 
-.mat-calendar-arrow {
+.hc-calendar-arrow {
     border-top-color: $primary-brand;
 }
 
 // The prev/next buttons need a bit more specificity to
-// avoid being overwritten by the .mat-icon-button.
-.mat-datepicker-toggle,
-.mat-datepicker-content .mat-calendar-next-button,
-.mat-datepicker-content .mat-calendar-previous-button {
+// avoid being overwritten by the .hc-icon-button.
+.hc-datepicker-toggle,
+.hc-datepicker-content .hc-calendar-next-button,
+.hc-datepicker-content .hc-calendar-previous-button {
     color: $primary-brand;
 }
 
-.mat-calendar-table-header {
+.hc-calendar-table-header {
     color: $primary-brand;
 }
 
-.mat-calendar-table-header-divider::after {
+.hc-calendar-table-header-divider::after {
     background: #e0e0e0;
 }
 
 
-.mat-calendar-body-label {
+.hc-calendar-body-label {
   color: $primary-brand;
 }
 
-.mat-calendar-body-cell-content:not(.mat-calendar-body-selected) {
+.hc-calendar-body-cell-content:not(.hc-calendar-body-selected) {
   color: $text;
   border-color: transparent;
 }
 
-.mat-calendar-body-disabled > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected) {
+.hc-calendar-body-disabled > .hc-calendar-body-cell-content:not(.hc-calendar-body-selected) {
   color: $hc-calendar-body-disabled-color;
 }
 
-.mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover,
-.cdk-keyboard-focused .mat-calendar-body-active,
-.cdk-program-focused .mat-calendar-body-active {
-  & > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected) {
+.hc-calendar-body-cell:not(.hc-calendar-body-disabled):hover,
+.cdk-keyboard-focused .hc-calendar-body-active,
+.cdk-program-focused .hc-calendar-body-active {
+  & > .hc-calendar-body-cell-content:not(.hc-calendar-body-selected) {
       border: 2px solid darken($primary-brand, 10%);
   }
 }
 
-.mat-calendar-body-today:not(.mat-calendar-body-selected) {
+.hc-calendar-body-today:not(.hc-calendar-body-selected) {
   // Note: though it's not text, the border is a hint about the fact that this is today's date,
   // so we use the hint color.
   border-color: transparent;
   background-color: $hc-calendar-body-disabled-color;
 }
 
-.mat-calendar-body-disabled > .mat-calendar-body-today:not(.mat-calendar-body-selected) {
+.hc-calendar-body-disabled > .hc-calendar-body-today:not(.hc-calendar-body-selected) {
   border-color: transparent;
   background-color: $hc-calendar-body-disabled-color;
 }

@@ -61,17 +61,17 @@ describe('MatMonthView', () => {
     });
 
     it('has correct month label', () => {
-      const labelEl = monthViewNativeElement.querySelector('.mat-calendar-body-label')!;
+      const labelEl = monthViewNativeElement.querySelector('.hc-calendar-body-label')!;
       expect(labelEl.innerHTML.trim()).toBe('JAN');
     });
 
     it('has 31 days', () => {
-      const cellEls = monthViewNativeElement.querySelectorAll('.mat-calendar-body-cell')!;
+      const cellEls = monthViewNativeElement.querySelectorAll('.hc-calendar-body-cell')!;
       expect(cellEls.length).toBe(31);
     });
 
     it('shows selected date if in same month', () => {
-      const selectedEl = monthViewNativeElement.querySelector('.mat-calendar-body-selected')!;
+      const selectedEl = monthViewNativeElement.querySelector('.hc-calendar-body-selected')!;
       expect(selectedEl.innerHTML.trim()).toBe('10');
     });
 
@@ -79,23 +79,23 @@ describe('MatMonthView', () => {
       testComponent.selected = new Date(2017, MAR, 10);
       fixture.detectChanges();
 
-      const selectedEl = monthViewNativeElement.querySelector('.mat-calendar-body-selected');
+      const selectedEl = monthViewNativeElement.querySelector('.hc-calendar-body-selected');
       expect(selectedEl).toBeNull();
     });
 
     it('fires selected change event on cell clicked', () => {
-      const cellEls = monthViewNativeElement.querySelectorAll('.mat-calendar-body-cell');
+      const cellEls = monthViewNativeElement.querySelectorAll('.hc-calendar-body-cell');
       (cellEls[cellEls.length - 1] as HTMLElement).click();
       fixture.detectChanges();
 
-      const selectedEl = monthViewNativeElement.querySelector('.mat-calendar-body-selected')!;
+      const selectedEl = monthViewNativeElement.querySelector('.hc-calendar-body-selected')!;
       expect(selectedEl.innerHTML.trim()).toBe('31');
     });
 
     it('should mark active date', () => {
-      const cellEls = monthViewNativeElement.querySelectorAll('.mat-calendar-body-cell');
+      const cellEls = monthViewNativeElement.querySelectorAll('.hc-calendar-body-cell');
       expect((cellEls[4] as HTMLElement).innerText.trim()).toBe('5');
-      expect(cellEls[4].classList).toContain('mat-calendar-body-active');
+      expect(cellEls[4].classList).toContain('hc-calendar-body-active');
     });
 
     describe('a11y', () => {
@@ -106,7 +106,7 @@ describe('MatMonthView', () => {
         beforeEach(() => {
           calendarInstance = fixture.componentInstance;
           calendarBodyEl =
-            fixture.debugElement.nativeElement.querySelector('.mat-calendar-body') as HTMLElement;
+            fixture.debugElement.nativeElement.querySelector('.hc-calendar-body') as HTMLElement;
           expect(calendarBodyEl).not.toBeNull();
           dir.value = 'ltr';
           fixture.componentInstance.date = new Date(2017, JAN, 5);
@@ -288,9 +288,9 @@ describe('MatMonthView', () => {
     });
 
     it('should disable filtered dates', () => {
-      const cells = monthViewNativeElement.querySelectorAll('.mat-calendar-body-cell');
-      expect(cells[0].classList).toContain('mat-calendar-body-disabled');
-      expect(cells[1].classList).not.toContain('mat-calendar-body-disabled');
+      const cells = monthViewNativeElement.querySelectorAll('.hc-calendar-body-cell');
+      expect(cells[0].classList).toContain('hc-calendar-body-disabled');
+      expect(cells[1].classList).not.toContain('hc-calendar-body-disabled');
     });
   });
 
@@ -307,7 +307,7 @@ describe('MatMonthView', () => {
     });
 
     it('should be able to add a custom class to some dates', () => {
-      const cells = monthViewNativeElement.querySelectorAll('.mat-calendar-body-cell');
+      const cells = monthViewNativeElement.querySelectorAll('.hc-calendar-body-cell');
       expect(cells[0].classList).not.toContain('even');
       expect(cells[1].classList).toContain('even');
     });
@@ -317,7 +317,7 @@ describe('MatMonthView', () => {
 
 
 @Component({
-  template: `<mat-month-view [(activeDate)]="date" [(selected)]="selected"></mat-month-view>`,
+  template: `<hc-month-view [(activeDate)]="date" [(selected)]="selected"></hc-month-view>`,
 })
 class StandardMonthView {
   date = new Date(2017, JAN, 5);
@@ -326,7 +326,7 @@ class StandardMonthView {
 
 
 @Component({
-  template: `<mat-month-view [activeDate]="activeDate" [dateFilter]="dateFilter"></mat-month-view>`
+  template: `<hc-month-view [activeDate]="activeDate" [dateFilter]="dateFilter"></hc-month-view>`
 })
 class MonthViewWithDateFilter {
   activeDate = new Date(2017, JAN, 1);
@@ -336,7 +336,7 @@ class MonthViewWithDateFilter {
 }
 
 @Component({
-  template: `<mat-month-view [activeDate]="activeDate" [dateClass]="dateClass"></mat-month-view>`
+  template: `<hc-month-view [activeDate]="activeDate" [dateClass]="dateClass"></hc-month-view>`
 })
 class MonthViewWithDateClass {
   activeDate = new Date(2017, JAN, 1);

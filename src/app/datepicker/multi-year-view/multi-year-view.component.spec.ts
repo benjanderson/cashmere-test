@@ -59,12 +59,12 @@ describe('MatMultiYearView', () => {
     });
 
     it('has correct number of years', () => {
-      const cellEls = multiYearViewNativeElement.querySelectorAll('.mat-calendar-body-cell')!;
+      const cellEls = multiYearViewNativeElement.querySelectorAll('.hc-calendar-body-cell')!;
       expect(cellEls.length).toBe(yearsPerPage);
     });
 
     it('shows selected year if in same range', () => {
-      const selectedEl = multiYearViewNativeElement.querySelector('.mat-calendar-body-selected')!;
+      const selectedEl = multiYearViewNativeElement.querySelector('.hc-calendar-body-selected')!;
       expect(selectedEl.innerHTML.trim()).toBe('2020');
     });
 
@@ -72,21 +72,21 @@ describe('MatMultiYearView', () => {
       testComponent.selected = new Date(2040, JAN, 10);
       fixture.detectChanges();
 
-      const selectedEl = multiYearViewNativeElement.querySelector('.mat-calendar-body-selected');
+      const selectedEl = multiYearViewNativeElement.querySelector('.hc-calendar-body-selected');
       expect(selectedEl).toBeNull();
     });
 
     it('fires selected change event on cell clicked', () => {
-      const cellEls = multiYearViewNativeElement.querySelectorAll('.mat-calendar-body-cell');
+      const cellEls = multiYearViewNativeElement.querySelectorAll('.hc-calendar-body-cell');
       (cellEls[cellEls.length - 1] as HTMLElement).click();
       fixture.detectChanges();
 
-      const selectedEl = multiYearViewNativeElement.querySelector('.mat-calendar-body-selected')!;
+      const selectedEl = multiYearViewNativeElement.querySelector('.hc-calendar-body-selected')!;
       expect(selectedEl.innerHTML.trim()).toBe('2039');
     });
 
     it('should emit the selected year on cell clicked', () => {
-      const cellEls = multiYearViewNativeElement.querySelectorAll('.mat-calendar-body-cell');
+      const cellEls = multiYearViewNativeElement.querySelectorAll('.hc-calendar-body-cell');
 
       (cellEls[1] as HTMLElement).click();
       fixture.detectChanges();
@@ -96,9 +96,9 @@ describe('MatMultiYearView', () => {
     });
 
     it('should mark active date', () => {
-      const cellEls = multiYearViewNativeElement.querySelectorAll('.mat-calendar-body-cell');
+      const cellEls = multiYearViewNativeElement.querySelectorAll('.hc-calendar-body-cell');
       expect((cellEls[1] as HTMLElement).innerText.trim()).toBe('2017');
-      expect(cellEls[1].classList).toContain('mat-calendar-body-active');
+      expect(cellEls[1].classList).toContain('hc-calendar-body-active');
     });
 
     describe('a11y', () => {
@@ -109,7 +109,7 @@ describe('MatMultiYearView', () => {
         beforeEach(() => {
           calendarInstance = fixture.componentInstance;
           calendarBodyEl =
-            fixture.debugElement.nativeElement.querySelector('.mat-calendar-body') as HTMLElement;
+            fixture.debugElement.nativeElement.querySelector('.hc-calendar-body') as HTMLElement;
           expect(calendarBodyEl).not.toBeNull();
           dir.value = 'ltr';
           fixture.componentInstance.date = new Date(2017, JAN, 1);
@@ -239,9 +239,9 @@ describe('MatMultiYearView', () => {
     });
 
     it('should disablex years with no enabled days', () => {
-      const cells = multiYearViewNativeElement.querySelectorAll('.mat-calendar-body-cell');
-      expect(cells[0].classList).not.toContain('mat-calendar-body-disabled');
-      expect(cells[1].classList).toContain('mat-calendar-body-disabled');
+      const cells = multiYearViewNativeElement.querySelectorAll('.hc-calendar-body-cell');
+      expect(cells[0].classList).not.toContain('hc-calendar-body-disabled');
+      expect(cells[1].classList).toContain('hc-calendar-body-disabled');
     });
   });
 });
@@ -249,8 +249,8 @@ describe('MatMultiYearView', () => {
 
 @Component({
   template: `
-    <mat-multi-year-view [(activeDate)]="date" [(selected)]="selected"
-                         (yearSelected)="selectedYear=$event"></mat-multi-year-view>`
+    <hc-multi-year-view [(activeDate)]="date" [(selected)]="selected"
+                         (yearSelected)="selectedYear=$event"></hc-multi-year-view>`
 })
 class StandardMultiYearView {
   date = new Date(2017, JAN, 1);
@@ -262,7 +262,7 @@ class StandardMultiYearView {
 
 @Component({
   template: `
-    <mat-multi-year-view [activeDate]="activeDate" [dateFilter]="dateFilter"></mat-multi-year-view>
+    <hc-multi-year-view [activeDate]="activeDate" [dateFilter]="dateFilter"></hc-multi-year-view>
     `
 })
 class MultiYearViewWithDateFilter {

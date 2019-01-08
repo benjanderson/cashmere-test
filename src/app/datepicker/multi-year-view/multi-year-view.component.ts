@@ -23,7 +23,7 @@ export const yearsPerRow = 4;
 
 @Component({
     // moduleId: module.id,
-    selector: 'mat-multi-year-view',
+    selector: 'hc-multi-year-view',
     templateUrl: './multi-year-view.component.html',
     exportAs: 'matMultiYearView',
     encapsulation: ViewEncapsulation.None,

@@ -31,17 +31,17 @@ export class MatDatepickerToggleIcon {}
 
 @Component({
     // moduleId: module.id,
-    selector: 'mat-datepicker-toggle',
+    selector: 'hc-datepicker-toggle',
     templateUrl: './datepicker-toggle.component.html',
     styleUrls: ['./datepicker-toggle.component.scss'],
     host: {
-        class: 'mat-datepicker-toggle',
+        class: 'hc-datepicker-toggle',
         // Always set the tabindex to -1 so that it doesn't overlap with any custom tabindex the
         // consumer may have provided, while still being able to receive focus.
         '[attr.tabindex]': '-1',
-        '[class.mat-datepicker-toggle-active]': 'datepicker && datepicker.opened',
-        '[class.mat-accent]': 'datepicker && datepicker.color === "accent"',
-        '[class.mat-warn]': 'datepicker && datepicker.color === "warn"',
+        '[class.hc-datepicker-toggle-active]': 'datepicker && datepicker.opened',
+        '[class.hc-accent]': 'datepicker && datepicker.color === "accent"',
+        '[class.hc-warn]': 'datepicker && datepicker.color === "warn"',
         '(focus)': '_button.focus()'
     },
     exportAs: 'matDatepickerToggle',

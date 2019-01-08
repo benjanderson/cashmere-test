@@ -2,7 +2,7 @@
     <hc-form-field>
         <hc-label>Start Date:</hc-label>
         <input hcInput [matDatepicker]="picker1" [(ngModel)]="date1" placeholder="Select date..." class="cursor-pointer" />
-        <mat-datepicker-toggle hcSuffix [for]="picker1"></mat-datepicker-toggle>
-        <mat-datepicker #picker1></mat-datepicker>
+        <hc-datepicker-toggle hcSuffix [for]="picker1"></hc-datepicker-toggle>
+        <hc-datepicker #picker1></hc-datepicker>
     </hc-form-field>
 </div>

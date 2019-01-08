@@ -35,16 +35,16 @@ export class DialogExampleComponent implements OnInit {
 
 @Component({
     selector: 'dialog-overview-example-dialog',
-    template: `<h1 mat-dialog-title>Hi {{data.name}}</h1>
-    <div mat-dialog-content>
+    template: `<h1 hc-dialog-title>Hi {{data.name}}</h1>
+    <div hc-dialog-content>
       <p>What's your favorite animal?</p>
       <hc-form-field>
         <input hcInput [(ngModel)]="data.animal">
       </hc-form-field>
     </div>
-    <div mat-dialog-actions>
+    <div hc-dialog-actions>
       <button hCbutton (click)="onNoClick()">No Thanks</button>
-      <button hCbutton [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
+      <button hCbutton [hc-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
     </div>`
 })
 export class DialogOverviewExampleDialog {

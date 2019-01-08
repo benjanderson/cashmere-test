@@ -35,7 +35,7 @@ import { ESCAPE, UP_ARROW } from '@angular/cdk/keycodes';
 let datepickerUid = 0;
 
 /** Injection token that determines the scroll handling while the calendar is open. */
-export const MAT_DATEPICKER_SCROLL_STRATEGY = new InjectionToken<() => ScrollStrategy>('mat-datepicker-scroll-strategy');
+export const MAT_DATEPICKER_SCROLL_STRATEGY = new InjectionToken<() => ScrollStrategy>('hc-datepicker-scroll-strategy');
 
 /** @docs-private */
 export function MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY(overlay: Overlay): () => ScrollStrategy {
@@ -60,7 +60,7 @@ export class MatDatepickerContentBase {
 // if angular adds support for `exportAs: '$implicit'` on directives.
 /** Component responsible for managing the datepicker popup/dialog. */
 @Component({
-    selector: 'mat-datepicker',
+    selector: 'hc-datepicker',
     template: '',
     exportAs: 'matDatepicker',
     styleUrls: ['hc-datepicker.component.scss'],
@@ -151,7 +151,7 @@ export class MatDatepicker implements OnDestroy {
     private _opened = false;
 
     /** The id for the datepicker calendar. */
-    id: string = `mat-datepicker-${datepickerUid++}`;
+    id: string = `hc-datepicker-${datepickerUid++}`;
 
     /** The currently selected date. */
     get _selected(): D | null {
@@ -331,7 +331,7 @@ export class MatDatepicker implements OnDestroy {
         this._dialogRef = this._dialog.open<MatDatepickerContent>(MatDatepickerContent, {
             direction: this._dir ? this._dir.value : 'ltr',
             viewContainerRef: this._viewContainerRef,
-            panelClass: 'mat-datepicker-dialog'
+            panelClass: 'hc-datepicker-dialog'
         });
 
         this._dialogRef.afterClosed().subscribe(() => this.close());
@@ -367,10 +367,10 @@ export class MatDatepicker implements OnDestroy {
         const overlayConfig = new OverlayConfig({
             positionStrategy: this._createPopupPositionStrategy(),
             hasBackdrop: true,
-            backdropClass: 'mat-overlay-transparent-backdrop',
+            backdropClass: 'hc-overlay-transparent-backdrop',
             direction: this._dir,
             scrollStrategy: this._scrollStrategy(),
-            panelClass: 'mat-datepicker-popup'
+            panelClass: 'hc-datepicker-popup'
         });
 
         this._popupRef = this._overlay.create(overlayConfig);
@@ -393,7 +393,7 @@ export class MatDatepicker implements OnDestroy {
         return this._overlay
             .position()
             .flexibleConnectedTo(this._datepickerInput.getConnectedOverlayOrigin())
-            .withTransformOriginOn('.mat-datepicker-content')
+            .withTransformOriginOn('.hc-datepicker-content')
             .withFlexibleDimensions(false)
             .withViewportMargin(8)
             .withLockedPosition()

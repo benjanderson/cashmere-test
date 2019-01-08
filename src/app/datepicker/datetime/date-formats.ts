@@ -23,4 +23,4 @@ export type MatDateFormats = {
 };
 
 
-export const MAT_DATE_FORMATS = new InjectionToken<MatDateFormats>('mat-date-formats');
+export const MAT_DATE_FORMATS = new InjectionToken<MatDateFormats>('hc-date-formats');

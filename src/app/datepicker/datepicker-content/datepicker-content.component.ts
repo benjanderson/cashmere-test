@@ -12,12 +12,12 @@ import { MatDatepicker } from '../hc-datepicker.component';
  */
 @Component({
     // moduleId: module.id,
-    selector: 'mat-datepicker-content',
+    selector: 'hc-datepicker-content',
     templateUrl: './datepicker-content.component.html',
     host: {
-        class: 'mat-datepicker-content',
+        class: 'hc-datepicker-content',
         '[@transformPanel]': '"enter"',
-        '[class.mat-datepicker-content-touch]': 'datepicker.touchUi'
+        '[class.hc-datepicker-content-touch]': 'datepicker.touchUi'
     },
     animations: [matDatepickerAnimations.transformPanel, matDatepickerAnimations.fadeInCalendar],
     exportAs: 'matDatepickerContent',

@@ -24,7 +24,7 @@ import { LEFT_ARROW, RIGHT_ARROW, UP_ARROW, DOWN_ARROW, HOME, END, PAGE_UP, PAGE
  */
 @Component({
     // moduleId: module.id,
-    selector: 'mat-year-view',
+    selector: 'hc-year-view',
     templateUrl: './year-view.component.html',
     exportAs: 'matYearView',
     encapsulation: ViewEncapsulation.None,

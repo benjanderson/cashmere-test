@@ -82,20 +82,20 @@ Several directives are available to make it easier to structure your dialog cont
 
 | Name                  | Description                                                                                                   |
 |-----------------------|---------------------------------------------------------------------------------------------------------------|
-| `mat-dialog-title`     | \[Attr] Dialog title, applied to a heading element (e.g., `<h1>`, `<h2>`)                                     |
-| `<mat-dialog-content>` | Primary scrollable content of the dialog                                                                      |
-| `<mat-dialog-actions>` | Container for action buttons at the bottom of the dialog                                                      |
-| `mat-dialog-close`     | \[Attr] Added to a `<button>`, makes the button close the dialog with an optional result from the bound value.|
+| `hc-dialog-title`     | \[Attr] Dialog title, applied to a heading element (e.g., `<h1>`, `<h2>`)                                     |
+| `<hc-dialog-content>` | Primary scrollable content of the dialog                                                                      |
+| `<hc-dialog-actions>` | Container for action buttons at the bottom of the dialog                                                      |
+| `hc-dialog-close`     | \[Attr] Added to a `<button>`, makes the button close the dialog with an optional result from the bound value.|
 
 For example:
 ```html
-<h2 mat-dialog-title>Delete all</h2>
-<mat-dialog-content>Are you sure?</mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-button mat-dialog-close>No</button>
-  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-  <button mat-button [mat-dialog-close]="true">Yes</button>
-</mat-dialog-actions>
+<h2 hc-dialog-title>Delete all</h2>
+<hc-dialog-content>Are you sure?</hc-dialog-content>
+<hc-dialog-actions>
+  <button hc-button hc-dialog-close>No</button>
+  <!-- The hc-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  <button hc-button [hc-dialog-close]="true">Yes</button>
+</hc-dialog-actions>
 ```
 
 Once a dialog opens, the dialog will automatically focus the first tabbable element.
@@ -103,7 +103,7 @@ Once a dialog opens, the dialog will automatically focus the first tabbable elem
 You can control which elements are tab stops with the `tabindex` attribute
 
 ```html
-<button mat-button tabindex="-1">Not Tabbable</button>
+<button hc-button tabindex="-1">Not Tabbable</button>
 ```
 
 <!-- example(dialog-content) -->

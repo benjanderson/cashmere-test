@@ -1,14 +1,14 @@
-<table class="mat-calendar-table">
-    <thead class="mat-calendar-table-header">
+<table class="hc-calendar-table">
+    <thead class="hc-calendar-table-header">
         <tr>
             <th *ngFor="let day of _weekdays" [attr.aria-label]="day.long">{{ day.narrow }}</th>
         </tr>
         <tr>
-            <th class="mat-calendar-table-header-divider" colspan="7" aria-hidden="true"></th>
+            <th class="hc-calendar-table-header-divider" colspan="7" aria-hidden="true"></th>
         </tr>
     </thead>
     <tbody
-        mat-calendar-body
+        hc-calendar-body
         [label]="_monthLabel"
         [rows]="_weeks"
         [todayValue]="_todayDate"

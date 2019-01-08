@@ -5,7 +5,7 @@
         <hc-error>Please enter valid date</hc-error>
     </hc-form-field>
 </div>
-<mat-calendar
+<hc-calendar
     [startAt]="selectedDate"
     [selected]="selectedDate"
     [minDate]="minDate"
@@ -13,4 +13,4 @@
     (selectedChange)="onCalendarChange($event)"
     [dateFilter]="weekendFilter"
 >
-</mat-calendar>
+</hc-calendar>

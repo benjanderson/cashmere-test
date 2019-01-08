@@ -47,7 +47,7 @@ export function throwMatDialogContentAlreadyAttachedError() {
  * @docs-private
  */
 @Component({
-  selector: 'mat-dialog-container',
+  selector: 'hc-dialog-container',
   templateUrl: 'dialog-container.html',
   styleUrls: ['dialog.scss'],
   encapsulation: ViewEncapsulation.None,
@@ -56,7 +56,7 @@ export function throwMatDialogContentAlreadyAttachedError() {
   changeDetection: ChangeDetectionStrategy.Default,
   animations: [matDialogAnimations.dialogContainer],
   host: {
-    'class': 'mat-dialog-container',
+    'class': 'hc-dialog-container',
     'tabindex': '-1',
     'aria-modal': 'true',
     '[attr.id]': '_id',

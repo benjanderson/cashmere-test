@@ -2,74 +2,74 @@
 @import '~@healthcatalyst/cashmere/scss/mixins';
 // @import '../core/style/layout-common';
 
-$mat-calendar-padding: 8px !default;
-$mat-calendar-header-divider-width: 2px !default;
-$mat-calendar-controls-vertical-padding: 5%;
+$hc-calendar-padding: 8px !default;
+$hc-calendar-header-divider-width: 2px !default;
+$hc-calendar-controls-vertical-padding: 5%;
 // We use the same padding as the month / year label, but subtract 16px since there is padding
 // between the edge of the button and the text. This ensures that the button text lines up with
 // the month / year label text.
-$mat-calendar-controls-side-margin: calc(33% / 7 - 16px);
+$hc-calendar-controls-side-margin: calc(33% / 7 - 16px);
 
-$mat-calendar-arrow-size: 5px !default;
-$mat-calendar-arrow-disabled-opacity: 0.5 !default;
+$hc-calendar-arrow-size: 5px !default;
+$hc-calendar-arrow-disabled-opacity: 0.5 !default;
 
 // Values chosen to approximate https://material.io/icons/#ic_navigate_before and
 // https://material.io/icons/#ic_navigate_next as closely as possible.
-$mat-calendar-prev-next-icon-border-width: 2px;
-$mat-calendar-prev-next-icon-margin: 15.5px;
-$mat-calendar-prev-icon-transform: translateX(2px) rotate(-45deg);
-$mat-calendar-next-icon-transform: translateX(-2px) rotate(45deg);
+$hc-calendar-prev-next-icon-border-width: 2px;
+$hc-calendar-prev-next-icon-margin: 15.5px;
+$hc-calendar-prev-icon-transform: translateX(2px) rotate(-45deg);
+$hc-calendar-next-icon-transform: translateX(-2px) rotate(45deg);
 
-.mat-calendar {
+.hc-calendar {
     display: block;
 }
 
-.mat-calendar-header {
-    padding: $mat-calendar-padding $mat-calendar-padding 0 $mat-calendar-padding;
+.hc-calendar-header {
+    padding: $hc-calendar-padding $hc-calendar-padding 0 $hc-calendar-padding;
 }
 
-.mat-calendar-content {
-    padding: 0 $mat-calendar-padding $mat-calendar-padding $mat-calendar-padding;
+.hc-calendar-content {
+    padding: 0 $hc-calendar-padding $hc-calendar-padding $hc-calendar-padding;
     outline: none;
 }
 
-.mat-calendar-controls {
+.hc-calendar-controls {
     display: flex;
-    margin: $mat-calendar-controls-vertical-padding $mat-calendar-controls-side-margin;
+    margin: $hc-calendar-controls-vertical-padding $hc-calendar-controls-side-margin;
 }
 
-.mat-calendar-spacer {
+.hc-calendar-spacer {
     flex: 1 1 auto;
 }
 
-.mat-calendar-period-button.hc-md.hc-button.hc-link {
+.hc-calendar-period-button.hc-md.hc-button.hc-link {
     min-width: 0;
     padding: 10px;
     min-width: inherit;
 }
 
-.mat-calendar-arrow {
+.hc-calendar-arrow {
     display: inline-block;
     width: 0;
     height: 0;
-    border-left: $mat-calendar-arrow-size solid transparent;
-    border-right: $mat-calendar-arrow-size solid transparent;
-    border-top-width: $mat-calendar-arrow-size;
+    border-left: $hc-calendar-arrow-size solid transparent;
+    border-right: $hc-calendar-arrow-size solid transparent;
+    border-top-width: $hc-calendar-arrow-size;
     border-top-style: solid;
-    margin: 0 0 0 $mat-calendar-arrow-size;
+    margin: 0 0 0 $hc-calendar-arrow-size;
     vertical-align: middle;
 
-    &.mat-calendar-invert {
+    &.hc-calendar-invert {
         transform: rotate(180deg);
     }
 
     [dir='rtl'] & {
-        margin: 0 $mat-calendar-arrow-size 0 0;
+        margin: 0 $hc-calendar-arrow-size 0 0;
     }
 }
 
-.mat-calendar-previous-button.hc-md.hc-button.hc-link,
-.mat-calendar-next-button.hc-md.hc-button.hc-link {
+.hc-calendar-previous-button.hc-md.hc-button.hc-link,
+.hc-calendar-next-button.hc-md.hc-button.hc-link {
     position: relative;
     min-width: inherit;
     height: 40px;
@@ -83,9 +83,9 @@ $mat-calendar-next-icon-transform: translateX(-2px) rotate(45deg);
         bottom: 0;
         position: absolute;
         content: '';
-        margin: $mat-calendar-prev-next-icon-margin;
+        margin: $hc-calendar-prev-next-icon-margin;
         border: 0 solid currentColor;
-        border-top-width: $mat-calendar-prev-next-icon-border-width;
+        border-top-width: $hc-calendar-prev-next-icon-border-width;
     }
 
     [dir='rtl'] & {
@@ -93,17 +93,17 @@ $mat-calendar-next-icon-transform: translateX(-2px) rotate(45deg);
     }
 }
 
-.mat-calendar-previous-button::after {
-    border-left-width: $mat-calendar-prev-next-icon-border-width !important;
-    transform: $mat-calendar-prev-icon-transform;
+.hc-calendar-previous-button::after {
+    border-left-width: $hc-calendar-prev-next-icon-border-width !important;
+    transform: $hc-calendar-prev-icon-transform;
 }
 
-.mat-calendar-next-button::after {
-    border-right-width: $mat-calendar-prev-next-icon-border-width !important;
-    transform: $mat-calendar-next-icon-transform;
+.hc-calendar-next-button::after {
+    border-right-width: $hc-calendar-prev-next-icon-border-width !important;
+    transform: $hc-calendar-next-icon-transform;
 }
 
-.mat-calendar-today-button.hc-md.hc-button.hc-link {
+.hc-calendar-today-button.hc-md.hc-button.hc-link {
     font-weight: 600;
     color: $primary-brand;
     @include fontSize(12px);
@@ -112,20 +112,20 @@ $mat-calendar-next-icon-transform: translateX(-2px) rotate(45deg);
     vertical-align: baseline;
 }
 
-.mat-calendar-table {
+.hc-calendar-table {
     border-spacing: 0;
     border-collapse: collapse;
     width: 100%;
 }
 
-.mat-calendar-table-header th {
+.hc-calendar-table-header th {
     text-align: center;
-    padding: 0 0 $mat-calendar-padding 0;
+    padding: 0 0 $hc-calendar-padding 0;
 }
 
-.mat-calendar-table-header-divider {
+.hc-calendar-table-header-divider {
     position: relative;
-    height: $mat-calendar-header-divider-width;
+    height: $hc-calendar-header-divider-width;
 
     // We use an absolutely positioned pseudo-element as the divider line for the table header so we
     // can extend it all the way to the edge of the calendar.
@@ -135,11 +135,11 @@ $mat-calendar-next-icon-transform: translateX(-2px) rotate(45deg);
         top: 0;
         left: 0;
         right: 0;
-        height: $mat-calendar-header-divider-width;
+        height: $hc-calendar-header-divider-width;
     }
 }
 
-.mat-calendar-table-header th {
+.hc-calendar-table-header th {
     @include fontSize(9px);
     color: $gray-500;
 }

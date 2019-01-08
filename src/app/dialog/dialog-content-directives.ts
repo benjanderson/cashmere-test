@@ -25,7 +25,7 @@ let dialogElementUid = 0;
  * Button that will close the current dialog.
  */
 @Directive({
-  selector: `button[mat-dialog-close], button[matDialogClose]`,
+  selector: `button[hc-dialog-close], button[matDialogClose]`,
   exportAs: 'matDialogClose',
   host: {
     '(click)': 'dialogRef.close(dialogResult)',
@@ -38,7 +38,7 @@ export class MatDialogClose implements OnInit, OnChanges {
   @Input('aria-label') ariaLabel: string = 'Close dialog';
 
   /** Dialog close input. */
-  @Input('mat-dialog-close') dialogResult: any;
+  @Input('hc-dialog-close') dialogResult: any;
 
   @Input('matDialogClose') _matDialogClose: any;
 
@@ -71,15 +71,15 @@ export class MatDialogClose implements OnInit, OnChanges {
  * Title of a dialog element. Stays fixed to the top of the dialog when scrolling.
  */
 @Directive({
-  selector: '[mat-dialog-title], [matDialogTitle]',
+  selector: '[hc-dialog-title], [matDialogTitle]',
   exportAs: 'matDialogTitle',
   host: {
-    'class': 'mat-dialog-title',
+    'class': 'hc-dialog-title',
     '[id]': 'id',
   },
 })
 export class MatDialogTitle implements OnInit {
-  @Input() id = `mat-dialog-title-${dialogElementUid++}`;
+  @Input() id = `hc-dialog-title-${dialogElementUid++}`;
 
   constructor(
     @Optional() private _dialogRef: MatDialogRef<any>,
@@ -108,8 +108,8 @@ export class MatDialogTitle implements OnInit {
  * Scrollable content container of a dialog.
  */
 @Directive({
-  selector: `[mat-dialog-content], mat-dialog-content, [matDialogContent]`,
-  host: {'class': 'mat-dialog-content'}
+  selector: `[hc-dialog-content], hc-dialog-content, [matDialogContent]`,
+  host: {'class': 'hc-dialog-content'}
 })
 export class MatDialogContent {}
 
@@ -119,8 +119,8 @@ export class MatDialogContent {}
  * Stays fixed to the bottom when scrolling.
  */
 @Directive({
-  selector: `[mat-dialog-actions], mat-dialog-actions, [matDialogActions]`,
-  host: {'class': 'mat-dialog-actions'}
+  selector: `[hc-dialog-actions], hc-dialog-actions, [matDialogActions]`,
+  host: {'class': 'hc-dialog-actions'}
 })
 export class MatDialogActions {}
 
@@ -133,7 +133,7 @@ export class MatDialogActions {}
 function getClosestDialog(element: ElementRef<HTMLElement>, openDialogs: MatDialogRef<any>[]) {
   let parent: HTMLElement | null = element.nativeElement.parentElement;
 
-  while (parent && !parent.classList.contains('mat-dialog-container')) {
+  while (parent && !parent.classList.contains('hc-dialog-container')) {
     parent = parent.parentElement;
   }
 
