@@ -28,17 +28,17 @@ import {
 } from '@angular/core';
 import {defer, Observable, of as observableOf, Subject} from 'rxjs';
 import {startWith} from 'rxjs/operators';
-import {MatDialogConfig} from './dialog-config';
-import {MatDialogContainer} from './dialog-container';
-import {MatDialogRef} from './dialog-ref';
+import {HcDialogConfig} from './dialog-config';
+import {HcDialogContainer} from './dialog-container';
+import {HcDialogRef} from './dialog-ref';
 
 
 /** Injection token that can be used to access the data that was passed in to a dialog. */
-export const HC_DIALOG_DATA = new InjectionToken<any>('MatDialogData');
+export const HC_DIALOG_DATA = new InjectionToken<any>('HcDialogData');
 
 /** Injection token that can be used to specify default dialog options. */
 export const HC_DIALOG_DEFAULT_OPTIONS =
-    new InjectionToken<MatDialogConfig>('hc-dialog-default-options');
+    new InjectionToken<HcDialogConfig>('hc-dialog-default-options');
 
 /** Injection token that determines the scroll handling while the dialog is open. */
 export const HC_DIALOG_SCROLL_STRATEGY =
@@ -67,20 +67,20 @@ export const HC_DIALOG_SCROLL_STRATEGY_PROVIDER = {
  * Service to open Material Design modal dialogs.
  */
 @Injectable()
-export class MatDialog implements OnDestroy {
-  private _openDialogsAtThisLevel: MatDialogRef<any>[] = [];
+export class HcDialog implements OnDestroy {
+  private _openDialogsAtThisLevel: HcDialogRef<any>[] = [];
   private readonly _afterAllClosedAtThisLevel = new Subject<void>();
-  private readonly _afterOpenedAtThisLevel = new Subject<MatDialogRef<any>>();
+  private readonly _afterOpenedAtThisLevel = new Subject<HcDialogRef<any>>();
   private _ariaHiddenElements = new Map<Element, string|null>();
   private _scrollStrategy: () => ScrollStrategy;
 
   /** Keeps track of the currently-open dialogs. */
-  get openDialogs(): MatDialogRef<any>[] {
+  get openDialogs(): HcDialogRef<any>[] {
     return this._parentDialog ? this._parentDialog.openDialogs : this._openDialogsAtThisLevel;
   }
 
   /** Stream that emits when a dialog has been opened. */
-  get afterOpened(): Subject<MatDialogRef<any>> {
+  get afterOpened(): Subject<HcDialogRef<any>> {
     return this._parentDialog ? this._parentDialog.afterOpened : this._afterOpenedAtThisLevel;
   }
 
@@ -89,7 +89,7 @@ export class MatDialog implements OnDestroy {
    * @deprecated Use `afterOpened` instead.
    * @breaking-change 8.0.0
    */
-  get afterOpen(): Subject<MatDialogRef<any>> {
+  get afterOpen(): Subject<HcDialogRef<any>> {
     return this.afterOpened;
   }
 
@@ -110,9 +110,9 @@ export class MatDialog implements OnDestroy {
       private _overlay: Overlay,
       private _injector: Injector,
       @Optional() private _location: Location,
-      @Optional() @Inject(HC_DIALOG_DEFAULT_OPTIONS) private _defaultOptions: MatDialogConfig,
+      @Optional() @Inject(HC_DIALOG_DEFAULT_OPTIONS) private _defaultOptions: HcDialogConfig,
       @Inject(HC_DIALOG_SCROLL_STRATEGY) scrollStrategy: any,
-      @Optional() @SkipSelf() private _parentDialog: MatDialog,
+      @Optional() @SkipSelf() private _parentDialog: HcDialog,
       private _overlayContainer: OverlayContainer) {
     this._scrollStrategy = scrollStrategy;
   }
@@ -125,9 +125,9 @@ export class MatDialog implements OnDestroy {
    * @returns Reference to the newly-opened dialog.
    */
   open<T, D = any, R = any>(componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
-          config?: MatDialogConfig<D>): MatDialogRef<T, R> {
+          config?: HcDialogConfig<D>): HcDialogRef<T, R> {
 
-    config = _applyConfigDefaults(config, this._defaultOptions || new MatDialogConfig());
+    config = _applyConfigDefaults(config, this._defaultOptions || new HcDialogConfig());
 
     if (config.id && this.getDialogById(config.id)) {
       throw Error(`Dialog with id "${config.id}" exists already. The dialog id must be unique.`);
@@ -163,7 +163,7 @@ export class MatDialog implements OnDestroy {
    * Finds an open dialog by its id.
    * @param id ID to use when looking up the dialog.
    */
-  getDialogById(id: string): MatDialogRef<any> | undefined {
+  getDialogById(id: string): HcDialogRef<any> | undefined {
     return this.openDialogs.find(dialog => dialog.id === id);
   }
 
@@ -180,7 +180,7 @@ export class MatDialog implements OnDestroy {
    * @param config The dialog configuration.
    * @returns A promise resolving to the OverlayRef for the created overlay.
    */
-  private _createOverlay(config: MatDialogConfig): OverlayRef {
+  private _createOverlay(config: HcDialogConfig): OverlayRef {
     const overlayConfig = this._getOverlayConfig(config);
     return this._overlay.create(overlayConfig);
   }
@@ -190,7 +190,7 @@ export class MatDialog implements OnDestroy {
    * @param dialogConfig The dialog configuration.
    * @returns The overlay configuration.
    */
-  private _getOverlayConfig(dialogConfig: MatDialogConfig): OverlayConfig {
+  private _getOverlayConfig(dialogConfig: HcDialogConfig): OverlayConfig {
     const state = new OverlayConfig({
       positionStrategy: this._overlay.position().global(),
       scrollStrategy: dialogConfig.scrollStrategy || this._scrollStrategy(),
@@ -212,42 +212,42 @@ export class MatDialog implements OnDestroy {
   }
 
   /**
-   * Attaches an MatDialogContainer to a dialog's already-created overlay.
+   * Attaches an HcDialogContainer to a dialog's already-created overlay.
    * @param overlay Reference to the dialog's underlying overlay.
    * @param config The dialog configuration.
    * @returns A promise resolving to a ComponentRef for the attached container.
    */
-  private _attachDialogContainer(overlay: OverlayRef, config: MatDialogConfig): MatDialogContainer {
+  private _attachDialogContainer(overlay: OverlayRef, config: HcDialogConfig): HcDialogContainer {
     const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
     const injector = new PortalInjector(userInjector || this._injector, new WeakMap([
-      [MatDialogConfig, config]
+      [HcDialogConfig, config]
     ]));
     const containerPortal =
-        new ComponentPortal(MatDialogContainer, config.viewContainerRef, injector);
-    const containerRef = overlay.attach<MatDialogContainer>(containerPortal);
+        new ComponentPortal(HcDialogContainer, config.viewContainerRef, injector);
+    const containerRef = overlay.attach<HcDialogContainer>(containerPortal);
 
     return containerRef.instance;
   }
 
   /**
-   * Attaches the user-provided component to the already-created MatDialogContainer.
+   * Attaches the user-provided component to the already-created HcDialogContainer.
    * @param componentOrTemplateRef The type of component being loaded into the dialog,
    *     or a TemplateRef to instantiate as the content.
-   * @param dialogContainer Reference to the wrapping MatDialogContainer.
+   * @param dialogContainer Reference to the wrapping HcDialogContainer.
    * @param overlayRef Reference to the overlay in which the dialog resides.
    * @param config The dialog configuration.
-   * @returns A promise resolving to the MatDialogRef that should be returned to the user.
+   * @returns A promise resolving to the HcDialogRef that should be returned to the user.
    */
   private _attachDialogContent<T, R>(
       componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
-      dialogContainer: MatDialogContainer,
+      dialogContainer: HcDialogContainer,
       overlayRef: OverlayRef,
-      config: MatDialogConfig): MatDialogRef<T, R> {
+      config: HcDialogConfig): HcDialogRef<T, R> {
 
     // Create a reference to the dialog we're creating in order to give the user a handle
     // to modify and close it.
     const dialogRef =
-        new MatDialogRef<T, R>(overlayRef, dialogContainer, this._location, config.id);
+        new HcDialogRef<T, R>(overlayRef, dialogContainer, this._location, config.id);
 
     // When the dialog backdrop is clicked, we want to close it.
     if (config.hasBackdrop) {
@@ -285,20 +285,20 @@ export class MatDialog implements OnDestroy {
    * @returns The custom injector that can be used inside the dialog.
    */
   private _createInjector<T>(
-      config: MatDialogConfig,
-      dialogRef: MatDialogRef<T>,
-      dialogContainer: MatDialogContainer): PortalInjector {
+      config: HcDialogConfig,
+      dialogRef: HcDialogRef<T>,
+      dialogContainer: HcDialogContainer): PortalInjector {
 
     const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
 
-    // The MatDialogContainer is injected in the portal as the MatDialogContainer and the dialog's
+    // The HcDialogContainer is injected in the portal as the HcDialogContainer and the dialog's
     // content are created out of the same ViewContainerRef and as such, are siblings for injector
-    // purposes. To allow the hierarchy that is expected, the MatDialogContainer is explicitly
+    // purposes. To allow the hierarchy that is expected, the HcDialogContainer is explicitly
     // added to the injection tokens.
     const injectionTokens = new WeakMap<any, any>([
-      [MatDialogContainer, dialogContainer],
+      [HcDialogContainer, dialogContainer],
       [HC_DIALOG_DATA, config.data],
-      [MatDialogRef, dialogRef]
+      [HcDialogRef, dialogRef]
     ]);
 
     if (config.direction &&
@@ -316,7 +316,7 @@ export class MatDialog implements OnDestroy {
    * Removes a dialog from the array of open dialogs.
    * @param dialogRef Dialog to be removed.
    */
-  private _removeOpenDialog(dialogRef: MatDialogRef<any>) {
+  private _removeOpenDialog(dialogRef: HcDialogRef<any>) {
     const index = this.openDialogs.indexOf(dialogRef);
 
     if (index > -1) {
@@ -365,7 +365,7 @@ export class MatDialog implements OnDestroy {
   }
 
   /** Closes all of the dialogs in an array. */
-  private _closeDialogs(dialogs: MatDialogRef<any>[]) {
+  private _closeDialogs(dialogs: HcDialogRef<any>[]) {
     let i = dialogs.length;
 
     while (i--) {
@@ -386,6 +386,6 @@ export class MatDialog implements OnDestroy {
  * @returns The new configuration object.
  */
 function _applyConfigDefaults(
-    config?: MatDialogConfig, defaultOptions?: MatDialogConfig): MatDialogConfig {
+    config?: HcDialogConfig, defaultOptions?: HcDialogConfig): HcDialogConfig {
   return {...defaultOptions, ...config};
 }

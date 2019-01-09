@@ -21,11 +21,11 @@ import { Subject, Subscription, merge } from 'rxjs';
 import { ScrollStrategy, Overlay, ComponentType, OverlayRef, OverlayConfig, PositionStrategy } from '@angular/cdk/overlay';
 import { coerceBooleanProperty } from './utils/boolean-property';
 import { HcCalendarCellCssClasses } from './calendar-body/calendar-body.component';
-import { MatDialogRef } from '../dialog/dialog-ref';
+import { HcDialogRef } from '../dialog/dialog-ref';
 import { HcDatepickerContent } from './datepicker-content/datepicker-content.component';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { DatepickerInputDirective } from './datepicker-input/datepicker-input.directive';
-import { MatDialog } from '../dialog/dialog';
+import { HcDialog } from '../dialog/dialog';
 import { Directionality } from '@angular/cdk/bidi';
 import { DOCUMENT } from '@angular/platform-browser';
 import { take, filter } from 'rxjs/operators';
@@ -180,7 +180,7 @@ export class HcDatepicker implements OnDestroy {
     _popupRef: OverlayRef;
 
     /** A reference to the dialog when the calendar is opened as a dialog. */
-    private _dialogRef: MatDialogRef<HcDatepickerContent> | null;
+    private _dialogRef: HcDialogRef<HcDatepickerContent> | null;
 
     /** A portal containing the calendar for this datepicker. */
     private _calendarPortal: ComponentPortal<HcDatepickerContent>;
@@ -204,7 +204,7 @@ export class HcDatepicker implements OnDestroy {
     readonly _selectedChanged = new Subject<D>();
 
     constructor(
-        private _dialog: MatDialog,
+        private _dialog: HcDialog,
         private _overlay: Overlay,
         private _ngZone: NgZone,
         private _viewContainerRef: ViewContainerRef,

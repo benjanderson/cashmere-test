@@ -12,7 +12,7 @@ import {Location} from '@angular/common';
 import {Observable, Subject} from 'rxjs';
 import {filter, take} from 'rxjs/operators';
 import {DialogPosition} from './dialog-config';
-import {MatDialogContainer} from './dialog-container';
+import {HcDialogContainer} from './dialog-container';
 
 
 // TODO(jelbourn): resizing
@@ -21,9 +21,9 @@ import {MatDialogContainer} from './dialog-container';
 let uniqueId = 0;
 
 /**
- * Reference to a dialog opened via the MatDialog service.
+ * Reference to a dialog opened via the HcDialog service.
  */
-export class MatDialogRef<T, R = any> {
+export class HcDialogRef<T, R = any> {
   /** The instance of component opened into the dialog. */
   componentInstance: T;
 
@@ -44,7 +44,7 @@ export class MatDialogRef<T, R = any> {
 
   constructor(
     private _overlayRef: OverlayRef,
-    public _containerInstance: MatDialogContainer,
+    public _containerInstance: HcDialogContainer,
     // @breaking-change 8.0.0 `_location` parameter to be removed.
     _location?: Location,
     readonly id: string = `hc-dialog-${uniqueId++}`) {

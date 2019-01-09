@@ -1,10 +1,10 @@
-The `MatDialog` service can be used to open modal dialogs with Material Design styling and
+The `HcDialog` service can be used to open modal dialogs with Material Design styling and
 animations.
 
 <!-- example(dialog-overview) -->
 
 A dialog is opened by calling the `open` method with a component to be loaded and an optional
-config object. The `open` method will return an instance of `MatDialogRef`:
+config object. The `open` method will return an instance of `HcDialogRef`:
 
 ```ts
 let dialogRef = dialog.open(UserProfileComponent, {
@@ -13,7 +13,7 @@ let dialogRef = dialog.open(UserProfileComponent, {
 });
 ```
 
-The `MatDialogRef` provides a handle on the opened dialog. It can be used to close the dialog and to
+The `HcDialogRef` provides a handle on the opened dialog. It can be used to close the dialog and to
 receive notification when the dialog has been closed.
 
 ```ts
@@ -24,14 +24,14 @@ dialogRef.afterClosed().subscribe(result => {
 dialogRef.close('Pizza!');
 ```
 
-Components created via `MatDialog` can _inject_ `MatDialogRef` and use it to close the dialog
+Components created via `HcDialog` can _inject_ `HcDialogRef` and use it to close the dialog
 in which they are contained. When closing, an optional result value can be provided. This result
 value is forwarded as the result of the `afterClosed` promise.
 
 ```ts
 @Component({/* ... */})
 export class YourDialog {
-  constructor(public dialogRef: MatDialogRef<YourDialog>) { }
+  constructor(public dialogRef: HcDialogRef<YourDialog>) { }
 
   closeDialog() {
     this.dialogRef.close('Pizza!');
@@ -40,7 +40,7 @@ export class YourDialog {
 ```
 
 ### Specifying global configuration defaults
-Default dialog options can be specified by providing an instance of `MatDialogConfig` for
+Default dialog options can be specified by providing an instance of `HcDialogConfig` for
 HC_DIALOG_DEFAULT_OPTIONS in your application's root module.
 
 ```ts
@@ -110,7 +110,7 @@ You can control which elements are tab stops with the `tabindex` attribute
 
 ### Configuring dialog content via `entryComponents`
 
-Because `MatDialog` instantiates components at run-time, the Angular compiler needs extra
+Because `HcDialog` instantiates components at run-time, the Angular compiler needs extra
 information to create the necessary `ComponentFactory` for your dialog content component.
 
 For any component loaded into a dialog, you must include your component class in the list of
@@ -121,7 +121,7 @@ the `ComponentFactory` for it.
 @NgModule({
   imports: [
     // ...
-    MatDialogModule
+    HcDialogModule
   ],
 
   declarations: [
@@ -141,10 +141,10 @@ export class AppModule {}
 
 ### Accessibility
 By default, each dialog has `role="dialog"` on the root element. The role can be changed to
-`alertdialog` via the `MatDialogConfig` when opening.
+`alertdialog` via the `HcDialogConfig` when opening.
 
 The `aria-label`, `aria-labelledby`, and `aria-describedby` attributes can all be set to the
-dialog element via the `MatDialogConfig` as well. Each dialog should typically have a label
+dialog element via the `HcDialogConfig` as well. Each dialog should typically have a label
 set via `aria-label` or `aria-labelledby`.
 
 When a dialog is opened, it will move focus to the first focusable element that it can find. In

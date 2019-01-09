@@ -27,16 +27,16 @@ const animationBody = [
 ];
 
 /**
- * Animations used by MatDialog.
+ * Animations used by HcDialog.
  * @docs-private
  */
-export const matDialogAnimations: {
+export const hcDialogAnimations: {
   readonly dialogContainer: AnimationTriggerMetadata;
   readonly slideDialog: AnimationTriggerMetadata;
 } = {
   /** Animation that is applied on the dialog container by defalt. */
   dialogContainer: trigger('dialogContainer', animationBody),
 
-  /** @deprecated @breaking-change 8.0.0 Use `matDialogAnimations.dialogContainer` instead. */
+  /** @deprecated @breaking-change 8.0.0 Use `hcDialogAnimations.dialogContainer` instead. */
   slideDialog: trigger('slideDialog', animationBody)
 };

@@ -22,9 +22,9 @@ export interface DialogPosition {
 }
 
 /**
- * Configuration for opening a modal dialog with the MatDialog service.
+ * Configuration for opening a modal dialog with the HcDialog service.
  */
-export class MatDialogConfig<D = any> {
+export class HcDialogConfig<D = any> {
 
   /**
    * Where the attached component should live in Angular's *logical* component tree.

@@ -11,13 +11,13 @@ import {PortalModule} from '@angular/cdk/portal';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 // import {MatCommonModule} from '@angular/material/core';
-import {HC_DIALOG_SCROLL_STRATEGY_PROVIDER, MatDialog} from './dialog';
-import {MatDialogContainer} from './dialog-container';
+import {HC_DIALOG_SCROLL_STRATEGY_PROVIDER, HcDialog} from './dialog';
+import {HcDialogContainer} from './dialog-container';
 import {
-  MatDialogActions,
-  MatDialogClose,
-  MatDialogContent,
-  MatDialogTitle,
+  HcDialogActions,
+  HcDialogClose,
+  HcDialogContent,
+  HcDialogTitle,
 } from './dialog-content-directives';
 
 
@@ -29,24 +29,24 @@ import {
     // MatCommonModule,
   ],
   exports: [
-    MatDialogContainer,
-    MatDialogClose,
-    MatDialogTitle,
-    MatDialogContent,
-    MatDialogActions,
+    HcDialogContainer,
+    HcDialogClose,
+    HcDialogTitle,
+    HcDialogContent,
+    HcDialogActions,
     // MatCommonModule,
   ],
   declarations: [
-    MatDialogContainer,
-    MatDialogClose,
-    MatDialogTitle,
-    MatDialogActions,
-    MatDialogContent,
+    HcDialogContainer,
+    HcDialogClose,
+    HcDialogTitle,
+    HcDialogActions,
+    HcDialogContent,
   ],
   providers: [
-    MatDialog,
+    HcDialog,
     HC_DIALOG_SCROLL_STRATEGY_PROVIDER,
   ],
-  entryComponents: [MatDialogContainer],
+  entryComponents: [HcDialogContainer],
 })
 export class HcDialogModule {}

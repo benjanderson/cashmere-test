@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { HC_DIALOG_DATA, MatDialog } from '../dialog/dialog';
-import { MatDialogRef } from '../dialog/dialog-ref';
+import { HC_DIALOG_DATA, HcDialog } from '../dialog/dialog';
+import { HcDialogRef } from '../dialog/dialog-ref';
 
 export interface DialogData {
     animal: string;
@@ -16,7 +16,7 @@ export class DialogExampleComponent implements OnInit {
     animal: string;
     name: string;
 
-    constructor(public dialog: MatDialog) {}
+    constructor(public dialog: HcDialog) {}
 
     ngOnInit() {}
 
@@ -48,7 +48,7 @@ export class DialogExampleComponent implements OnInit {
     </div>`
 })
 export class DialogOverviewExampleDialog {
-    constructor(public dialogRef: MatDialogRef<DialogOverviewExampleDialog>, @Inject(HC_DIALOG_DATA) public data: DialogData) {}
+    constructor(public dialogRef: HcDialogRef<DialogOverviewExampleDialog>, @Inject(HC_DIALOG_DATA) public data: DialogData) {}
 
     onNoClick(): void {
         this.dialogRef.close();

@@ -21,7 +21,7 @@ import {
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import {AnimationEvent} from '@angular/animations';
-import {matDialogAnimations} from './dialog-animations';
+import {hcDialogAnimations} from './dialog-animations';
 import {
   BasePortalOutlet,
   ComponentPortal,
@@ -29,7 +29,7 @@ import {
   TemplatePortal
 } from '@angular/cdk/portal';
 import {FocusTrap, FocusTrapFactory} from '@angular/cdk/a11y';
-import {MatDialogConfig} from './dialog-config';
+import {HcDialogConfig} from './dialog-config';
 
 
 /**
@@ -37,7 +37,7 @@ import {MatDialogConfig} from './dialog-config';
  * attached to a DomPortalOutlet without an origin.
  * @docs-private
  */
-export function throwMatDialogContentAlreadyAttachedError() {
+export function throwHcDialogContentAlreadyAttachedError() {
   throw Error('Attempting to attach dialog content after content is already attached');
 }
 
@@ -54,7 +54,7 @@ export function throwMatDialogContentAlreadyAttachedError() {
   // Using OnPush for dialogs caused some G3 sync issues. Disabled until we can track them down.
   // tslint:disable-next-line:validate-decorators
   changeDetection: ChangeDetectionStrategy.Default,
-  animations: [matDialogAnimations.dialogContainer],
+  animations: [hcDialogAnimations.dialogContainer],
   host: {
     'class': 'hc-dialog-container',
     'tabindex': '-1',
@@ -69,7 +69,7 @@ export function throwMatDialogContentAlreadyAttachedError() {
     '(@dialogContainer.done)': '_onAnimationDone($event)',
   },
 })
-export class MatDialogContainer extends BasePortalOutlet {
+export class HcDialogContainer extends BasePortalOutlet {
   /** The portal outlet inside of this container into which the dialog content will be loaded. */
   @ViewChild(CdkPortalOutlet) _portalOutlet: CdkPortalOutlet;
 
@@ -97,7 +97,7 @@ export class MatDialogContainer extends BasePortalOutlet {
     private _changeDetectorRef: ChangeDetectorRef,
     @Optional() @Inject(DOCUMENT) private _document: any,
     /** The dialog configuration. */
-    public _config: MatDialogConfig) {
+    public _config: HcDialogConfig) {
 
     super();
   }
@@ -108,7 +108,7 @@ export class MatDialogContainer extends BasePortalOutlet {
    */
   attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T> {
     if (this._portalOutlet.hasAttached()) {
-      throwMatDialogContentAlreadyAttachedError();
+      throwHcDialogContentAlreadyAttachedError();
     }
 
     this._savePreviouslyFocusedElement();
@@ -121,7 +121,7 @@ export class MatDialogContainer extends BasePortalOutlet {
    */
   attachTemplatePortal<C>(portal: TemplatePortal<C>): EmbeddedViewRef<C> {
     if (this._portalOutlet.hasAttached()) {
-      throwMatDialogContentAlreadyAttachedError();
+      throwHcDialogContentAlreadyAttachedError();
     }
 
     this._savePreviouslyFocusedElement();

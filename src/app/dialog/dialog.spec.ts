@@ -23,15 +23,15 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {Location} from '@angular/common';
 import {SpyLocation} from '@angular/common/testing';
 import {Directionality} from '@angular/cdk/bidi';
-import {MatDialogContainer} from './dialog-container';
+import {HcDialogContainer} from './dialog-container';
 import {OverlayContainer, ScrollStrategy, Overlay} from '@angular/cdk/overlay';
 import {ScrollDispatcher} from '@angular/cdk/scrolling';
 import {A, ESCAPE} from '@angular/cdk/keycodes';
 import {
   HC_DIALOG_DATA,
-  MatDialog,
+  HcDialog,
   HcDialogModule,
-  MatDialogRef,
+  HcDialogRef,
   HC_DIALOG_DEFAULT_OPTIONS
 } from './index';
 import {Subject} from 'rxjs';
@@ -39,8 +39,8 @@ import { dispatchKeyboardEvent } from '../datepicker/utils/dispatch-events';
 
 // tslint:disable:no-non-null-assertion
 // tslint:disable:component-class-suffix
-describe('MatDialog', () => {
-  let dialog: MatDialog;
+describe('HcDialog', () => {
+  let dialog: HcDialog;
   let overlayContainer: OverlayContainer;
   let overlayContainerElement: HTMLElement;
   const scrolledSubject = new Subject();
@@ -63,8 +63,8 @@ describe('MatDialog', () => {
     TestBed.compileComponents();
   }));
 
-  beforeEach(inject([MatDialog, Location, OverlayContainer],
-    (d: MatDialog, l: Location, oc: OverlayContainer) => {
+  beforeEach(inject([HcDialog, Location, OverlayContainer],
+    (d: HcDialog, l: Location, oc: OverlayContainer) => {
       dialog = d;
       mockLocation = l as SpyLocation;
       overlayContainer = oc;
@@ -602,8 +602,8 @@ describe('MatDialog', () => {
 
   it('should set the proper animation states', () => {
     const dialogRef = dialog.open(PizzaMsg, { viewContainerRef: testViewContainerRef });
-    const dialogContainer: MatDialogContainer =
-        viewContainerFixture.debugElement.query(By.directive(MatDialogContainer)).componentInstance;
+    const dialogContainer: HcDialogContainer =
+        viewContainerFixture.debugElement.query(By.directive(HcDialogContainer)).componentInstance;
 
     expect(dialogContainer._state).toBe('enter');
 
@@ -1083,7 +1083,7 @@ describe('MatDialog', () => {
   });
 
   describe('dialog content elements', () => {
-    let dialogRef: MatDialogRef<any>;
+    let dialogRef: HcDialogRef<any>;
 
     describe('inside component dialog', () => {
       beforeEach(fakeAsync(() => {
@@ -1195,16 +1195,16 @@ describe('MatDialog', () => {
 
 });
 
-describe('MatDialog with a parent MatDialog', () => {
-  let parentDialog: MatDialog;
-  let childDialog: MatDialog;
+describe('HcDialog with a parent HcDialog', () => {
+  let parentDialog: HcDialog;
+  let childDialog: HcDialog;
   let overlayContainerElement: HTMLElement;
-  let fixture: ComponentFixture<ComponentThatProvidesMatDialog>;
+  let fixture: ComponentFixture<ComponentThatProvidesHcDialog>;
 
   beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [HcDialogModule, DialogTestModule],
-      declarations: [ComponentThatProvidesMatDialog],
+      declarations: [ComponentThatProvidesHcDialog],
       providers: [
         {provide: OverlayContainer, useFactory: () => {
           overlayContainerElement = document.createElement('div');
@@ -1217,10 +1217,10 @@ describe('MatDialog with a parent MatDialog', () => {
     TestBed.compileComponents();
   }));
 
-  beforeEach(inject([MatDialog], (d: MatDialog) => {
+  beforeEach(inject([HcDialog], (d: HcDialog) => {
     parentDialog = d;
 
-    fixture = TestBed.createComponent(ComponentThatProvidesMatDialog);
+    fixture = TestBed.createComponent(ComponentThatProvidesHcDialog);
     childDialog = fixture.componentInstance.dialog;
     fixture.detectChanges();
   }));
@@ -1229,7 +1229,7 @@ describe('MatDialog with a parent MatDialog', () => {
     overlayContainerElement.innerHTML = '';
   });
 
-  it('should close dialogs opened by a parent when calling closeAll on a child MatDialog',
+  it('should close dialogs opened by a parent when calling closeAll on a child HcDialog',
     fakeAsync(() => {
       parentDialog.open(PizzaMsg);
       fixture.detectChanges();
@@ -1243,10 +1243,10 @@ describe('MatDialog with a parent MatDialog', () => {
       flush();
 
       expect(overlayContainerElement.textContent!.trim())
-          .toBe('', 'Expected closeAll on child MatDialog to close dialog opened by parent');
+          .toBe('', 'Expected closeAll on child HcDialog to close dialog opened by parent');
     }));
 
-  it('should close dialogs opened by a child when calling closeAll on a parent MatDialog',
+  it('should close dialogs opened by a child when calling closeAll on a parent HcDialog',
     fakeAsync(() => {
       childDialog.open(PizzaMsg);
       fixture.detectChanges();
@@ -1259,7 +1259,7 @@ describe('MatDialog with a parent MatDialog', () => {
       flush();
 
       expect(overlayContainerElement.textContent!.trim())
-          .toBe('', 'Expected closeAll on parent MatDialog to close dialog opened by child');
+          .toBe('', 'Expected closeAll on parent HcDialog to close dialog opened by child');
     }));
 
   it('should close the top dialog via the escape key', fakeAsync(() => {
@@ -1289,8 +1289,8 @@ describe('MatDialog with a parent MatDialog', () => {
   }));
 });
 
-describe('MatDialog with default options', () => {
-  let dialog: MatDialog;
+describe('HcDialog with default options', () => {
+  let dialog: HcDialog;
   let overlayContainer: OverlayContainer;
   let overlayContainerElement: HTMLElement;
 
@@ -1320,8 +1320,8 @@ describe('MatDialog with default options', () => {
     TestBed.compileComponents();
   }));
 
-  beforeEach(inject([MatDialog, OverlayContainer],
-    (d: MatDialog, oc: OverlayContainer) => {
+  beforeEach(inject([HcDialog, OverlayContainer],
+    (d: HcDialog, oc: OverlayContainer) => {
       dialog = d;
       overlayContainer = oc;
       overlayContainerElement = oc.getContainerElement();
@@ -1411,11 +1411,11 @@ class ComponentWithChildViewContainer {
 })
 class ComponentWithTemplateRef {
   localValue: string;
-  dialogRef: MatDialogRef<any>;
+  dialogRef: HcDialogRef<any>;
 
   @ViewChild(TemplateRef) templateRef: TemplateRef<any>;
 
-  setDialogRef(dialogRef: MatDialogRef<any>): string {
+  setDialogRef(dialogRef: HcDialogRef<any>): string {
     this.dialogRef = dialogRef;
     return '';
   }
@@ -1424,7 +1424,7 @@ class ComponentWithTemplateRef {
 /** Simple component for testing ComponentPortal. */
 @Component({template: '<p>Pizza</p> <input> <button>Close</button>'})
 class PizzaMsg {
-  constructor(public dialogRef: MatDialogRef<PizzaMsg>,
+  constructor(public dialogRef: HcDialogRef<PizzaMsg>,
               public dialogInjector: Injector,
               public directionality: Directionality) {}
 }
@@ -1469,10 +1469,10 @@ class ComponentWithContentElementTemplateRef {
 
 @Component({
   template: '',
-  providers: [MatDialog]
+  providers: [HcDialog]
 })
-class ComponentThatProvidesMatDialog {
-  constructor(public dialog: MatDialog) {}
+class ComponentThatProvidesHcDialog {
+  constructor(public dialog: HcDialog) {}
 }
 
 /** Simple component for testing ComponentPortal. */
