@@ -1,14 +1,14 @@
 /**
  * @license
- * Copyright Google LLC All Rights Reserved.
+ * Copyright Health Catalyst All Rights Reserved.
  *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * Use of this source code is governed by an Apache-2.0 license that can be
+ * found in the LICENSE file at https://raw.githubusercontent.com/HealthCatalyst/Fabric.Cashmere/dev/LICENSE
  */
 
 import { Platform } from '@angular/cdk/platform';
 import { Inject, Injectable, Optional } from '@angular/core';
-import { DateAdapter, MAT_DATE_LOCALE } from './date-adapter';
+import { DateAdapter, HC_DATE_LOCALE } from './date-adapter';
 
 // TODO(mmalerba): Remove when we no longer support safari 9.
 /** Whether the browser supports the Intl API. */
@@ -167,9 +167,9 @@ export class NativeDateAdapter extends DateAdapter<Date> {
      */
     useUtcForDisplay: boolean = true;
 
-    constructor(@Optional() @Inject(MAT_DATE_LOCALE) matDateLocale: string, platform: Platform) {
+    constructor(@Optional() @Inject(HC_DATE_LOCALE) hcDateLocale: string, platform: Platform) {
         super();
-        super.setLocale(matDateLocale);
+        super.setLocale(hcDateLocale);
 
         // IE does its own time zone correction, so we disable this on IE.
         this.useUtcForDisplay = !platform.TRIDENT;

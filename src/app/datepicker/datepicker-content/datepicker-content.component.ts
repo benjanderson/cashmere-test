@@ -1,11 +1,11 @@
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, AfterViewInit, ViewChild } from '@angular/core';
-import { matDatepickerAnimations } from '../datepicker-animations';
-import { MatCalendar } from '../calendar/calendar.component';
-import { MatDatepicker } from '../hc-datepicker.component';
+import { HcDatepickerAnimations } from '../datepicker-animations';
+import { HcCalendar } from '../calendar/calendar.component';
+import { HcDatepicker } from '../hc-datepicker.component';
 
 /**
  * Component used as the content for the datepicker dialog and popup. We use this instead of using
- * MatCalendar directly as the content so we can control the initial focus. This also gives us a
+ * hcCalendar directly as the content so we can control the initial focus. This also gives us a
  * place to put additional features of the popup that are not part of the calendar itself in the
  * future. (e.g. confirmation buttons).
  * @docs-private
@@ -19,17 +19,17 @@ import { MatDatepicker } from '../hc-datepicker.component';
         '[@transformPanel]': '"enter"',
         '[class.hc-datepicker-content-touch]': 'datepicker.touchUi'
     },
-    animations: [matDatepickerAnimations.transformPanel, matDatepickerAnimations.fadeInCalendar],
-    exportAs: 'matDatepickerContent',
+    animations: [HcDatepickerAnimations.transformPanel, HcDatepickerAnimations.fadeInCalendar],
+    exportAs: 'hcDatepickerContent',
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MatDatepickerContent implements AfterViewInit {
+export class HcDatepickerContent implements AfterViewInit {
     /** Reference to the internal calendar component. */
-    @ViewChild(MatCalendar) _calendar: MatCalendar;
+    @ViewChild(HcCalendar) _calendar: HcCalendar;
 
     /** Reference to the datepicker that created the overlay. */
-    datepicker: MatDatepicker;
+    datepicker: HcDatepicker;
 
     /** Whether the datepicker is above or below the input. */
     _isAbove: boolean;

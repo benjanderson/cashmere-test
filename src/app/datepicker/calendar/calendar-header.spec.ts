@@ -2,24 +2,24 @@ import { Directionality } from '@angular/cdk/bidi';
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { MatNativeDateModule } from '../datetime';
-import { MatDatepickerModule } from '../hc-datepicker.module';
-import { MatDatepickerIntl } from '../datepicker-intl';
-import { MatCalendar } from './calendar.component';
+import { HcNativeDateModule } from '../datetime';
+import { HcDatepickerModule } from '../hc-datepicker.module';
+import { HcDatepickerIntl } from '../datepicker-intl';
+import { HcCalendar } from './calendar.component';
 import { JAN, FEB, DEC } from '../utils/month-constants';
 import { yearsPerPage } from '../multi-year-view/multi-year-view.component';
 
 // tslint:disable:no-non-null-assertion
 // tslint:disable:component-class-suffix
-describe('MatCalendarHeader', () => {
+describe('HcCalendarHeader', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [MatNativeDateModule, MatDatepickerModule],
+            imports: [HcNativeDateModule, HcDatepickerModule],
             declarations: [
                 // Test components.
                 StandardCalendar
             ],
-            providers: [MatDatepickerIntl, { provide: Directionality, useFactory: () => ({ value: 'ltr' }) }]
+            providers: [HcDatepickerIntl, { provide: Directionality, useFactory: () => ({ value: 'ltr' }) }]
         });
 
         TestBed.compileComponents();
@@ -32,13 +32,13 @@ describe('MatCalendarHeader', () => {
         let periodButton: HTMLElement;
         let prevButton: HTMLElement;
         let nextButton: HTMLElement;
-        let calendarInstance: MatCalendar;
+        let calendarInstance: HcCalendar;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(StandardCalendar);
             fixture.detectChanges();
 
-            const calendarDebugElement = fixture.debugElement.query(By.directive(MatCalendar));
+            const calendarDebugElement = fixture.debugElement.query(By.directive(HcCalendar));
             calendarElement = calendarDebugElement.nativeElement;
             periodButton = calendarElement.querySelector('.hc-calendar-period-button') as HTMLElement;
             prevButton = calendarElement.querySelector('.hc-calendar-previous-button') as HTMLElement;

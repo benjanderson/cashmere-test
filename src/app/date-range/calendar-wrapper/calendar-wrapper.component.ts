@@ -11,8 +11,8 @@ import {
     SimpleChanges
 } from '@angular/core';
 import { ConfigStoreService } from '../services/config-store.service';
-import { MatCalendar } from 'src/app/datepicker/calendar/calendar.component';
-import { DatepickerInputDirective, MatDatepickerInputEvent } from 'src/app/datepicker/datepicker-input/datepicker-input.directive';
+import { HcCalendar } from 'src/app/datepicker/calendar/calendar.component';
+import { DatepickerInputDirective, HcDatepickerInputEvent } from 'src/app/datepicker/datepicker-input/datepicker-input.directive';
 import { D } from 'src/app/datepicker/datetime/date-formats';
 
 @Component({
@@ -23,8 +23,8 @@ import { D } from 'src/app/datepicker/datetime/date-formats';
     encapsulation: ViewEncapsulation.None
 })
 export class CalendarWrapperComponent implements OnInit, OnChanges {
-    @ViewChild(MatCalendar)
-    matCalendar: MatCalendar;
+    @ViewChild(HcCalendar)
+    hcCalendar: HcCalendar;
 
     @ViewChild(DatepickerInputDirective)
     datePickerInput: DatepickerInputDirective;
@@ -58,7 +58,7 @@ export class CalendarWrapperComponent implements OnInit, OnChanges {
         // Necessary to force view refresh
         const date: D = changes.selectedDate.currentValue;
         if (date) {
-            this.matCalendar.activeDate = date;
+            this.hcCalendar.activeDate = date;
             this.datePickerInput.setDate(date);
             this.selectedDateChange.emit(date);
         }
@@ -68,7 +68,7 @@ export class CalendarWrapperComponent implements OnInit, OnChanges {
         this.selectedDateChange.emit(date);
     }
 
-    onInputChange(event: MatDatepickerInputEvent) {
+    onInputChange(event: HcDatepickerInputEvent) {
         this.selectedDateChange.emit(event.value);
     }
 }

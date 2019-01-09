@@ -20,14 +20,14 @@ import {
 import { PopoverDirective, ButtonComponent } from '@healthcatalyst/cashmere';
 import { merge, Subscription, of as observableOf } from 'rxjs';
 import { coerceBooleanProperty } from '../utils/boolean-property';
-import { MatDatepickerIntl } from '../datepicker-intl';
-import { MatDatepicker } from '../hc-datepicker.component';
+import { HcDatepickerIntl } from '../datepicker-intl';
+import { HcDatepicker } from '../hc-datepicker.component';
 
-/** Can be used to override the icon of a `matDatepickerToggle`. */
+/** Can be used to override the icon of a `hcDatepickerToggle`. */
 @Directive({
-    selector: '[matDatepickerToggleIcon]'
+    selector: '[hcDatepickerToggleIcon]'
 })
-export class MatDatepickerToggleIcon {}
+export class hcDatepickerToggleIcon {}
 
 @Component({
     // moduleId: module.id,
@@ -44,15 +44,15 @@ export class MatDatepickerToggleIcon {}
         '[class.hc-warn]': 'datepicker && datepicker.color === "warn"',
         '(focus)': '_button.focus()'
     },
-    exportAs: 'matDatepickerToggle',
+    exportAs: 'hcDatepickerToggle',
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MatDatepickerToggle implements AfterContentInit, OnChanges, OnDestroy {
+export class HcDatepickerToggle implements AfterContentInit, OnChanges, OnDestroy {
     private _stateChanges = Subscription.EMPTY;
 
     /** Datepicker instance that the button will toggle. */
-    @Input('for') datepicker: MatDatepicker;
+    @Input('for') datepicker: HcDatepicker;
 
     /** Tabindex for the toggle. */
     @Input() tabIndex: number | null;
@@ -68,13 +68,13 @@ export class MatDatepickerToggle implements AfterContentInit, OnChanges, OnDestr
     private _disabled: boolean;
 
     /** Custom icon set by the consumer. */
-    @ContentChild(MatDatepickerToggleIcon) _customIcon: MatDatepickerToggleIcon;
+    @ContentChild(hcDatepickerToggleIcon) _customIcon: hcDatepickerToggleIcon;
 
     /** Underlying button element. */
     @ViewChild('button') _button: ButtonComponent;
 
     constructor(
-        public _intl: MatDatepickerIntl,
+        public _intl: HcDatepickerIntl,
         private _changeDetectorRef: ChangeDetectorRef,
         @Attribute('tabindex') defaultTabIndex: string
     ) {

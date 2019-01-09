@@ -12,24 +12,24 @@ import {
 import {Component, ViewChild} from '@angular/core';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
-import { MatNativeDateModule } from '../datetime';
-import { MatCalendarBody, MatYearView } from '..';
+import { HcNativeDateModule } from '../datetime';
+import { HcCalendarBody, HcYearView } from '..';
 import { MAR, JUL, JUN, JAN, DEC, NOV, FEB, SEP, AUG, MAY, OCT } from '../utils/month-constants';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from '../utils/dispatch-events';
 
 // tslint:disable:component-class-suffix
 // tslint:disable:no-non-null-assertion
-describe('MatYearView', () => {
+describe('HcYearView', () => {
   let dir: {value: Direction};
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        MatNativeDateModule,
+        HcNativeDateModule,
       ],
       declarations: [
-        MatCalendarBody,
-        MatYearView,
+        HcCalendarBody,
+        HcYearView,
 
         // Test components.
         StandardYearView,
@@ -52,7 +52,7 @@ describe('MatYearView', () => {
       fixture = TestBed.createComponent(StandardYearView);
       fixture.detectChanges();
 
-      const yearViewDebugElement = fixture.debugElement.query(By.directive(MatYearView));
+      const yearViewDebugElement = fixture.debugElement.query(By.directive(HcYearView));
       yearViewNativeElement = yearViewDebugElement.nativeElement;
       testComponent = fixture.componentInstance;
     });
@@ -300,7 +300,7 @@ describe('MatYearView', () => {
       fixture = TestBed.createComponent(YearViewWithDateFilter);
       fixture.detectChanges();
 
-      const yearViewDebugElement = fixture.debugElement.query(By.directive(MatYearView));
+      const yearViewDebugElement = fixture.debugElement.query(By.directive(HcYearView));
       yearViewNativeElement = yearViewDebugElement.nativeElement;
     });
 
@@ -323,7 +323,7 @@ class StandardYearView {
   selected = new Date(2017, MAR, 10);
   selectedMonth: Date;
 
-  @ViewChild(MatYearView) yearView: MatYearView;
+  @ViewChild(HcYearView) yearView: HcYearView;
 }
 
 

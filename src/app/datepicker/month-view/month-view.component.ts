@@ -11,8 +11,8 @@ import {
     Optional,
     Inject
 } from '@angular/core';
-import { MatCalendarCellCssClasses, MatCalendarBody, MatCalendarCell } from '../calendar-body/calendar-body.component';
-import { MAT_DATE_FORMATS, MatDateFormats, DateAdapter, D } from '../datetime';
+import { HcCalendarCellCssClasses, HcCalendarBody, HcCalendarCell } from '../calendar-body/calendar-body.component';
+import { HC_DATE_FORMATS, hcDateFormats, DateAdapter, D } from '../datetime';
 import { Directionality } from '@angular/cdk/bidi';
 import { createMissingDateImplError } from '../datetime/datepicker-errors';
 import { LEFT_ARROW, RIGHT_ARROW, UP_ARROW, DOWN_ARROW, HOME, END, PAGE_UP, PAGE_DOWN, ENTER, SPACE } from '@angular/cdk/keycodes';
@@ -31,7 +31,7 @@ const DAYS_PER_WEEK = 7;
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MatMonthView implements AfterContentInit {
+export class HcMonthView implements AfterContentInit {
     /**
      * The date to display in this month view (everything other than the month and year is ignored).
      */
@@ -84,7 +84,7 @@ export class MatMonthView implements AfterContentInit {
     @Input() dateFilter: (date: D) => boolean;
 
     /** Function that can be used to add custom CSS classes to dates. */
-    @Input() dateClass: (date: D) => MatCalendarCellCssClasses;
+    @Input() dateClass: (date: D) => HcCalendarCellCssClasses;
 
     /** Emits when a new date is selected. */
     @Output() readonly selectedChange: EventEmitter<D | null> = new EventEmitter<D | null>();
@@ -96,13 +96,13 @@ export class MatMonthView implements AfterContentInit {
     @Output() readonly activeDateChange: EventEmitter<D> = new EventEmitter<D>();
 
     /** The body of calendar table */
-    @ViewChild(MatCalendarBody) _matCalendarBody: MatCalendarBody;
+    @ViewChild(HcCalendarBody) _hcCalendarBody: HcCalendarBody;
 
     /** The label for this month (e.g. "January 2017"). */
     _monthLabel: string;
 
     /** Grid of calendar cells representing the dates of the month. */
-    _weeks: MatCalendarCell[][];
+    _weeks: HcCalendarCell[][];
 
     /** The number of blank cells in the first row before the 1st of the month. */
     _firstWeekOffset: number;
@@ -121,7 +121,7 @@ export class MatMonthView implements AfterContentInit {
 
     constructor(
         private _changeDetectorRef: ChangeDetectorRef,
-        @Optional() @Inject(MAT_DATE_FORMATS) private _dateFormats: MatDateFormats,
+        @Optional() @Inject(HC_DATE_FORMATS) private _dateFormats: hcDateFormats,
         @Optional() public _dateAdapter: DateAdapter<D>,
         @Optional() private _dir?: Directionality
     ) {
@@ -129,7 +129,7 @@ export class MatMonthView implements AfterContentInit {
             throw createMissingDateImplError('DateAdapter');
         }
         if (!this._dateFormats) {
-            throw createMissingDateImplError('MAT_DATE_FORMATS');
+            throw createMissingDateImplError('HC_DATE_FORMATS');
         }
 
         const firstDayOfWeek = this._dateAdapter.getFirstDayOfWeek();
@@ -246,10 +246,10 @@ export class MatMonthView implements AfterContentInit {
 
     /** Focuses the active cell after the microtask queue is empty. */
     _focusActiveCell() {
-        this._matCalendarBody._focusActiveCell();
+        this._hcCalendarBody._focusActiveCell();
     }
 
-    /** Creates MatCalendarCells for the dates in this month. */
+    /** Creates hcCalendarCells for the dates in this month. */
     private _createWeekCells() {
         const daysInMonth = this._dateAdapter.getNumDaysInMonth(this.activeDate);
         const dateNames = this._dateAdapter.getDateNames();
@@ -268,7 +268,7 @@ export class MatMonthView implements AfterContentInit {
             const ariaLabel = this._dateAdapter.format(date, this._dateFormats.display.dateA11yLabel);
             const cellClasses = this.dateClass ? this.dateClass(date) : undefined;
 
-            this._weeks[this._weeks.length - 1].push(new MatCalendarCell(i + 1, dateNames[i], ariaLabel, enabled, cellClasses));
+            this._weeks[this._weeks.length - 1].push(new HcCalendarCell(i + 1, dateNames[i], ariaLabel, enabled, cellClasses));
         }
     }
 

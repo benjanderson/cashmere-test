@@ -15,7 +15,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { createMissingDateImplError } from '../datetime/datepicker-errors';
 import { LEFT_ARROW, RIGHT_ARROW, UP_ARROW, DOWN_ARROW, HOME, END, PAGE_UP, PAGE_DOWN, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { D } from '../datetime/date-formats';
-import { MatCalendarBody, MatCalendarCell } from '../calendar-body/calendar-body.component';
+import { HcCalendarBody, HcCalendarCell } from '../calendar-body/calendar-body.component';
 
 export const yearsPerPage = 24;
 
@@ -29,7 +29,7 @@ export const yearsPerRow = 4;
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MatMultiYearView implements AfterContentInit {
+export class HcMultiYearView implements AfterContentInit {
     /** The date to display in this multi-year view (everything other than the year is ignored). */
     @Input()
     get activeDate(): D {
@@ -92,10 +92,10 @@ export class MatMultiYearView implements AfterContentInit {
     @Output() readonly activeDateChange: EventEmitter<D> = new EventEmitter<D>();
 
     /** The body of calendar table */
-    @ViewChild(MatCalendarBody) _matCalendarBody: MatCalendarBody;
+    @ViewChild(HcCalendarBody) _hcCalendarBody: HcCalendarBody;
 
     /** Grid of calendar cells representing the currently displayed years. */
-    _years: MatCalendarCell[][];
+    _years: HcCalendarCell[][];
 
     /** The year that today falls on. */
     _todayYear: number;
@@ -209,13 +209,13 @@ export class MatMultiYearView implements AfterContentInit {
 
     /** Focuses the active cell after the microtask queue is empty. */
     _focusActiveCell() {
-        this._matCalendarBody._focusActiveCell();
+        this._hcCalendarBody._focusActiveCell();
     }
 
-    /** Creates an MatCalendarCell for the given year. */
+    /** Creates an hcCalendarCell for the given year. */
     private _createCellForYear(year: number) {
         const yearName = this._dateAdapter.getYearName(this._dateAdapter.createDate(year, 0, 1));
-        return new MatCalendarCell(year, yearName, yearName, this._shouldEnableYear(year));
+        return new HcCalendarCell(year, yearName, yearName, this._shouldEnableYear(year));
     }
 
     /** Whether the given year is enabled. */

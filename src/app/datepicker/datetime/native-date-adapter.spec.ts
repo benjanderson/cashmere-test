@@ -1,7 +1,7 @@
 import {Platform} from '@angular/cdk/platform';
 import {LOCALE_ID} from '@angular/core';
 import {async, inject, TestBed} from '@angular/core/testing';
-import {DateAdapter, MAT_DATE_LOCALE, NativeDateAdapter, NativeDateModule} from './index';
+import {DateAdapter, HC_DATE_LOCALE, NativeDateAdapter, NativeDateModule} from './index';
 import { JAN, DEC, FEB, MAR } from '../utils/month-constants';
 
 const SUPPORTS_INTL = typeof Intl !== 'undefined';
@@ -371,13 +371,13 @@ describe('NativeDateAdapter', () => {
 });
 
 
-describe('NativeDateAdapter with MAT_DATE_LOCALE override', () => {
+describe('NativeDateAdapter with HC_DATE_LOCALE override', () => {
   let adapter: NativeDateAdapter;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [NativeDateModule],
-      providers: [{provide: MAT_DATE_LOCALE, useValue: 'da-DK'}]
+      providers: [{provide: HC_DATE_LOCALE, useValue: 'da-DK'}]
     }).compileComponents();
   }));
 
@@ -385,7 +385,7 @@ describe('NativeDateAdapter with MAT_DATE_LOCALE override', () => {
     adapter = d;
   }));
 
-  it('should take the default locale id from the MAT_DATE_LOCALE injection token', () => {
+  it('should take the default locale id from the HC_DATE_LOCALE injection token', () => {
     const expectedValue = SUPPORTS_INTL ?
         ['søndag', 'mandag', 'tirsdag', 'onsdag', 'torsdag', 'fredag', 'lørdag'] :
         ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -409,7 +409,7 @@ describe('NativeDateAdapter with LOCALE_ID override', () => {
     adapter = d;
   }));
 
-  it('should cascade locale id from the LOCALE_ID injection token to MAT_DATE_LOCALE', () => {
+  it('should cascade locale id from the LOCALE_ID injection token to HC_DATE_LOCALE', () => {
     const expectedValue = SUPPORTS_INTL ?
         ['søndag', 'mandag', 'tirsdag', 'onsdag', 'torsdag', 'fredag', 'lørdag'] :
         ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];

@@ -10,19 +10,20 @@ import {By} from '@angular/platform-browser';
 import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/testing';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {Subject} from 'rxjs';
-import { MatDatepickerModule } from './hc-datepicker.module';
-import { MatNativeDateModule, NativeDateModule, MAT_DATE_LOCALE } from './datetime';
+import { HcDatepickerModule } from './hc-datepicker.module';
+import { HcNativeDateModule, NativeDateModule, HC_DATE_LOCALE } from './datetime';
 import { dispatchKeyboardEvent, dispatchMouseEvent, dispatchFakeEvent, dispatchEvent } from './utils/dispatch-events';
 import { JAN, DEC, JUL, JUN, SEP } from './utils/month-constants';
-import { MAT_DATEPICKER_SCROLL_STRATEGY } from './hc-datepicker.component';
+import { HC_DATEPICKER_SCROLL_STRATEGY } from './hc-datepicker.component';
 import { createKeyboardEvent } from './utils/event-objects';
-import { MatDatepickerIntl, MatDatepicker, MatDatepickerToggle, DatepickerInputDirective } from '.';
-import { FormFieldModule, InputModule, HcFormFieldComponent } from '@healthcatalyst/cashmere';
+import { HcDatepickerIntl, HcDatepicker, DatepickerInputDirective } from '.';
+import { FormFieldModule, InputModule, HcFormFieldComponent, IconModule } from '@healthcatalyst/cashmere';
+import { HcDatepickerToggle } from './datepicker-toggle/datepicker-toggle.component';
 
 // tslint:disable:component-class-suffix
 // tslint:disable:radix
 // tslint:disable:no-non-null-assertion
-describe('MatDatepicker', () => {
+describe('hcDatepicker', () => {
   const SUPPORTS_INTL = typeof Intl !== 'undefined';
 
   // Creates a test component fixture.
@@ -35,11 +36,12 @@ describe('MatDatepicker', () => {
     TestBed.configureTestingModule({
       imports: [
         FormsModule,
-        MatDatepickerModule,
+        HcDatepickerModule,
         FormFieldModule,
         InputModule,
         NoopAnimationsModule,
         ReactiveFormsModule,
+        IconModule,
         ...imports
       ],
       providers,
@@ -65,7 +67,7 @@ describe('MatDatepicker', () => {
       let testComponent: StandardDatepicker;
 
       beforeEach(fakeAsync(() => {
-        fixture = createComponent(StandardDatepicker, [MatNativeDateModule]);
+        fixture = createComponent(StandardDatepicker, [HcNativeDateModule]);
         fixture.detectChanges();
 
         testComponent = fixture.componentInstance;
@@ -401,13 +403,13 @@ describe('MatDatepicker', () => {
           const scrolledSubject = new Subject();
 
           // Stub out a `CloseScrollStrategy` so we can trigger a detachment via the `OverlayRef`.
-          fixture = createComponent(StandardDatepicker, [MatNativeDateModule], [
+          fixture = createComponent(StandardDatepicker, [HcNativeDateModule], [
             {
               provide: ScrollDispatcher,
               useValue: {scrolled: () => scrolledSubject}
             },
             {
-              provide: MAT_DATEPICKER_SCROLL_STRATEGY,
+              provide: HC_DATEPICKER_SCROLL_STRATEGY,
               deps: [Overlay],
               useFactory: (overlay: Overlay) => () => overlay.scrollStrategies.close()
             }
@@ -482,14 +484,14 @@ describe('MatDatepicker', () => {
 
     describe('datepicker with too many inputs', () => {
       it('should throw when multiple inputs registered', fakeAsync(() => {
-        const fixture = createComponent(MultiInputDatepicker, [MatNativeDateModule]);
+        const fixture = createComponent(MultiInputDatepicker, [HcNativeDateModule]);
         expect(() => fixture.detectChanges()).toThrow();
       }));
     });
 
     describe('datepicker that is assigned to input at a later point', () => {
       it('should not throw on ALT + DOWN_ARROW for input without datepicker', fakeAsync(() => {
-        const fixture = createComponent(DelayedDatepicker, [MatNativeDateModule]);
+        const fixture = createComponent(DelayedDatepicker, [HcNativeDateModule]);
         fixture.detectChanges();
 
         expect(() => {
@@ -502,7 +504,7 @@ describe('MatDatepicker', () => {
       }));
 
       it('should handle value changes when a datepicker is assigned after init', fakeAsync(() => {
-        const fixture = createComponent(DelayedDatepicker, [MatNativeDateModule]);
+        const fixture = createComponent(DelayedDatepicker, [HcNativeDateModule]);
         const testComponent: DelayedDatepicker = fixture.componentInstance;
         const toSelect = new Date(2017, JAN, 1);
 
@@ -529,7 +531,7 @@ describe('MatDatepicker', () => {
       let testComponent: NoInputDatepicker;
 
       beforeEach(fakeAsync(() => {
-        fixture = createComponent(NoInputDatepicker, [MatNativeDateModule]);
+        fixture = createComponent(NoInputDatepicker, [HcNativeDateModule]);
         fixture.detectChanges();
 
         testComponent = fixture.componentInstance;
@@ -554,7 +556,7 @@ describe('MatDatepicker', () => {
       let testComponent: DatepickerWithStartAt;
 
       beforeEach(fakeAsync(() => {
-        fixture = createComponent(DatepickerWithStartAt, [MatNativeDateModule]);
+        fixture = createComponent(DatepickerWithStartAt, [HcNativeDateModule]);
         fixture.detectChanges();
 
         testComponent = fixture.componentInstance;
@@ -575,7 +577,7 @@ describe('MatDatepicker', () => {
       let testComponent: DatepickerWithStartViewYear;
 
       beforeEach(fakeAsync(() => {
-        fixture = createComponent(DatepickerWithStartViewYear, [MatNativeDateModule]);
+        fixture = createComponent(DatepickerWithStartViewYear, [HcNativeDateModule]);
         fixture.detectChanges();
 
         testComponent = fixture.componentInstance;
@@ -623,7 +625,7 @@ describe('MatDatepicker', () => {
       let testComponent: DatepickerWithStartViewMultiYear;
 
       beforeEach(fakeAsync(() => {
-        fixture = createComponent(DatepickerWithStartViewMultiYear, [MatNativeDateModule]);
+        fixture = createComponent(DatepickerWithStartViewMultiYear, [HcNativeDateModule]);
         fixture.detectChanges();
 
         testComponent = fixture.componentInstance;
@@ -672,7 +674,7 @@ describe('MatDatepicker', () => {
       let testComponent: DatepickerWithNgModel;
 
       beforeEach(fakeAsync(() => {
-        fixture = createComponent(DatepickerWithNgModel, [MatNativeDateModule]);
+        fixture = createComponent(DatepickerWithNgModel, [HcNativeDateModule]);
         fixture.detectChanges();
 
         fixture.whenStable().then(() => {
@@ -820,7 +822,7 @@ describe('MatDatepicker', () => {
       let testComponent: DatepickerWithFormControl;
 
       beforeEach(fakeAsync(() => {
-        fixture = createComponent(DatepickerWithFormControl, [MatNativeDateModule]);
+        fixture = createComponent(DatepickerWithFormControl, [HcNativeDateModule]);
         fixture.detectChanges();
 
         testComponent = fixture.componentInstance;
@@ -881,7 +883,7 @@ describe('MatDatepicker', () => {
       let testComponent: DatepickerWithToggle;
 
       beforeEach(fakeAsync(() => {
-        fixture = createComponent(DatepickerWithToggle, [MatNativeDateModule]);
+        fixture = createComponent(DatepickerWithToggle, [HcNativeDateModule]);
         fixture.detectChanges();
 
         testComponent = fixture.componentInstance;
@@ -970,7 +972,7 @@ describe('MatDatepicker', () => {
       });
 
       it('should re-render when the i18n labels change',
-        inject([MatDatepickerIntl], (intl: MatDatepickerIntl) => {
+        inject([HcDatepickerIntl], (intl: HcDatepickerIntl) => {
           const toggle = fixture.debugElement.query(By.css('button')).nativeElement;
 
           intl.openCalendarLabel = 'Open the calendar, perhaps?';
@@ -1002,20 +1004,20 @@ describe('MatDatepicker', () => {
 
     describe('datepicker with custom hc-datepicker-toggle icon', () => {
       it('should be able to override the hc-datepicker-toggle icon', fakeAsync(() => {
-        const fixture = createComponent(DatepickerWithCustomIcon, [MatNativeDateModule]);
+        const fixture = createComponent(DatepickerWithCustomIcon, [HcNativeDateModule]);
         fixture.detectChanges();
 
         expect(fixture.nativeElement.querySelector('.hc-datepicker-toggle .custom-icon'))
             .toBeTruthy('Expected custom icon to be rendered.');
 
-        expect(fixture.nativeElement.querySelector('.hc-datepicker-toggle hc-icon'))
+        expect(fixture.nativeElement.querySelector('.fa-calendar hc-icon'))
             .toBeFalsy('Expected default icon to be removed.');
       }));
     });
 
     describe('datepicker with tabindex on hc-datepicker-toggle', () => {
       it('should forward the tabindex to the underlying button', () => {
-        const fixture = createComponent(DatepickerWithTabindexOnToggle, [MatNativeDateModule]);
+        const fixture = createComponent(DatepickerWithTabindexOnToggle, [HcNativeDateModule]);
         fixture.detectChanges();
 
         const button = fixture.nativeElement.querySelector('.hc-datepicker-toggle button');
@@ -1024,7 +1026,7 @@ describe('MatDatepicker', () => {
       });
 
       it('should clear the tabindex from the hc-datepicker-toggle host', () => {
-        const fixture = createComponent(DatepickerWithTabindexOnToggle, [MatNativeDateModule]);
+        const fixture = createComponent(DatepickerWithTabindexOnToggle, [HcNativeDateModule]);
         fixture.detectChanges();
 
         const host = fixture.nativeElement.querySelector('.hc-datepicker-toggle');
@@ -1038,7 +1040,7 @@ describe('MatDatepicker', () => {
       let testComponent: FormFieldDatepicker;
 
       beforeEach(fakeAsync(() => {
-        fixture = createComponent(FormFieldDatepicker, [MatNativeDateModule]);
+        fixture = createComponent(FormFieldDatepicker, [HcNativeDateModule]);
         fixture.detectChanges();
         testComponent = fixture.componentInstance;
       }));
@@ -1055,7 +1057,7 @@ describe('MatDatepicker', () => {
       let testComponent: DatepickerWithMinAndMaxValidation;
 
       beforeEach(fakeAsync(() => {
-        fixture = createComponent(DatepickerWithMinAndMaxValidation, [MatNativeDateModule]);
+        fixture = createComponent(DatepickerWithMinAndMaxValidation, [HcNativeDateModule]);
         fixture.detectChanges();
 
         testComponent = fixture.componentInstance;
@@ -1128,7 +1130,7 @@ describe('MatDatepicker', () => {
       let testComponent: DatepickerWithFilterAndValidation;
 
       beforeEach(fakeAsync(() => {
-        fixture = createComponent(DatepickerWithFilterAndValidation, [MatNativeDateModule]);
+        fixture = createComponent(DatepickerWithFilterAndValidation, [HcNativeDateModule]);
         fixture.detectChanges();
 
         testComponent = fixture.componentInstance;
@@ -1178,7 +1180,7 @@ describe('MatDatepicker', () => {
       let inputEl: HTMLInputElement;
 
       beforeEach(fakeAsync(() => {
-        fixture = createComponent(DatepickerWithChangeAndInputEvents, [MatNativeDateModule]);
+        fixture = createComponent(DatepickerWithChangeAndInputEvents, [HcNativeDateModule]);
         fixture.detectChanges();
 
         testComponent = fixture.componentInstance;
@@ -1272,7 +1274,7 @@ describe('MatDatepicker', () => {
       let testComponent: DatepickerWithISOStrings;
 
       beforeEach(fakeAsync(() => {
-        fixture = createComponent(DatepickerWithISOStrings, [MatNativeDateModule]);
+        fixture = createComponent(DatepickerWithISOStrings, [HcNativeDateModule]);
         testComponent = fixture.componentInstance;
       }));
 
@@ -1298,7 +1300,7 @@ describe('MatDatepicker', () => {
       let testComponent: DatepickerWithEvents;
 
       beforeEach(fakeAsync(() => {
-        fixture = createComponent(DatepickerWithEvents, [MatNativeDateModule]);
+        fixture = createComponent(DatepickerWithEvents, [HcNativeDateModule]);
         fixture.detectChanges();
         testComponent = fixture.componentInstance;
       }));
@@ -1329,7 +1331,7 @@ describe('MatDatepicker', () => {
       let input: HTMLInputElement;
 
       beforeEach(fakeAsync(() => {
-        fixture = createComponent(DatepickerOpeningOnFocus, [MatNativeDateModule]);
+        fixture = createComponent(DatepickerOpeningOnFocus, [HcNativeDateModule]);
         fixture.detectChanges();
         testComponent = fixture.componentInstance;
         input = fixture.debugElement.query(By.css('input')).nativeElement;
@@ -1371,7 +1373,7 @@ describe('MatDatepicker', () => {
 
     describe('datepicker directionality', () => {
       it('should pass along the directionality to the popup', () => {
-        const fixture = createComponent(StandardDatepicker, [MatNativeDateModule], [{
+        const fixture = createComponent(StandardDatepicker, [HcNativeDateModule], [{
           provide: Directionality,
           useValue: ({value: 'rtl'})
         }]);
@@ -1387,7 +1389,7 @@ describe('MatDatepicker', () => {
 
       it('should update the popup direction if the directionality value changes', fakeAsync(() => {
         const dirProvider = {value: 'ltr'};
-        const fixture = createComponent(StandardDatepicker, [MatNativeDateModule], [{
+        const fixture = createComponent(StandardDatepicker, [HcNativeDateModule], [{
           provide: Directionality,
           useFactory: () => dirProvider
         }]);
@@ -1414,7 +1416,7 @@ describe('MatDatepicker', () => {
       }));
 
       it('should pass along the directionality to the dialog in touch mode', () => {
-        const fixture = createComponent(StandardDatepicker, [MatNativeDateModule], [{
+        const fixture = createComponent(StandardDatepicker, [HcNativeDateModule], [{
           provide: Directionality,
           useValue: ({value: 'rtl'})
         }]);
@@ -1433,7 +1435,7 @@ describe('MatDatepicker', () => {
 
   });
 
-  describe('with missing DateAdapter and MAT_DATE_FORMATS', () => {
+  describe('with missing DateAdapter and HC_DATE_FORMATS', () => {
     it('should throw when created', () => {
       expect(() => createComponent(StandardDatepicker))
         .toThrowError(/HcDatepicker: No provider found for .*/);
@@ -1446,7 +1448,7 @@ describe('MatDatepicker', () => {
     let input: HTMLElement;
 
     beforeEach(fakeAsync(() => {
-      fixture = createComponent(StandardDatepicker, [MatNativeDateModule]);
+      fixture = createComponent(StandardDatepicker, [HcNativeDateModule]);
       fixture.detectChanges();
       testComponent = fixture.componentInstance;
       input = fixture.debugElement.query(By.css('input')).nativeElement;
@@ -1515,8 +1517,8 @@ describe('MatDatepicker', () => {
     let input: HTMLInputElement;
 
     beforeEach(fakeAsync(() => {
-      fixture = createComponent(DatepickerWithi18n, [MatNativeDateModule, NativeDateModule],
-        [{provide: MAT_DATE_LOCALE, useValue: 'de-DE'}]);
+      fixture = createComponent(DatepickerWithi18n, [HcNativeDateModule, NativeDateModule],
+        [{provide: HC_DATE_LOCALE, useValue: 'de-DE'}]);
       fixture.detectChanges();
       testComponent = fixture.componentInstance;
       input = fixture.nativeElement.querySelector('input') as HTMLInputElement;
@@ -1549,7 +1551,7 @@ describe('MatDatepicker', () => {
     beforeEach(fakeAsync(() => {
       fixture = createComponent(
         DatepickerWithCustomHeader,
-        [MatNativeDateModule],
+        [HcNativeDateModule],
         [],
         [CustomHeaderForDatepicker]
       );
@@ -1585,7 +1587,7 @@ describe('MatDatepicker', () => {
 
 @Component({
   template: `
-    <input [matDatepicker]="d" [value]="date">
+    <input [hcDatepicker]="d" [value]="date">
     <hc-datepicker #d [touchUi]="touch" [disabled]="disabled" [opened]="opened"></hc-datepicker>
   `,
 })
@@ -1594,14 +1596,14 @@ class StandardDatepicker {
   touch = false;
   disabled = false;
   date: Date | null = new Date(2020, JAN, 1);
-  @ViewChild('d') datepicker: MatDatepicker;
+  @ViewChild('d') datepicker: HcDatepicker;
   @ViewChild(DatepickerInputDirective) datepickerInput: DatepickerInputDirective;
 }
 
 
 @Component({
   template: `
-    <input [matDatepicker]="d"><input [matDatepicker]="d"><hc-datepicker #d></hc-datepicker>
+    <input [hcDatepicker]="d"><input [hcDatepicker]="d"><hc-datepicker #d></hc-datepicker>
   `,
 })
 class MultiInputDatepicker {}
@@ -1611,32 +1613,32 @@ class MultiInputDatepicker {}
   template: `<hc-datepicker #d></hc-datepicker>`,
 })
 class NoInputDatepicker {
-  @ViewChild('d') datepicker: MatDatepicker;
+  @ViewChild('d') datepicker: HcDatepicker;
 }
 
 
 @Component({
   template: `
-    <input [matDatepicker]="d" [value]="date">
+    <input [hcDatepicker]="d" [value]="date">
     <hc-datepicker #d [startAt]="startDate"></hc-datepicker>
   `,
 })
 class DatepickerWithStartAt {
   date = new Date(2020, JAN, 1);
   startDate = new Date(2010, JAN, 1);
-  @ViewChild('d') datepicker: MatDatepicker;
+  @ViewChild('d') datepicker: HcDatepicker;
 }
 
 
 @Component({
   template: `
-    <input [matDatepicker]="d" [value]="date">
+    <input [hcDatepicker]="d" [value]="date">
     <hc-datepicker #d startView="year" (monthSelected)="onYearSelection()"></hc-datepicker>
   `,
 })
 class DatepickerWithStartViewYear {
   date = new Date(2020, JAN, 1);
-  @ViewChild('d') datepicker: MatDatepicker;
+  @ViewChild('d') datepicker: HcDatepicker;
 
   onYearSelection() {}
 }
@@ -1644,14 +1646,14 @@ class DatepickerWithStartViewYear {
 
 @Component({
   template: `
-    <input [matDatepicker]="d" [value]="date">
+    <input [hcDatepicker]="d" [value]="date">
     <hc-datepicker #d startView="multi-year"
         (yearSelected)="onMultiYearSelection()"></hc-datepicker>
   `,
 })
 class DatepickerWithStartViewMultiYear {
   date = new Date(2020, JAN, 1);
-  @ViewChild('d') datepicker: MatDatepicker;
+  @ViewChild('d') datepicker: HcDatepicker;
 
   onMultiYearSelection() {}
 }
@@ -1659,41 +1661,41 @@ class DatepickerWithStartViewMultiYear {
 
 @Component({
   template: `
-    <input [(ngModel)]="selected" [matDatepicker]="d">
+    <input [(ngModel)]="selected" [hcDatepicker]="d">
     <hc-datepicker #d></hc-datepicker>
   `,
 })
 class DatepickerWithNgModel {
   selected: Date | null = null;
-  @ViewChild('d') datepicker: MatDatepicker;
+  @ViewChild('d') datepicker: HcDatepicker;
   @ViewChild(DatepickerInputDirective) datepickerInput: DatepickerInputDirective;
 }
 
 
 @Component({
   template: `
-    <input [formControl]="formControl" [matDatepicker]="d">
+    <input [formControl]="formControl" [hcDatepicker]="d">
     <hc-datepicker-toggle [for]="d"></hc-datepicker-toggle>
     <hc-datepicker #d></hc-datepicker>
   `,
 })
 class DatepickerWithFormControl {
   formControl = new FormControl();
-  @ViewChild('d') datepicker: MatDatepicker;
+  @ViewChild('d') datepicker: HcDatepicker;
   @ViewChild(DatepickerInputDirective) datepickerInput: DatepickerInputDirective;
-  @ViewChild(MatDatepickerToggle) datepickerToggle: MatDatepickerToggle;
+  @ViewChild(HcDatepickerToggle) datepickerToggle: HcDatepickerToggle;
 }
 
 
 @Component({
   template: `
-    <input [matDatepicker]="d">
+    <input [hcDatepicker]="d">
     <hc-datepicker-toggle [for]="d"></hc-datepicker-toggle>
     <hc-datepicker #d [touchUi]="touchUI"></hc-datepicker>
   `,
 })
 class DatepickerWithToggle {
-  @ViewChild('d') datepicker: MatDatepicker;
+  @ViewChild('d') datepicker: HcDatepicker;
   @ViewChild(DatepickerInputDirective) input: DatepickerInputDirective;
   touchUI = true;
 }
@@ -1701,9 +1703,9 @@ class DatepickerWithToggle {
 
 @Component({
   template: `
-    <input [matDatepicker]="d">
+    <input [hcDatepicker]="d">
     <hc-datepicker-toggle [for]="d">
-      <div class="custom-icon" matDatepickerToggleIcon></div>
+      <hc-icon class="custom-icon" hcDatepickerToggleIcon></hc-icon>
     </hc-datepicker-toggle>
     <hc-datepicker #d></hc-datepicker>
   `,
@@ -1714,14 +1716,14 @@ class DatepickerWithCustomIcon {}
 @Component({
   template: `
       <hc-form-field>
-        <input hcInput [matDatepicker]="d">
+        <input hcInput [hcDatepicker]="d">
         <hc-datepicker #d></hc-datepicker>
       </hc-form-field>
   `,
 })
 
 class FormFieldDatepicker {
-  @ViewChild('d') datepicker: MatDatepicker;
+  @ViewChild('d') datepicker: HcDatepicker;
   @ViewChild(DatepickerInputDirective) datepickerInput: DatepickerInputDirective;
   @ViewChild(HcFormFieldComponent) formField: HcFormFieldComponent;
 }
@@ -1729,13 +1731,13 @@ class FormFieldDatepicker {
 
 @Component({
   template: `
-    <input [matDatepicker]="d" [(ngModel)]="date" [min]="minDate" [max]="maxDate">
+    <input [hcDatepicker]="d" [(ngModel)]="date" [min]="minDate" [max]="maxDate">
     <hc-datepicker-toggle [for]="d"></hc-datepicker-toggle>
     <hc-datepicker #d></hc-datepicker>
   `,
 })
 class DatepickerWithMinAndMaxValidation {
-  @ViewChild('d') datepicker: MatDatepicker;
+  @ViewChild('d') datepicker: HcDatepicker;
   date: Date | null;
   minDate = new Date(2010, JAN, 1);
   maxDate = new Date(2020, JAN, 1);
@@ -1744,13 +1746,13 @@ class DatepickerWithMinAndMaxValidation {
 
 @Component({
   template: `
-    <input [matDatepicker]="d" [(ngModel)]="date" [matDatepickerFilter]="filter">
+    <input [hcDatepicker]="d" [(ngModel)]="date" [hcDatepickerFilter]="filter">
     <hc-datepicker-toggle [for]="d"></hc-datepicker-toggle>
     <hc-datepicker #d [touchUi]="true"></hc-datepicker>
   `,
 })
 class DatepickerWithFilterAndValidation {
-  @ViewChild('d') datepicker: MatDatepicker;
+  @ViewChild('d') datepicker: HcDatepicker;
   date: Date;
   filter = (date: Date) => date.getDate() !== 1;
 }
@@ -1758,13 +1760,13 @@ class DatepickerWithFilterAndValidation {
 
 @Component({
   template: `
-    <input [matDatepicker]="d" (change)="onChange()" (input)="onInput()"
+    <input [hcDatepicker]="d" (change)="onChange()" (input)="onInput()"
            (dateChange)="onDateChange()" (dateInput)="onDateInput()">
     <hc-datepicker #d [touchUi]="true"></hc-datepicker>
   `
 })
 class DatepickerWithChangeAndInputEvents {
-  @ViewChild('d') datepicker: MatDatepicker;
+  @ViewChild('d') datepicker: HcDatepicker;
 
   onChange() {}
 
@@ -1778,20 +1780,20 @@ class DatepickerWithChangeAndInputEvents {
 
 @Component({
   template: `
-    <input [matDatepicker]="d" [(ngModel)]="date">
+    <input [hcDatepicker]="d" [(ngModel)]="date">
     <hc-datepicker #d></hc-datepicker>
   `
 })
 class DatepickerWithi18n {
   date: Date | null = new Date(2010, JAN, 1);
-  @ViewChild('d') datepicker: MatDatepicker;
+  @ViewChild('d') datepicker: HcDatepicker;
   @ViewChild(DatepickerInputDirective) datepickerInput: DatepickerInputDirective;
 }
 
 
 @Component({
   template: `
-    <input [matDatepicker]="d" [(ngModel)]="value" [min]="min" [max]="max">
+    <input [hcDatepicker]="d" [(ngModel)]="value" [min]="min" [max]="max">
     <hc-datepicker #d [startAt]="startAt"></hc-datepicker>
   `
 })
@@ -1800,14 +1802,14 @@ class DatepickerWithISOStrings {
   min = new Date(2017, JAN, 1).toISOString();
   max = new Date (2017, DEC, 31).toISOString();
   startAt = new Date(2017, JUL, 1).toISOString();
-  @ViewChild('d') datepicker: MatDatepicker;
+  @ViewChild('d') datepicker: HcDatepicker;
   @ViewChild(DatepickerInputDirective) datepickerInput: DatepickerInputDirective;
 }
 
 
 @Component({
   template: `
-    <input [(ngModel)]="selected" [matDatepicker]="d">
+    <input [(ngModel)]="selected" [hcDatepicker]="d">
     <hc-datepicker (opened)="openedSpy()" (closed)="closedSpy()" #d></hc-datepicker>
   `,
 })
@@ -1815,29 +1817,29 @@ class DatepickerWithEvents {
   selected: Date | null = null;
   openedSpy = jasmine.createSpy('opened spy');
   closedSpy = jasmine.createSpy('closed spy');
-  @ViewChild('d') datepicker: MatDatepicker;
+  @ViewChild('d') datepicker: HcDatepicker;
 }
 
 
 @Component({
   template: `
-    <input (focus)="d.open()" [matDatepicker]="d">
-    <hc-datepicker #d="matDatepicker"></hc-datepicker>
+    <input (focus)="d.open()" [hcDatepicker]="d">
+    <hc-datepicker #d="hcDatepicker"></hc-datepicker>
   `,
 })
 class DatepickerOpeningOnFocus {
-  @ViewChild(MatDatepicker) datepicker: MatDatepicker;
+  @ViewChild(HcDatepicker) datepicker: HcDatepicker;
 }
 
 
 @Component({
   template: `
-    <input [matDatepicker]="ch">
+    <input [hcDatepicker]="ch">
     <hc-datepicker #ch [calendarHeaderComponent]="customHeaderForDatePicker"></hc-datepicker>
   `,
 })
 class DatepickerWithCustomHeader {
-  @ViewChild('ch') datepicker: MatDatepicker;
+  @ViewChild('ch') datepicker: HcDatepicker;
   customHeaderForDatePicker = CustomHeaderForDatepicker;
 }
 
@@ -1851,24 +1853,24 @@ class CustomHeaderForDatepicker {}
 
 @Component({
   template: `
-    <input [matDatepicker]="assignedDatepicker" [value]="date">
+    <input [hcDatepicker]="assignedDatepicker" [value]="date">
     <hc-datepicker #d [touchUi]="touch"></hc-datepicker>
   `,
 })
 class DelayedDatepicker {
-  @ViewChild('d') datepicker: MatDatepicker;
+  @ViewChild('d') datepicker: HcDatepicker;
   @ViewChild(DatepickerInputDirective) datepickerInput: DatepickerInputDirective;
   date: Date | null;
-  assignedDatepicker: MatDatepicker;
+  assignedDatepicker: HcDatepicker;
 }
 
 
 
 @Component({
   template: `
-    <input [matDatepicker]="d">
+    <input [hcDatepicker]="d">
     <hc-datepicker-toggle tabIndex="7" [for]="d">
-      <div class="custom-icon" matDatepickerToggleIcon></div>
+      <div class="custom-icon" hcDatepickerToggleIcon></div>
     </hc-datepicker-toggle>
     <hc-datepicker #d></hc-datepicker>
   `,

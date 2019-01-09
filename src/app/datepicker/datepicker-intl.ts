@@ -1,9 +1,9 @@
 /**
  * @license
- * Copyright Google LLC All Rights Reserved.
+ * Copyright Health Catalyst All Rights Reserved.
  *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * Use of this source code is governed by an Apache-2.0 license that can be
+ * found in the LICENSE file at https://raw.githubusercontent.com/HealthCatalyst/Fabric.Cashmere/dev/LICENSE
  */
 
 import {Injectable} from '@angular/core';
@@ -12,7 +12,7 @@ import {Subject} from 'rxjs';
 
 /** Datepicker data that requires internationalization. */
 @Injectable({providedIn: 'root'})
-export class MatDatepickerIntl {
+export class HcDatepickerIntl {
   /**
    * Stream that emits whenever the labels here are changed. Use this to notify
    * components if the labels have changed after initialization.

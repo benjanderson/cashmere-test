@@ -4,22 +4,22 @@ import {Component, NgZone} from '@angular/core';
 import {async, ComponentFixture, inject, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import { MockNgZone } from '../utils/mock-ng-zone';
-import { MatNativeDateModule, DateAdapter } from '../datetime';
-import { MatDatepickerModule } from '../hc-datepicker.module';
-import { MatDatepickerIntl, MatCalendar } from '..';
+import { HcNativeDateModule, DateAdapter } from '../datetime';
+import { HcDatepickerModule } from '../hc-datepicker.module';
+import { HcDatepickerIntl, HcCalendar } from '..';
 import { JAN, FEB, DEC, NOV, JUL } from '../utils/month-constants';
 import { dispatchFakeEvent, dispatchMouseEvent, dispatchKeyboardEvent } from '../utils/dispatch-events';
 
 // tslint:disable:no-non-null-assertion
 // tslint:disable:component-class-suffix
-describe('MatCalendar', () => {
+describe('HcCalendar', () => {
   let zone: MockNgZone;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        MatNativeDateModule,
-        MatDatepickerModule,
+        HcNativeDateModule,
+        HcDatepickerModule,
       ],
       declarations: [
         // Test components.
@@ -29,7 +29,7 @@ describe('MatCalendar', () => {
         CalendarWithSelectableMinDate,
       ],
       providers: [
-        MatDatepickerIntl,
+        HcDatepickerIntl,
         {provide: NgZone, useFactory: () => zone = new MockNgZone()},
         {provide: Directionality, useFactory: () => ({value: 'ltr'})},
       ],
@@ -43,13 +43,13 @@ describe('MatCalendar', () => {
     let testComponent: StandardCalendar;
     let calendarElement: HTMLElement;
     let periodButton: HTMLElement;
-    let calendarInstance: MatCalendar;
+    let calendarInstance: HcCalendar;
 
     beforeEach(() => {
       fixture = TestBed.createComponent(StandardCalendar);
       fixture.detectChanges();
 
-      const calendarDebugElement = fixture.debugElement.query(By.directive(MatCalendar));
+      const calendarDebugElement = fixture.debugElement.query(By.directive(HcCalendar));
       calendarElement = calendarDebugElement.nativeElement;
       periodButton = calendarElement.querySelector('.hc-calendar-period-button') as HTMLElement;
 
@@ -127,7 +127,7 @@ describe('MatCalendar', () => {
     });
 
     it('should re-render when the i18n labels have changed',
-      inject([MatDatepickerIntl], (intl: MatDatepickerIntl) => {
+      inject([HcDatepickerIntl], (intl: HcDatepickerIntl) => {
         const button = fixture.debugElement.nativeElement
             .querySelector('.hc-calendar-period-button');
 
@@ -290,12 +290,12 @@ describe('MatCalendar', () => {
     let fixture: ComponentFixture<CalendarWithMinMax>;
     let testComponent: CalendarWithMinMax;
     let calendarElement: HTMLElement;
-    let calendarInstance: MatCalendar;
+    let calendarInstance: HcCalendar;
 
     beforeEach(() => {
       fixture = TestBed.createComponent(CalendarWithMinMax);
 
-      const calendarDebugElement = fixture.debugElement.query(By.directive(MatCalendar));
+      const calendarDebugElement = fixture.debugElement.query(By.directive(HcCalendar));
       calendarElement = calendarDebugElement.nativeElement;
       calendarInstance = calendarDebugElement.componentInstance;
       testComponent = fixture.componentInstance;
@@ -451,7 +451,7 @@ describe('MatCalendar', () => {
       const dynamicFixture = TestBed.createComponent(CalendarWithSelectableMinDate);
       dynamicFixture.detectChanges();
 
-      const calendarDebugElement = dynamicFixture.debugElement.query(By.directive(MatCalendar));
+      const calendarDebugElement = dynamicFixture.debugElement.query(By.directive(HcCalendar));
       const disabledClass = 'hc-calendar-body-disabled';
       calendarElement = calendarDebugElement.nativeElement;
       calendarInstance = calendarDebugElement.componentInstance;
@@ -481,13 +481,13 @@ describe('MatCalendar', () => {
     let fixture: ComponentFixture<CalendarWithDateFilter>;
     let testComponent: CalendarWithDateFilter;
     let calendarElement: HTMLElement;
-    let calendarInstance: MatCalendar;
+    let calendarInstance: HcCalendar;
 
     beforeEach(() => {
       fixture = TestBed.createComponent(CalendarWithDateFilter);
       fixture.detectChanges();
 
-      const calendarDebugElement = fixture.debugElement.query(By.directive(MatCalendar));
+      const calendarDebugElement = fixture.debugElement.query(By.directive(HcCalendar));
       calendarElement = calendarDebugElement.nativeElement;
       calendarInstance = calendarDebugElement.componentInstance;
       testComponent = fixture.componentInstance;

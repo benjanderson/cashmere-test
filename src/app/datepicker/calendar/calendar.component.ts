@@ -16,38 +16,38 @@ import {
     OnDestroy,
     OnChanges
 } from '@angular/core';
-import { MatDatepickerIntl } from '../datepicker-intl';
+import { HcDatepickerIntl } from '../datepicker-intl';
 import { ComponentPortal, Portal, ComponentType } from '@angular/cdk/portal';
 import { createMissingDateImplError } from '../datetime/datepicker-errors';
-import { MAT_DATE_FORMATS, MatDateFormats, D } from '../datetime/date-formats';
+import { HC_DATE_FORMATS, hcDateFormats, D } from '../datetime/date-formats';
 import { DateAdapter } from '../datetime/date-adapter';
 import { Subject, Subscription } from 'rxjs';
-import { yearsPerPage, MatMultiYearView } from '../multi-year-view/multi-year-view.component';
-import { MatCalendarCellCssClasses } from '../calendar-body/calendar-body.component';
-import { MatMonthView } from '../month-view/month-view.component';
-import { MatYearView } from '../year-view/year-view.component';
+import { yearsPerPage, HcMultiYearView } from '../multi-year-view/multi-year-view.component';
+import { HcCalendarCellCssClasses } from '../calendar-body/calendar-body.component';
+import { HcMonthView } from '../month-view/month-view.component';
+import { HcYearView } from '../year-view/year-view.component';
 
 /**
  * Possible views for the calendar.
  * @docs-private
  */
-export type MatCalendarView = 'month' | 'year' | 'multi-year';
+export type hcCalendarView = 'month' | 'year' | 'multi-year';
 
-/** Default header for MatCalendar */
+/** Default header for hcCalendar */
 @Component({
     // moduleId: module.id,
     selector: 'hc-calendar-header',
     templateUrl: 'calendar-header.html',
-    exportAs: 'matCalendarHeader',
+    exportAs: 'hcCalendarHeader',
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MatCalendarHeader {
+export class HcCalendarHeader {
     constructor(
-        private _intl: MatDatepickerIntl,
-        @Inject(forwardRef(() => MatCalendar)) public calendar: MatCalendar,
+        private _intl: HcDatepickerIntl,
+        @Inject(forwardRef(() => HcCalendar)) public calendar: HcCalendar,
         @Optional() private _dateAdapter: DateAdapter<D>,
-        @Optional() @Inject(MAT_DATE_FORMATS) private _dateFormats: MatDateFormats,
+        @Optional() @Inject(HC_DATE_FORMATS) private _dateFormats: hcDateFormats,
         changeDetectorRef: ChangeDetectorRef
     ) {
         this.calendar.stateChanges.subscribe(() => changeDetectorRef.markForCheck());
@@ -159,11 +159,11 @@ export class MatCalendarHeader {
     host: {
         class: 'hc-calendar'
     },
-    exportAs: 'matCalendar',
+    exportAs: 'hcCalendar',
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MatCalendar implements AfterContentInit, AfterViewChecked, OnDestroy, OnChanges {
+export class HcCalendar implements AfterContentInit, AfterViewChecked, OnDestroy, OnChanges {
     /** An input indicating the type of the header component, if set. */
     @Input() headerComponent: ComponentType<any>;
 
@@ -190,7 +190,7 @@ export class MatCalendar implements AfterContentInit, AfterViewChecked, OnDestro
     private _startAt: D | null;
 
     /** Whether the calendar should be started in month or year view. */
-    @Input() startView: MatCalendarView = 'month';
+    @Input() startView: hcCalendarView = 'month';
 
     /** The currently selected date. */
     @Input()
@@ -226,7 +226,7 @@ export class MatCalendar implements AfterContentInit, AfterViewChecked, OnDestro
     @Input() dateFilter: (date: D) => boolean;
 
     /** Function that can be used to add custom CSS classes to dates. */
-    @Input() dateClass: (date: D) => MatCalendarCellCssClasses;
+    @Input() dateClass: (date: D) => HcCalendarCellCssClasses;
 
     /** Emits when the currently selected date changes. */
     @Output() readonly selectedChange: EventEmitter<D> = new EventEmitter<D>();
@@ -247,13 +247,13 @@ export class MatCalendar implements AfterContentInit, AfterViewChecked, OnDestro
     @Output() readonly _userSelection: EventEmitter<void> = new EventEmitter<void>();
 
     /** Reference to the current month view component. */
-    @ViewChild(MatMonthView) monthView: MatMonthView;
+    @ViewChild(HcMonthView) monthView: HcMonthView;
 
     /** Reference to the current year view component. */
-    @ViewChild(MatYearView) yearView: MatYearView;
+    @ViewChild(HcYearView) yearView: HcYearView;
 
     /** Reference to the current multi-year view component. */
-    @ViewChild(MatMultiYearView) multiYearView: MatMultiYearView;
+    @ViewChild(HcMultiYearView) multiYearView: HcMultiYearView;
 
     /**
      * The current active date. This determines which time period is shown and which date is
@@ -269,14 +269,14 @@ export class MatCalendar implements AfterContentInit, AfterViewChecked, OnDestro
     private _clampedActiveDate: D;
 
     /** Whether the calendar is in month view. */
-    get currentView(): MatCalendarView {
+    get currentView(): hcCalendarView {
         return this._currentView;
     }
-    set currentView(value: MatCalendarView) {
+    set currentView(value: hcCalendarView) {
         this._currentView = value;
         this._moveFocusOnNextTick = true;
     }
-    private _currentView: MatCalendarView;
+    private _currentView: hcCalendarView;
 
     /**
      * Emits whenever there is a state change that the header may need to respond to.
@@ -284,9 +284,9 @@ export class MatCalendar implements AfterContentInit, AfterViewChecked, OnDestro
     stateChanges = new Subject<void>();
 
     constructor(
-        _intl: MatDatepickerIntl,
+        _intl: HcDatepickerIntl,
         @Optional() private _dateAdapter: DateAdapter<D>,
-        @Optional() @Inject(MAT_DATE_FORMATS) private _dateFormats: MatDateFormats,
+        @Optional() @Inject(HC_DATE_FORMATS) private _dateFormats: hcDateFormats,
         private _changeDetectorRef: ChangeDetectorRef
     ) {
         if (!this._dateAdapter) {
@@ -294,7 +294,7 @@ export class MatCalendar implements AfterContentInit, AfterViewChecked, OnDestro
         }
 
         if (!this._dateFormats) {
-            throw createMissingDateImplError('MAT_DATE_FORMATS');
+            throw createMissingDateImplError('HC_DATE_FORMATS');
         }
 
         this._intlChanges = _intl.changes.subscribe(() => {
@@ -304,7 +304,7 @@ export class MatCalendar implements AfterContentInit, AfterViewChecked, OnDestro
     }
 
     ngAfterContentInit() {
-        this._calendarHeaderPortal = new ComponentPortal(this.headerComponent || MatCalendarHeader);
+        this._calendarHeaderPortal = new ComponentPortal(this.headerComponent || HcCalendarHeader);
         this.activeDate = this.startAt || this._dateAdapter.today();
 
         // Assign to the private property since we don't want to move focus on init.

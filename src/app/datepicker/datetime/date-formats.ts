@@ -1,16 +1,16 @@
 /**
  * @license
- * Copyright Google LLC All Rights Reserved.
+ * Copyright Health Catalyst All Rights Reserved.
  *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * Use of this source code is governed by an Apache-2.0 license that can be
+ * found in the LICENSE file at https://raw.githubusercontent.com/HealthCatalyst/Fabric.Cashmere/dev/LICENSE
  */
 
 import {InjectionToken} from '@angular/core';
 
 export type D = Date;
 
-export type MatDateFormats = {
+export type hcDateFormats = {
   parse: {
     dateInput: any
   },
@@ -23,4 +23,4 @@ export type MatDateFormats = {
 };
 
 
-export const MAT_DATE_FORMATS = new InjectionToken<MatDateFormats>('hc-date-formats');
+export const HC_DATE_FORMATS = new InjectionToken<hcDateFormats>('hc-date-formats');

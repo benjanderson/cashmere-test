@@ -28,11 +28,11 @@ import {OverlayContainer, ScrollStrategy, Overlay} from '@angular/cdk/overlay';
 import {ScrollDispatcher} from '@angular/cdk/scrolling';
 import {A, ESCAPE} from '@angular/cdk/keycodes';
 import {
-  MAT_DIALOG_DATA,
+  HC_DIALOG_DATA,
   MatDialog,
-  MatDialogModule,
+  HcDialogModule,
   MatDialogRef,
-  MAT_DIALOG_DEFAULT_OPTIONS
+  HC_DIALOG_DEFAULT_OPTIONS
 } from './index';
 import {Subject} from 'rxjs';
 import { dispatchKeyboardEvent } from '../datepicker/utils/dispatch-events';
@@ -51,7 +51,7 @@ describe('MatDialog', () => {
 
   beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
-      imports: [MatDialogModule, DialogTestModule],
+      imports: [HcDialogModule, DialogTestModule],
       providers: [
         {provide: Location, useClass: SpyLocation},
         {provide: ScrollDispatcher, useFactory: () => ({
@@ -1046,7 +1046,7 @@ describe('MatDialog', () => {
         flushMicrotasks();
 
         expect(document.activeElement!.tagName)
-            .toBe('hc-DIALOG-CONTAINER', 'Expected dialog container to be focused.');
+            .toBe('HC-DIALOG-CONTAINER', 'Expected dialog container to be focused.');
       }));
 
     it('should be able to disable focus restoration', fakeAsync(() => {
@@ -1203,7 +1203,7 @@ describe('MatDialog with a parent MatDialog', () => {
 
   beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
-      imports: [MatDialogModule, DialogTestModule],
+      imports: [HcDialogModule, DialogTestModule],
       declarations: [ComponentThatProvidesMatDialog],
       providers: [
         {provide: OverlayContainer, useFactory: () => {
@@ -1311,9 +1311,9 @@ describe('MatDialog with default options', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [MatDialogModule, DialogTestModule],
+      imports: [HcDialogModule, DialogTestModule],
       providers: [
-        {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: defaultConfig},
+        {provide: HC_DIALOG_DEFAULT_OPTIONS, useValue: defaultConfig},
       ],
     });
 
@@ -1478,7 +1478,7 @@ class ComponentThatProvidesMatDialog {
 /** Simple component for testing ComponentPortal. */
 @Component({template: ''})
 class DialogWithInjectedData {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(@Inject(HC_DIALOG_DATA) public data: any) { }
 }
 
 @Component({template: '<p>Pasta</p>'})
@@ -1499,7 +1499,7 @@ const TEST_DIRECTIVES = [
 ];
 
 @NgModule({
-  imports: [MatDialogModule, NoopAnimationsModule],
+  imports: [HcDialogModule, NoopAnimationsModule],
   exports: TEST_DIRECTIVES,
   declarations: TEST_DIRECTIVES,
   entryComponents: [

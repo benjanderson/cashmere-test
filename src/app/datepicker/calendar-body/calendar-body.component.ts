@@ -16,19 +16,19 @@ import { take } from 'rxjs/operators';
 /**
  * Extra CSS classes that can be associated with a calendar cell.
  */
-export type MatCalendarCellCssClasses = string | string[] | Set<string> | { [key: string]: any };
+export type HcCalendarCellCssClasses = string | string[] | Set<string> | { [key: string]: any };
 
 /**
  * An internal class that represents the data corresponding to a single calendar cell.
  * @docs-private
  */
-export class MatCalendarCell {
+export class HcCalendarCell {
     constructor(
         public value: number,
         public displayValue: string,
         public ariaLabel: string,
         public enabled: boolean,
-        public cssClasses?: MatCalendarCellCssClasses
+        public cssClasses?: HcCalendarCellCssClasses
     ) {}
 }
 
@@ -46,16 +46,16 @@ export class MatCalendarCell {
         role: 'grid',
         'aria-readonly': 'true'
     },
-    exportAs: 'matCalendarBody',
+    exportAs: 'hcCalendarBody',
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MatCalendarBody implements OnChanges {
+export class HcCalendarBody implements OnChanges {
     /** The label for the table. (e.g. "Jan 2017"). */
     @Input() label: string;
 
     /** The cells to display in the table. */
-    @Input() rows: MatCalendarCell[][];
+    @Input() rows: HcCalendarCell[][];
 
     /** The value in the table that corresponds to today. */
     @Input() todayValue: number;
@@ -92,7 +92,7 @@ export class MatCalendarBody implements OnChanges {
 
     constructor(private _elementRef: ElementRef<HTMLElement>, private _ngZone: NgZone) {}
 
-    _cellClicked(cell: MatCalendarCell): void {
+    _cellClicked(cell: HcCalendarCell): void {
         if (cell.enabled) {
             this.selectedValueChange.emit(cell.value);
         }

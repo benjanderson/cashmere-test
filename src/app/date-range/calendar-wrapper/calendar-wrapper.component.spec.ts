@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testi
 import { CalendarWrapperComponent } from './calendar-wrapper.component';
 import { ConfigStoreService } from '../services/config-store.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { MatDatepickerInputEvent } from 'src/app/datepicker/datepicker-input/datepicker-input.directive';
+import { HcDatepickerInputEvent } from 'src/app/datepicker/datepicker-input/datepicker-input.directive';
 import { InputModule, FormFieldModule } from '@healthcatalyst/cashmere';
 
 describe('CalendarWrapperComponent', () => {
@@ -58,7 +58,7 @@ describe('CalendarWrapperComponent', () => {
             expect(val instanceof Date).toBeTruthy();
         });
         component.datePickerInput = <any>{value: new Date()};
-        const change: MatDatepickerInputEvent = new MatDatepickerInputEvent(component.datePickerInput, null);
+        const change: HcDatepickerInputEvent = new HcDatepickerInputEvent(component.datePickerInput, null);
         component.onInputChange(change);
     }));
 });

@@ -6,11 +6,11 @@ import { CashmereModule } from './cashmere.module';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CalendarExampleComponent } from './calendar-example/calendar-example.component';
-import { MatDatepickerModule } from './datepicker/hc-datepicker.module';
-import { MatDialogModule } from './dialog';
+import { HcDatepickerModule } from './datepicker/hc-datepicker.module';
+import { HcDialogModule } from './dialog';
 import { DialogExampleComponent, DialogOverviewExampleDialog } from './dialog-example/dialog-example.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatNativeDateModule } from './datepicker/datetime';
+import { HcNativeDateModule } from './datepicker/datetime';
 import { SugarDateModule } from './sugar-date.module';
 import { DateRangeExampleComponent } from './date-range-example/date-range-example.component';
 import { DateRangeModule } from './date-range/hc-date-range.module';
@@ -27,10 +27,10 @@ import { DateRangeModule } from './date-range/hc-date-range.module';
     BrowserModule,
     BrowserAnimationsModule,
     CashmereModule,
-    MatDatepickerModule,
+    HcDatepickerModule,
     DateRangeModule,
     SugarDateModule,
-    MatDialogModule,
+    HcDialogModule,
     FormsModule,
     RouterModule.forRoot(
       [

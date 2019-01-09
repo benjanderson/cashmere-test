@@ -1,16 +1,16 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {Component} from '@angular/core';
 import {By} from '@angular/platform-browser';
-import { MatCalendarBody } from '..';
-import { MatCalendarCellCssClasses, MatCalendarCell } from './calendar-body.component';
+import { HcCalendarBody } from '..';
+import { HcCalendarCellCssClasses, HcCalendarCell } from './calendar-body.component';
 
 // tslint:disable:no-non-null-assertion
 // tslint:disable:component-class-suffix
-describe('MatCalendarBody', () => {
+describe('HcCalendarBody', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        MatCalendarBody,
+        HcCalendarBody,
 
         // Test components.
         StandardCalendarBody,
@@ -38,7 +38,7 @@ describe('MatCalendarBody', () => {
       fixture = TestBed.createComponent(StandardCalendarBody);
       fixture.detectChanges();
 
-      const calendarBodyDebugElement = fixture.debugElement.query(By.directive(MatCalendarBody));
+      const calendarBodyDebugElement = fixture.debugElement.query(By.directive(HcCalendarBody));
       calendarBodyNativeElement = calendarBodyDebugElement.nativeElement;
       testComponent = fixture.componentInstance;
 
@@ -140,6 +140,6 @@ class StandardCalendarBody {
   }
 }
 
-function createCell(value: number, cellClasses?: MatCalendarCellCssClasses) {
-  return new MatCalendarCell(value, `${value}`, `${value}-label`, true, cellClasses);
+function createCell(value: number, cellClasses?: HcCalendarCellCssClasses) {
+  return new HcCalendarCell(value, `${value}`, `${value}-label`, true, cellClasses);
 }

@@ -12,8 +12,8 @@ import {
     Optional,
     Inject
 } from '@angular/core';
-import { MatCalendarBody, MatCalendarCell } from '../calendar-body/calendar-body.component';
-import { MAT_DATE_FORMATS, MatDateFormats, DateAdapter, D } from '../datetime';
+import { HcCalendarBody, HcCalendarCell } from '../calendar-body/calendar-body.component';
+import { HC_DATE_FORMATS, hcDateFormats, DateAdapter, D } from '../datetime';
 import { Directionality } from '@angular/cdk/bidi';
 import { createMissingDateImplError } from '../datetime/datepicker-errors';
 import { LEFT_ARROW, RIGHT_ARROW, UP_ARROW, DOWN_ARROW, HOME, END, PAGE_UP, PAGE_DOWN, ENTER, SPACE } from '@angular/cdk/keycodes';
@@ -30,7 +30,7 @@ import { LEFT_ARROW, RIGHT_ARROW, UP_ARROW, DOWN_ARROW, HOME, END, PAGE_UP, PAGE
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MatYearView implements AfterContentInit {
+export class HcYearView implements AfterContentInit {
     /** The date to display in this year view (everything other than the year is ignored). */
     @Input()
     get activeDate(): D {
@@ -90,10 +90,10 @@ export class MatYearView implements AfterContentInit {
     @Output() readonly activeDateChange: EventEmitter<D> = new EventEmitter<D>();
 
     /** The body of calendar table */
-    @ViewChild(MatCalendarBody) _matCalendarBody: MatCalendarBody;
+    @ViewChild(HcCalendarBody) _hcCalendarBody: HcCalendarBody;
 
     /** Grid of calendar cells representing the months of the year. */
-    _months: MatCalendarCell[][];
+    _months: HcCalendarCell[][];
 
     /** The label for this year (e.g. "2017"). */
     _yearLabel: string;
@@ -109,7 +109,7 @@ export class MatYearView implements AfterContentInit {
 
     constructor(
         private _changeDetectorRef: ChangeDetectorRef,
-        @Optional() @Inject(MAT_DATE_FORMATS) private _dateFormats: MatDateFormats,
+        @Optional() @Inject(HC_DATE_FORMATS) private _dateFormats: hcDateFormats,
         @Optional() public _dateAdapter: DateAdapter<D>,
         @Optional() private _dir?: Directionality
     ) {
@@ -117,7 +117,7 @@ export class MatYearView implements AfterContentInit {
             throw createMissingDateImplError('DateAdapter');
         }
         if (!this._dateFormats) {
-            throw createMissingDateImplError('MAT_DATE_FORMATS');
+            throw createMissingDateImplError('HC_DATE_FORMATS');
         }
 
         this._activeDate = this._dateAdapter.today();
@@ -212,7 +212,7 @@ export class MatYearView implements AfterContentInit {
 
     /** Focuses the active cell after the microtask queue is empty. */
     _focusActiveCell() {
-        this._matCalendarBody._focusActiveCell();
+        this._hcCalendarBody._focusActiveCell();
     }
 
     /**
@@ -225,13 +225,13 @@ export class MatYearView implements AfterContentInit {
             : null;
     }
 
-    /** Creates an MatCalendarCell for the given month. */
+    /** Creates an hcCalendarCell for the given month. */
     private _createCellForMonth(month: number, monthName: string) {
         const ariaLabel = this._dateAdapter.format(
             this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, 1),
             this._dateFormats.display.monthYearA11yLabel
         );
-        return new MatCalendarCell(month, monthName.toLocaleUpperCase(), ariaLabel, this._shouldEnableMonth(month));
+        return new HcCalendarCell(month, monthName.toLocaleUpperCase(), ariaLabel, this._shouldEnableMonth(month));
     }
 
     /** Whether the given month is enabled. */

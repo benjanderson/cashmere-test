@@ -7,6 +7,6 @@
     [attr.tabindex]="disabled ? -1 : tabIndex"
     [disabled]="disabled"
     (click)="_open($event)">
-    <ng-content select="[matDatepickerToggleIcon]"></ng-content>
-    <hc-icon hcSuffix fontSet="fa" fontIcon="fa-calendar"></hc-icon>
+    <ng-content select="[hcDatepickerToggleIcon]"></ng-content>
+    <hc-icon hcSuffix fontSet="fa" fontIcon="fa-calendar" *ngIf="!_customIcon"></hc-icon>
 </button>

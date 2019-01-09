@@ -10,22 +10,22 @@ import {
     Validators
 } from '@angular/forms';
 import { HcFormControlComponent, HcFormFieldComponent } from '@healthcatalyst/cashmere';
-import { DateAdapter, D, MAT_DATE_FORMATS, MatDateFormats } from '../datetime';
+import { DateAdapter, D, HC_DATE_FORMATS, hcDateFormats } from '../datetime';
 import { createMissingDateImplError } from '../datetime/datepicker-errors';
-import { MatDatepicker } from '../hc-datepicker.component';
+import { HcDatepicker } from '../hc-datepicker.component';
 import { coerceBooleanProperty } from '../utils/boolean-property';
 import { Subscription } from 'rxjs';
 import { DOWN_ARROW } from '@angular/cdk/keycodes';
 
 /** @docs-private */
-export const MAT_DATEPICKER_VALUE_ACCESSOR: any = {
+export const HC_DATEPICKER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => DatepickerInputDirective),
     multi: true
 };
 
 /** @docs-private */
-export const MAT_DATEPICKER_VALIDATORS: any = {
+export const HC_DATEPICKER_VALIDATORS: any = {
     provide: NG_VALIDATORS,
     useExisting: forwardRef(() => DatepickerInputDirective),
     multi: true
@@ -34,9 +34,9 @@ export const MAT_DATEPICKER_VALIDATORS: any = {
 /**
  * An event used for datepicker input and change events. We don't always have access to a native
  * input or change event because the event may have been triggered by the user clicking on the
- * calendar popup. For consistency, we always use MatDatepickerInputEvent instead.
+ * calendar popup. For consistency, we always use hcDatepickerInputEvent instead.
  */
-export class MatDatepickerInputEvent {
+export class HcDatepickerInputEvent {
     /** The new value for the target datepicker input. */
     value: D | null;
 
@@ -52,7 +52,7 @@ export class MatDatepickerInputEvent {
 
 // tslint:disable:member-ordering
 @Directive({
-    selector: 'input[matDatepicker]',
+    selector: 'input[hcDatepicker]',
     host: {
         '[attr.aria-haspopup]': 'true',
         '[attr.aria-owns]': '(_datepicker?.opened && _datepicker.id) || null',
@@ -65,15 +65,15 @@ export class MatDatepickerInputEvent {
         '(keydown)': '_onKeydown($event)'
     },
     providers: [
-        MAT_DATEPICKER_VALUE_ACCESSOR,
-        MAT_DATEPICKER_VALIDATORS,
+        HC_DATEPICKER_VALUE_ACCESSOR,
+        HC_DATEPICKER_VALIDATORS,
         { provide: HcFormControlComponent, useExisting: forwardRef(() => DatepickerInputDirective) }
     ]
 })
 export class DatepickerInputDirective implements ControlValueAccessor, OnDestroy, Validator {
     /** The datepicker that this input is associated with. */
     @Input()
-    set matDatepicker(value: MatDatepicker) {
+    set hcDatepicker(value: HcDatepicker) {
         if (!value) {
             return;
         }
@@ -86,11 +86,11 @@ export class DatepickerInputDirective implements ControlValueAccessor, OnDestroy
             this.setDate(selected);
         });
     }
-    _datepicker: MatDatepicker;
+    _datepicker: HcDatepicker;
 
     /** Function that can be used to filter out dates within the datepicker. */
     @Input()
-    set matDatepickerFilter(value: (date: D | null) => boolean) {
+    set hcDatepickerFilter(value: (date: D | null) => boolean) {
         this._dateFilter = value;
         this._validatorOnChange();
     }
@@ -162,10 +162,10 @@ export class DatepickerInputDirective implements ControlValueAccessor, OnDestroy
     private _disabled: boolean;
 
     /** Emits when a `change` event is fired on this `<input>`. */
-    @Output() readonly dateChange: EventEmitter<MatDatepickerInputEvent> = new EventEmitter<MatDatepickerInputEvent>();
+    @Output() readonly dateChange: EventEmitter<HcDatepickerInputEvent> = new EventEmitter<HcDatepickerInputEvent>();
 
     /** Emits when an `input` event is fired on this `<input>`. */
-    @Output() readonly dateInput: EventEmitter<MatDatepickerInputEvent> = new EventEmitter<MatDatepickerInputEvent>();
+    @Output() readonly dateInput: EventEmitter<HcDatepickerInputEvent> = new EventEmitter<HcDatepickerInputEvent>();
 
     /** Emits when the value changes (either due to user input or programmatic change). */
     _valueChange = new EventEmitter<D | null>();
@@ -185,7 +185,7 @@ export class DatepickerInputDirective implements ControlValueAccessor, OnDestroy
 
     /** The form control validator for whether the input parses. */
     private _parseValidator: ValidatorFn = (): ValidationErrors | null => {
-        return this._lastValueValid ? null : { matDatepickerParse: { text: this._elementRef.nativeElement.value } };
+        return this._lastValueValid ? null : { hcDatepickerParse: { text: this._elementRef.nativeElement.value } };
     };
 
     /** The form control validator for the min date. */
@@ -193,7 +193,7 @@ export class DatepickerInputDirective implements ControlValueAccessor, OnDestroy
         const controlValue = this._getValidDateOrNull(this._dateAdapter.deserialize(control.value));
         return !this.min || !controlValue || this._dateAdapter.compareDate(this.min, controlValue) <= 0
             ? null
-            : { matDatepickerMin: { min: this.min, actual: controlValue } };
+            : { hcDatepickerMin: { min: this.min, actual: controlValue } };
     };
 
     /** The form control validator for the max date. */
@@ -201,13 +201,13 @@ export class DatepickerInputDirective implements ControlValueAccessor, OnDestroy
         const controlValue = this._getValidDateOrNull(this._dateAdapter.deserialize(control.value));
         return !this.max || !controlValue || this._dateAdapter.compareDate(this.max, controlValue) >= 0
             ? null
-            : { matDatepickerMax: { max: this.max, actual: controlValue } };
+            : { hcDatepickerMax: { max: this.max, actual: controlValue } };
     };
 
     /** The form control validator for the date filter. */
     private _filterValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
         const controlValue = this._getValidDateOrNull(this._dateAdapter.deserialize(control.value));
-        return !this._dateFilter || !controlValue || this._dateFilter(controlValue) ? null : { matDatepickerFilter: true };
+        return !this._dateFilter || !controlValue || this._dateFilter(controlValue) ? null : { hcDatepickerFilter: true };
     };
 
     /** The combined form control validator for this input. */
@@ -224,14 +224,14 @@ export class DatepickerInputDirective implements ControlValueAccessor, OnDestroy
     constructor(
         private _elementRef: ElementRef<HTMLInputElement>,
         @Optional() public _dateAdapter: DateAdapter<D>,
-        @Optional() @Inject(MAT_DATE_FORMATS) private _dateFormats: MatDateFormats,
+        @Optional() @Inject(HC_DATE_FORMATS) private _dateFormats: hcDateFormats,
         @Optional() private _formField: HcFormFieldComponent
     ) {
         if (!this._dateAdapter) {
             throw createMissingDateImplError('DateAdapter');
         }
         if (!this._dateFormats) {
-            throw createMissingDateImplError('MAT_DATE_FORMATS');
+            throw createMissingDateImplError('HC_DATE_FORMATS');
         }
 
         // Update the displayed date when the locale changes.
@@ -290,8 +290,8 @@ export class DatepickerInputDirective implements ControlValueAccessor, OnDestroy
         this.value = selected;
         this._cvaOnChange(selected);
         this._onTouched();
-        this.dateInput.emit(new MatDatepickerInputEvent(this, this._elementRef.nativeElement));
-        this.dateChange.emit(new MatDatepickerInputEvent(this, this._elementRef.nativeElement));
+        this.dateInput.emit(new HcDatepickerInputEvent(this, this._elementRef.nativeElement));
+        this.dateChange.emit(new HcDatepickerInputEvent(this, this._elementRef.nativeElement));
     }
 
     _onKeydown(event: KeyboardEvent) {
@@ -312,12 +312,12 @@ export class DatepickerInputDirective implements ControlValueAccessor, OnDestroy
             this._value = date;
             this._cvaOnChange(date);
             this._valueChange.emit(date);
-            this.dateInput.emit(new MatDatepickerInputEvent(this, this._elementRef.nativeElement));
+            this.dateInput.emit(new HcDatepickerInputEvent(this, this._elementRef.nativeElement));
         }
     }
 
     _onChange() {
-        this.dateChange.emit(new MatDatepickerInputEvent(this, this._elementRef.nativeElement));
+        this.dateChange.emit(new HcDatepickerInputEvent(this, this._elementRef.nativeElement));
     }
 
     /** Handles blur events on the input. */

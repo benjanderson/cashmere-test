@@ -20,9 +20,9 @@ import { createMissingDateImplError } from './datetime/datepicker-errors';
 import { Subject, Subscription, merge } from 'rxjs';
 import { ScrollStrategy, Overlay, ComponentType, OverlayRef, OverlayConfig, PositionStrategy } from '@angular/cdk/overlay';
 import { coerceBooleanProperty } from './utils/boolean-property';
-import { MatCalendarCellCssClasses } from './calendar-body/calendar-body.component';
+import { HcCalendarCellCssClasses } from './calendar-body/calendar-body.component';
 import { MatDialogRef } from '../dialog/dialog-ref';
-import { MatDatepickerContent } from './datepicker-content/datepicker-content.component';
+import { HcDatepickerContent } from './datepicker-content/datepicker-content.component';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { DatepickerInputDirective } from './datepicker-input/datepicker-input.directive';
 import { MatDialog } from '../dialog/dialog';
@@ -35,39 +35,39 @@ import { ESCAPE, UP_ARROW } from '@angular/cdk/keycodes';
 let datepickerUid = 0;
 
 /** Injection token that determines the scroll handling while the calendar is open. */
-export const MAT_DATEPICKER_SCROLL_STRATEGY = new InjectionToken<() => ScrollStrategy>('hc-datepicker-scroll-strategy');
+export const HC_DATEPICKER_SCROLL_STRATEGY = new InjectionToken<() => ScrollStrategy>('hc-datepicker-scroll-strategy');
 
 /** @docs-private */
-export function MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY(overlay: Overlay): () => ScrollStrategy {
+export function HC_DATEPICKER_SCROLL_STRATEGY_FACTORY(overlay: Overlay): () => ScrollStrategy {
     return () => overlay.scrollStrategies.reposition();
 }
 
 /** @docs-private */
-export const MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER = {
-    provide: MAT_DATEPICKER_SCROLL_STRATEGY,
+export const HC_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER = {
+    provide: HC_DATEPICKER_SCROLL_STRATEGY,
     deps: [Overlay],
-    useFactory: MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY
+    useFactory: HC_DATEPICKER_SCROLL_STRATEGY_FACTORY
 };
 
-// Boilerplate for applying mixins to MatDatepickerContent.
+// Boilerplate for applying mixins to hcDatepickerContent.
 /** @docs-private */
-export class MatDatepickerContentBase {
+export class hcDatepickerContentBase {
     constructor(public _elementRef: ElementRef) {}
 }
 
 // TODO(mmalerba): We use a component instead of a directive here so the user can use implicit
-// template reference variables (e.g. #d vs #d="matDatepicker"). We can change this to a directive
+// template reference variables (e.g. #d vs #d="hcDatepicker"). We can change this to a directive
 // if angular adds support for `exportAs: '$implicit'` on directives.
 /** Component responsible for managing the datepicker popup/dialog. */
 @Component({
     selector: 'hc-datepicker',
     template: '',
-    exportAs: 'matDatepicker',
+    exportAs: 'hcDatepicker',
     styleUrls: ['hc-datepicker.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class MatDatepicker implements OnDestroy {
+export class HcDatepicker implements OnDestroy {
     private _scrollStrategy: () => ScrollStrategy;
 
     /** An input indicating the type of the custom header component for the calendar, if set. */
@@ -132,7 +132,7 @@ export class MatDatepicker implements OnDestroy {
     @Input() panelClass: string | string[];
 
     /** Function that can be used to add custom CSS classes to dates. */
-    @Input() dateClass: (date: D) => MatCalendarCellCssClasses;
+    @Input() dateClass: (date: D) => HcCalendarCellCssClasses;
 
     /** Emits when the datepicker has been opened. */
     @Output('opened') openedStream: EventEmitter<void> = new EventEmitter<void>();
@@ -180,13 +180,13 @@ export class MatDatepicker implements OnDestroy {
     _popupRef: OverlayRef;
 
     /** A reference to the dialog when the calendar is opened as a dialog. */
-    private _dialogRef: MatDialogRef<MatDatepickerContent> | null;
+    private _dialogRef: MatDialogRef<HcDatepickerContent> | null;
 
     /** A portal containing the calendar for this datepicker. */
-    private _calendarPortal: ComponentPortal<MatDatepickerContent>;
+    private _calendarPortal: ComponentPortal<HcDatepickerContent>;
 
     /** Reference to the component instantiated in popup mode. */
-    private _popupComponentRef: ComponentRef<MatDatepickerContent> | null;
+    private _popupComponentRef: ComponentRef<HcDatepickerContent> | null;
 
     /** The element that was focused before the datepicker was opened. */
     private _focusedElementBeforeOpen: HTMLElement | null = null;
@@ -208,7 +208,7 @@ export class MatDatepicker implements OnDestroy {
         private _overlay: Overlay,
         private _ngZone: NgZone,
         private _viewContainerRef: ViewContainerRef,
-        @Inject(MAT_DATEPICKER_SCROLL_STRATEGY) scrollStrategy: any,
+        @Inject(HC_DATEPICKER_SCROLL_STRATEGY) scrollStrategy: any,
         @Optional() private _dateAdapter: DateAdapter<D>,
         @Optional() private _dir: Directionality,
         @Optional() @Inject(DOCUMENT) private _document: any
@@ -256,7 +256,7 @@ export class MatDatepicker implements OnDestroy {
      */
     _registerInput(input: DatepickerInputDirective): void {
         if (this._datepickerInput) {
-            throw Error('A MatDatepicker can only be associated with a single input.');
+            throw Error('A hcDatepicker can only be associated with a single input.');
         }
         this._datepickerInput = input;
         this._inputSubscription = this._datepickerInput._valueChange.subscribe((value: D | null) => (this._selected = value));
@@ -268,7 +268,7 @@ export class MatDatepicker implements OnDestroy {
             return;
         }
         if (!this._datepickerInput) {
-            throw Error('Attempted to open an MatDatepicker with no associated input.');
+            throw Error('Attempted to open an hcDatepicker with no associated input.');
         }
         if (this._document) {
             this._focusedElementBeforeOpen = this._document.activeElement;
@@ -328,7 +328,7 @@ export class MatDatepicker implements OnDestroy {
             this._dialogRef.close();
         }
 
-        this._dialogRef = this._dialog.open<MatDatepickerContent>(MatDatepickerContent, {
+        this._dialogRef = this._dialog.open<HcDatepickerContent>(HcDatepickerContent, {
             direction: this._dir ? this._dir.value : 'ltr',
             viewContainerRef: this._viewContainerRef,
             panelClass: 'hc-datepicker-dialog'
@@ -341,7 +341,7 @@ export class MatDatepicker implements OnDestroy {
     /** Open the calendar as a popup. */
     private _openAsPopup(): void {
         if (!this._calendarPortal) {
-            this._calendarPortal = new ComponentPortal<MatDatepickerContent>(MatDatepickerContent, this._viewContainerRef);
+            this._calendarPortal = new ComponentPortal<HcDatepickerContent>(HcDatepickerContent, this._viewContainerRef);
         }
 
         if (!this._popupRef) {

@@ -41,12 +41,12 @@ export class YourDialog {
 
 ### Specifying global configuration defaults
 Default dialog options can be specified by providing an instance of `MatDialogConfig` for
-MAT_DIALOG_DEFAULT_OPTIONS in your application's root module.
+HC_DIALOG_DEFAULT_OPTIONS in your application's root module.
 
 ```ts
 @NgModule({
   providers: [
-    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
+    {provide: HC_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
   ]
 })
 ```
@@ -60,18 +60,18 @@ let dialogRef = dialog.open(YourDialog, {
 });
 ```
 
-To access the data in your dialog component, you have to use the MAT_DIALOG_DATA injection token:
+To access the data in your dialog component, you have to use the HC_DIALOG_DATA injection token:
 
 ```ts
 import {Component, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA} from '@angular/material';
+import {HC_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'your-dialog',
   template: 'passed in {{ data.name }}',
 })
 export class YourDialog {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(@Inject(HC_DIALOG_DATA) public data: any) { }
 }
 ```
 

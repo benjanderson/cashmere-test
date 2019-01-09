@@ -1,9 +1,9 @@
 /**
  * @license
- * Copyright Google LLC All Rights Reserved.
+ * Copyright Health Catalyst All Rights Reserved.
  *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * Use of this source code is governed by an Apache-2.0 license that can be
+ * found in the LICENSE file at https://raw.githubusercontent.com/HealthCatalyst/Fabric.Cashmere/dev/LICENSE
  */
 
 import {Directionality} from '@angular/cdk/bidi';
@@ -34,32 +34,32 @@ import {MatDialogRef} from './dialog-ref';
 
 
 /** Injection token that can be used to access the data that was passed in to a dialog. */
-export const MAT_DIALOG_DATA = new InjectionToken<any>('MatDialogData');
+export const HC_DIALOG_DATA = new InjectionToken<any>('MatDialogData');
 
 /** Injection token that can be used to specify default dialog options. */
-export const MAT_DIALOG_DEFAULT_OPTIONS =
+export const HC_DIALOG_DEFAULT_OPTIONS =
     new InjectionToken<MatDialogConfig>('hc-dialog-default-options');
 
 /** Injection token that determines the scroll handling while the dialog is open. */
-export const MAT_DIALOG_SCROLL_STRATEGY =
+export const HC_DIALOG_SCROLL_STRATEGY =
     new InjectionToken<() => ScrollStrategy>('hc-dialog-scroll-strategy');
 
 /** @docs-private */
-export function MAT_DIALOG_SCROLL_STRATEGY_FACTORY(overlay: Overlay): () => ScrollStrategy {
+export function HC_DIALOG_SCROLL_STRATEGY_FACTORY(overlay: Overlay): () => ScrollStrategy {
   return () => overlay.scrollStrategies.block();
 }
 
 /** @docs-private */
-export function MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Overlay):
+export function HC_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Overlay):
   () => ScrollStrategy {
   return () => overlay.scrollStrategies.block();
 }
 
 /** @docs-private */
-export const MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = {
-  provide: MAT_DIALOG_SCROLL_STRATEGY,
+export const HC_DIALOG_SCROLL_STRATEGY_PROVIDER = {
+  provide: HC_DIALOG_SCROLL_STRATEGY,
   deps: [Overlay],
-  useFactory: MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY,
+  useFactory: HC_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY,
 };
 
 
@@ -110,8 +110,8 @@ export class MatDialog implements OnDestroy {
       private _overlay: Overlay,
       private _injector: Injector,
       @Optional() private _location: Location,
-      @Optional() @Inject(MAT_DIALOG_DEFAULT_OPTIONS) private _defaultOptions: MatDialogConfig,
-      @Inject(MAT_DIALOG_SCROLL_STRATEGY) scrollStrategy: any,
+      @Optional() @Inject(HC_DIALOG_DEFAULT_OPTIONS) private _defaultOptions: MatDialogConfig,
+      @Inject(HC_DIALOG_SCROLL_STRATEGY) scrollStrategy: any,
       @Optional() @SkipSelf() private _parentDialog: MatDialog,
       private _overlayContainer: OverlayContainer) {
     this._scrollStrategy = scrollStrategy;
@@ -297,7 +297,7 @@ export class MatDialog implements OnDestroy {
     // added to the injection tokens.
     const injectionTokens = new WeakMap<any, any>([
       [MatDialogContainer, dialogContainer],
-      [MAT_DIALOG_DATA, config.data],
+      [HC_DIALOG_DATA, config.data],
       [MatDialogRef, dialogRef]
     ]);
 

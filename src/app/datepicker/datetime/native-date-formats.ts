@@ -1,15 +1,15 @@
 /**
  * @license
- * Copyright Google LLC All Rights Reserved.
+ * Copyright Health Catalyst All Rights Reserved.
  *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * Use of this source code is governed by an Apache-2.0 license that can be
+ * found in the LICENSE file at https://raw.githubusercontent.com/HealthCatalyst/Fabric.Cashmere/dev/LICENSE
  */
 
-import {MatDateFormats} from './date-formats';
+import {hcDateFormats} from './date-formats';
 
 
-export const MAT_NATIVE_DATE_FORMATS: MatDateFormats = {
+export const HC_NATIVE_DATE_FORMATS: hcDateFormats = {
   parse: {
     dateInput: null,
   },
