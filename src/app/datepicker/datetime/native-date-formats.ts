@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://raw.githubusercontent.com/HealthCatalyst/Fabric.Cashmere/dev/LICENSE
  */
 
-import {hcDateFormats} from './date-formats';
+import {HcDateFormats} from './date-formats';
 
 
-export const HC_NATIVE_DATE_FORMATS: hcDateFormats = {
+export const HC_NATIVE_DATE_FORMATS: HcDateFormats = {
   parse: {
     dateInput: null,
   },

@@ -51,7 +51,7 @@ export const HC_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER = {
 
 // Boilerplate for applying mixins to hcDatepickerContent.
 /** @docs-private */
-export class hcDatepickerContentBase {
+export class HcDatepickerContentBase {
     constructor(public _elementRef: ElementRef) {}
 }
 

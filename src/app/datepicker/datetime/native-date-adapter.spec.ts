@@ -1,8 +1,10 @@
 import {Platform} from '@angular/cdk/platform';
 import {LOCALE_ID} from '@angular/core';
 import {async, inject, TestBed} from '@angular/core/testing';
-import {DateAdapter, HC_DATE_LOCALE, NativeDateAdapter, NativeDateModule} from './index';
 import { JAN, DEC, FEB, MAR } from '../utils/month-constants';
+import { DateAdapter, HC_DATE_LOCALE } from './date-adapter';
+import { NativeDateAdapter } from './native-date-adapter';
+import { NativeDateModule } from './datetime.module';
 
 const SUPPORTS_INTL = typeof Intl !== 'undefined';
 

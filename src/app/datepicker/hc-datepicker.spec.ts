@@ -11,7 +11,6 @@ import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/tes
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {Subject} from 'rxjs';
 import { HcDatepickerModule } from './hc-datepicker.module';
-import { HcNativeDateModule, NativeDateModule, HC_DATE_LOCALE } from './datetime';
 import { dispatchKeyboardEvent, dispatchMouseEvent, dispatchFakeEvent, dispatchEvent } from './utils/dispatch-events';
 import { JAN, DEC, JUL, JUN, SEP } from './utils/month-constants';
 import { HC_DATEPICKER_SCROLL_STRATEGY } from './hc-datepicker.component';
@@ -19,6 +18,8 @@ import { createKeyboardEvent } from './utils/event-objects';
 import { HcDatepickerIntl, HcDatepicker, DatepickerInputDirective } from '.';
 import { FormFieldModule, InputModule, HcFormFieldComponent, IconModule } from '@healthcatalyst/cashmere';
 import { HcDatepickerToggle } from './datepicker-toggle/datepicker-toggle.component';
+import { HcNativeDateModule, NativeDateModule } from './datetime/datetime.module';
+import { HC_DATE_LOCALE } from './datetime/date-adapter';
 
 // tslint:disable:component-class-suffix
 // tslint:disable:radix

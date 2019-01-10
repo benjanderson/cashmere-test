@@ -17,10 +17,10 @@ import { HC_NATIVE_DATE_FORMATS } from './datepicker/datetime/native-date-format
     imports: [PlatformModule],
     providers: [{ provide: DateAdapter, useClass: SugarDateAdapter }]
 })
-export class NativeDateModule {}
+export class SugarDateModule {}
 
 @NgModule({
     imports: [NativeDateModule],
-    providers: [{ provide: HC_DATE_FORMATS, useValue: HC_NATIVE_DATE_FORMATS }]
+    providers: [{ provide: HC_DATE_FORMATS, useValue: HC_NATIVE_DATE_FORMATS }, { provide: DateAdapter, useClass: SugarDateAdapter }]
 })
-export class SugarDateModule {}
+export class NativeDateModule {}

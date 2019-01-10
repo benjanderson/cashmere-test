@@ -10,12 +10,13 @@ import {
     Validators
 } from '@angular/forms';
 import { HcFormControlComponent, HcFormFieldComponent } from '@healthcatalyst/cashmere';
-import { DateAdapter, D, HC_DATE_FORMATS, hcDateFormats } from '../datetime';
 import { createMissingDateImplError } from '../datetime/datepicker-errors';
 import { HcDatepicker } from '../hc-datepicker.component';
 import { coerceBooleanProperty } from '../utils/boolean-property';
 import { Subscription } from 'rxjs';
 import { DOWN_ARROW } from '@angular/cdk/keycodes';
+import { D, HC_DATE_FORMATS, HcDateFormats } from '../datetime/date-formats';
+import { DateAdapter } from '../datetime/date-adapter';
 
 /** @docs-private */
 export const HC_DATEPICKER_VALUE_ACCESSOR: any = {
@@ -224,7 +225,7 @@ export class DatepickerInputDirective implements ControlValueAccessor, OnDestroy
     constructor(
         private _elementRef: ElementRef<HTMLInputElement>,
         @Optional() public _dateAdapter: DateAdapter<D>,
-        @Optional() @Inject(HC_DATE_FORMATS) private _dateFormats: hcDateFormats,
+        @Optional() @Inject(HC_DATE_FORMATS) private _dateFormats: HcDateFormats,
         @Optional() private _formField: HcFormFieldComponent
     ) {
         if (!this._dateAdapter) {

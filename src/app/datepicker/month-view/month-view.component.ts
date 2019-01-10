@@ -12,10 +12,11 @@ import {
     Inject
 } from '@angular/core';
 import { HcCalendarCellCssClasses, HcCalendarBody, HcCalendarCell } from '../calendar-body/calendar-body.component';
-import { HC_DATE_FORMATS, hcDateFormats, DateAdapter, D } from '../datetime';
 import { Directionality } from '@angular/cdk/bidi';
 import { createMissingDateImplError } from '../datetime/datepicker-errors';
 import { LEFT_ARROW, RIGHT_ARROW, UP_ARROW, DOWN_ARROW, HOME, END, PAGE_UP, PAGE_DOWN, ENTER, SPACE } from '@angular/cdk/keycodes';
+import { D, HC_DATE_FORMATS, HcDateFormats } from '../datetime/date-formats';
+import { DateAdapter } from '../datetime/date-adapter';
 
 const DAYS_PER_WEEK = 7;
 
@@ -121,7 +122,7 @@ export class HcMonthView implements AfterContentInit {
 
     constructor(
         private _changeDetectorRef: ChangeDetectorRef,
-        @Optional() @Inject(HC_DATE_FORMATS) private _dateFormats: hcDateFormats,
+        @Optional() @Inject(HC_DATE_FORMATS) private _dateFormats: HcDateFormats,
         @Optional() public _dateAdapter: DateAdapter<D>,
         @Optional() private _dir?: Directionality
     ) {

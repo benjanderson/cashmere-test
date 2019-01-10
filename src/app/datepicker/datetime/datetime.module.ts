@@ -13,12 +13,6 @@ import {HC_DATE_FORMATS} from './date-formats';
 import {NativeDateAdapter} from './native-date-adapter';
 import {HC_NATIVE_DATE_FORMATS} from './native-date-formats';
 
-export * from './date-adapter';
-export * from './date-formats';
-export * from './native-date-adapter';
-export * from './native-date-formats';
-
-
 @NgModule({
     imports: [PlatformModule],
     providers: [

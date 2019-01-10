@@ -2,7 +2,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { HcNativeDateModule } from '../datetime';
+import { HcNativeDateModule } from '../datetime/datetime.module';
 import { HcDatepickerModule } from '../hc-datepicker.module';
 import { HcDatepickerIntl } from '../datepicker-intl';
 import { HcCalendar } from './calendar.component';

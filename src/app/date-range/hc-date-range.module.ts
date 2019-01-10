@@ -7,7 +7,7 @@ import { CalendarWrapperComponent } from './calendar-wrapper/calendar-wrapper.co
 import { DATE } from './services/range-store.service';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule, InputModule, FormFieldModule, RadioButtonModule } from '@healthcatalyst/cashmere';
-import { HcNativeDateModule } from '../datepicker/datetime';
+import { HcNativeDateModule } from '../datepicker/datetime/datetime.module';
 import { HcDatepickerModule } from '../datepicker/hc-datepicker.module';
 
 @NgModule({

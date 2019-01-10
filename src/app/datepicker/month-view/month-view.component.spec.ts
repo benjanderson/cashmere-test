@@ -3,7 +3,7 @@ import { DOWN_ARROW, END, ENTER, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARR
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { HcNativeDateModule } from '../datetime';
+import { HcNativeDateModule } from '../datetime/datetime.module';
 import { HcCalendarBody, HcMonthView } from '..';
 import { MAR, JAN, DEC, NOV, FEB } from '../utils/month-constants';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from '../utils/dispatch-events';

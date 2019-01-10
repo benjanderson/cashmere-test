@@ -5,7 +5,7 @@ import { OverlayRef } from '@angular/cdk/overlay';
 import { ConfigStoreService } from '../services/config-store.service';
 import { RadioButtonChangeEvent } from '@healthcatalyst/cashmere';
 import { DateRange } from '../model/model';
-import { D } from 'src/app/datepicker/datetime';
+import { D } from 'src/app/datepicker/datetime/date-formats';
 
 @Component({
     selector: 'hc-date-range-picker-overlay',

@@ -4,11 +4,12 @@ import {Component, NgZone} from '@angular/core';
 import {async, ComponentFixture, inject, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import { MockNgZone } from '../utils/mock-ng-zone';
-import { HcNativeDateModule, DateAdapter } from '../datetime';
 import { HcDatepickerModule } from '../hc-datepicker.module';
 import { HcDatepickerIntl, HcCalendar } from '..';
 import { JAN, FEB, DEC, NOV, JUL } from '../utils/month-constants';
 import { dispatchFakeEvent, dispatchMouseEvent, dispatchKeyboardEvent } from '../utils/dispatch-events';
+import { HcNativeDateModule } from '../datetime/datetime.module';
+import { DateAdapter } from '../datetime/date-adapter';
 
 // tslint:disable:no-non-null-assertion
 // tslint:disable:component-class-suffix

@@ -19,7 +19,7 @@ import {
 import { HcDatepickerIntl } from '../datepicker-intl';
 import { ComponentPortal, Portal, ComponentType } from '@angular/cdk/portal';
 import { createMissingDateImplError } from '../datetime/datepicker-errors';
-import { HC_DATE_FORMATS, hcDateFormats, D } from '../datetime/date-formats';
+import { HC_DATE_FORMATS, HcDateFormats, D } from '../datetime/date-formats';
 import { DateAdapter } from '../datetime/date-adapter';
 import { Subject, Subscription } from 'rxjs';
 import { yearsPerPage, HcMultiYearView } from '../multi-year-view/multi-year-view.component';
@@ -31,7 +31,7 @@ import { HcYearView } from '../year-view/year-view.component';
  * Possible views for the calendar.
  * @docs-private
  */
-export type hcCalendarView = 'month' | 'year' | 'multi-year';
+export type HcCalendarView = 'month' | 'year' | 'multi-year';
 
 /** Default header for hcCalendar */
 @Component({
@@ -47,7 +47,7 @@ export class HcCalendarHeader {
         private _intl: HcDatepickerIntl,
         @Inject(forwardRef(() => HcCalendar)) public calendar: HcCalendar,
         @Optional() private _dateAdapter: DateAdapter<D>,
-        @Optional() @Inject(HC_DATE_FORMATS) private _dateFormats: hcDateFormats,
+        @Optional() @Inject(HC_DATE_FORMATS) private _dateFormats: HcDateFormats,
         changeDetectorRef: ChangeDetectorRef
     ) {
         this.calendar.stateChanges.subscribe(() => changeDetectorRef.markForCheck());
@@ -190,7 +190,7 @@ export class HcCalendar implements AfterContentInit, AfterViewChecked, OnDestroy
     private _startAt: D | null;
 
     /** Whether the calendar should be started in month or year view. */
-    @Input() startView: hcCalendarView = 'month';
+    @Input() startView: HcCalendarView = 'month';
 
     /** The currently selected date. */
     @Input()
@@ -269,14 +269,14 @@ export class HcCalendar implements AfterContentInit, AfterViewChecked, OnDestroy
     private _clampedActiveDate: D;
 
     /** Whether the calendar is in month view. */
-    get currentView(): hcCalendarView {
+    get currentView(): HcCalendarView {
         return this._currentView;
     }
-    set currentView(value: hcCalendarView) {
+    set currentView(value: HcCalendarView) {
         this._currentView = value;
         this._moveFocusOnNextTick = true;
     }
-    private _currentView: hcCalendarView;
+    private _currentView: HcCalendarView;
 
     /**
      * Emits whenever there is a state change that the header may need to respond to.
@@ -286,7 +286,7 @@ export class HcCalendar implements AfterContentInit, AfterViewChecked, OnDestroy
     constructor(
         _intl: HcDatepickerIntl,
         @Optional() private _dateAdapter: DateAdapter<D>,
-        @Optional() @Inject(HC_DATE_FORMATS) private _dateFormats: hcDateFormats,
+        @Optional() @Inject(HC_DATE_FORMATS) private _dateFormats: HcDateFormats,
         private _changeDetectorRef: ChangeDetectorRef
     ) {
         if (!this._dateAdapter) {

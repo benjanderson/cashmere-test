@@ -12,7 +12,7 @@ import {
 import {Component, ViewChild} from '@angular/core';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
-import { HcNativeDateModule } from '../datetime';
+import { HcNativeDateModule } from '../datetime/datetime.module';
 import { HcCalendarBody, HcMultiYearView } from '..';
 import { yearsPerPage, yearsPerRow } from './multi-year-view.component';
 import { JAN } from '../utils/month-constants';

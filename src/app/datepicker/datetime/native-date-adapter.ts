@@ -12,7 +12,7 @@ import { DateAdapter, HC_DATE_LOCALE } from './date-adapter';
 
 // TODO(mmalerba): Remove when we no longer support safari 9.
 /** Whether the browser supports the Intl API. */
-const SUPPORTS_INTL_API = typeof Intl != 'undefined';
+const SUPPORTS_INTL_API = typeof Intl !== 'undefined';
 
 /** The default month names to use if Intl API is not available. */
 const DEFAULT_MONTH_NAMES = {

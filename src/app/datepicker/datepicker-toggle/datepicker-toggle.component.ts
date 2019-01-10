@@ -1,13 +1,9 @@
 import {
     Component,
-    OnInit,
     Input,
-    HostBinding,
     ViewEncapsulation,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
-    ViewContainerRef,
-    Renderer2,
     ViewChild,
     OnDestroy,
     Directive,
@@ -17,7 +13,7 @@ import {
     Attribute,
     SimpleChanges
 } from '@angular/core';
-import { PopoverDirective, ButtonComponent } from '@healthcatalyst/cashmere';
+import { ButtonComponent } from '@healthcatalyst/cashmere';
 import { merge, Subscription, of as observableOf } from 'rxjs';
 import { coerceBooleanProperty } from '../utils/boolean-property';
 import { HcDatepickerIntl } from '../datepicker-intl';
