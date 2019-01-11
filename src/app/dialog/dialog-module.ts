@@ -6,47 +6,32 @@
  * found in the LICENSE file at https://raw.githubusercontent.com/HealthCatalyst/Fabric.Cashmere/dev/LICENSE
  */
 
-import {OverlayModule} from '@angular/cdk/overlay';
-import {PortalModule} from '@angular/cdk/portal';
-import {CommonModule} from '@angular/common';
-import {NgModule} from '@angular/core';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { PortalModule } from '@angular/cdk/portal';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 // import {MatCommonModule} from '@angular/material/core';
-import {HC_DIALOG_SCROLL_STRATEGY_PROVIDER, HcDialog} from './dialog';
-import {HcDialogContainer} from './dialog-container';
-import {
-  HcDialogActions,
-  HcDialogClose,
-  HcDialogContent,
-  HcDialogTitle,
-} from './dialog-content-directives';
-
+import { HC_DIALOG_SCROLL_STRATEGY_PROVIDER, DialogService } from './dialog.service';
+import { DialogContainerComponent } from './dialog-container.component';
+import { DialogActionsDirective, DialogCloseDirective, DialogContentDirective, DialogTitleDirective } from './dialog-content-directives';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    OverlayModule,
-    PortalModule,
-    // MatCommonModule,
-  ],
-  exports: [
-    HcDialogContainer,
-    HcDialogClose,
-    HcDialogTitle,
-    HcDialogContent,
-    HcDialogActions,
-    // MatCommonModule,
-  ],
-  declarations: [
-    HcDialogContainer,
-    HcDialogClose,
-    HcDialogTitle,
-    HcDialogActions,
-    HcDialogContent,
-  ],
-  providers: [
-    HcDialog,
-    HC_DIALOG_SCROLL_STRATEGY_PROVIDER,
-  ],
-  entryComponents: [HcDialogContainer],
+    imports: [
+        CommonModule,
+        OverlayModule,
+        PortalModule
+        // MatCommonModule,
+    ],
+    exports: [
+        DialogContainerComponent,
+        DialogCloseDirective,
+        DialogTitleDirective,
+        DialogContentDirective,
+        DialogActionsDirective
+        // MatCommonModule,
+    ],
+    declarations: [DialogContainerComponent, DialogCloseDirective, DialogTitleDirective, DialogActionsDirective, DialogContentDirective],
+    providers: [DialogService, HC_DIALOG_SCROLL_STRATEGY_PROVIDER],
+    entryComponents: [DialogContainerComponent]
 })
-export class HcDialogModule {}
+export class DialogModule {}

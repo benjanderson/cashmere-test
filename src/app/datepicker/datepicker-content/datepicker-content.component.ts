@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, AfterViewInit, ViewChild } from '@angular/core';
 import { HcDatepickerAnimations } from '../datepicker-animations';
-import { HcCalendar } from '../calendar/calendar.component';
-import { HcDatepicker } from '../hc-datepicker.component';
+import { CalendarComponent } from '../calendar/calendar.component';
+import { DatepickerComponent } from '../datepicker.component';
 
 /**
  * Component used as the content for the datepicker dialog and popup. We use this instead of using
@@ -24,12 +24,12 @@ import { HcDatepicker } from '../hc-datepicker.component';
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HcDatepickerContent implements AfterViewInit {
+export class DatepickerContentComponent implements AfterViewInit {
     /** Reference to the internal calendar component. */
-    @ViewChild(HcCalendar) _calendar: HcCalendar;
+    @ViewChild(CalendarComponent) _calendar: CalendarComponent;
 
     /** Reference to the datepicker that created the overlay. */
-    datepicker: HcDatepicker;
+    datepicker: DatepickerComponent;
 
     /** Whether the datepicker is above or below the input. */
     _isAbove: boolean;

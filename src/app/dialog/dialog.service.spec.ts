@@ -23,35 +23,31 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {Location} from '@angular/common';
 import {SpyLocation} from '@angular/common/testing';
 import {Directionality} from '@angular/cdk/bidi';
-import {HcDialogContainer} from './dialog-container';
+import {DialogContainerComponent} from './dialog-container.component';
 import {OverlayContainer, ScrollStrategy, Overlay} from '@angular/cdk/overlay';
 import {ScrollDispatcher} from '@angular/cdk/scrolling';
 import {A, ESCAPE} from '@angular/cdk/keycodes';
-import {
-  HC_DIALOG_DATA,
-  HcDialog,
-  HcDialogModule,
-  HcDialogRef,
-  HC_DIALOG_DEFAULT_OPTIONS
-} from './index';
 import {Subject} from 'rxjs';
 import { dispatchKeyboardEvent } from '../datepicker/utils/dispatch-events';
+import { DialogService, HC_DIALOG_DEFAULT_OPTIONS, HC_DIALOG_DATA } from './dialog.service';
+import { HcDialogRef } from './dialog-ref';
+import { DialogModule } from './dialog-module';
 
 // tslint:disable:no-non-null-assertion
 // tslint:disable:component-class-suffix
-describe('HcDialog', () => {
-  let dialog: HcDialog;
+describe('DialogService', () => {
+  let dialog: DialogService;
   let overlayContainer: OverlayContainer;
   let overlayContainerElement: HTMLElement;
   const scrolledSubject = new Subject();
 
   let testViewContainerRef: ViewContainerRef;
-  let viewContainerFixture: ComponentFixture<ComponentWithChildViewContainer>;
+  let viewContainerFixture: ComponentFixture<ComponentWithChildViewContainerComponent>;
   let mockLocation: SpyLocation;
 
   beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
-      imports: [HcDialogModule, DialogTestModule],
+      imports: [DialogModule, DialogTestModule],
       providers: [
         {provide: Location, useClass: SpyLocation},
         {provide: ScrollDispatcher, useFactory: () => ({
@@ -63,8 +59,8 @@ describe('HcDialog', () => {
     TestBed.compileComponents();
   }));
 
-  beforeEach(inject([HcDialog, Location, OverlayContainer],
-    (d: HcDialog, l: Location, oc: OverlayContainer) => {
+  beforeEach(inject([DialogService, Location, OverlayContainer],
+    (d: DialogService, l: Location, oc: OverlayContainer) => {
       dialog = d;
       mockLocation = l as SpyLocation;
       overlayContainer = oc;
@@ -76,21 +72,21 @@ describe('HcDialog', () => {
   });
 
   beforeEach(() => {
-    viewContainerFixture = TestBed.createComponent(ComponentWithChildViewContainer);
+    viewContainerFixture = TestBed.createComponent(ComponentWithChildViewContainerComponent);
 
     viewContainerFixture.detectChanges();
     testViewContainerRef = viewContainerFixture.componentInstance.childViewContainer;
   });
 
   it('should open a dialog with a component', () => {
-    const dialogRef = dialog.open(PizzaMsg, {
+    const dialogRef = dialog.open(PizzaMsgComponent, {
       viewContainerRef: testViewContainerRef
     });
 
     viewContainerFixture.detectChanges();
 
     expect(overlayContainerElement.textContent).toContain('Pizza');
-    expect(dialogRef.componentInstance instanceof PizzaMsg).toBe(true);
+    expect(dialogRef.componentInstance instanceof PizzaMsgComponent).toBe(true);
     expect(dialogRef.componentInstance.dialogRef).toBe(dialogRef);
 
     viewContainerFixture.detectChanges();
@@ -99,7 +95,7 @@ describe('HcDialog', () => {
   });
 
   it('should open a dialog with a template', () => {
-    const templateRefFixture = TestBed.createComponent(ComponentWithTemplateRef);
+    const templateRefFixture = TestBed.createComponent(ComponentWithTemplateRefComponent);
     templateRefFixture.componentInstance.localValue = 'Bees';
     templateRefFixture.detectChanges();
 
@@ -121,7 +117,7 @@ describe('HcDialog', () => {
   });
 
   it('should emit when dialog opening animation is complete', fakeAsync(() => {
-    const dialogRef = dialog.open(PizzaMsg, {viewContainerRef: testViewContainerRef});
+    const dialogRef = dialog.open(PizzaMsgComponent, {viewContainerRef: testViewContainerRef});
     const spy = jasmine.createSpy('afterOpen spy');
 
     dialogRef.afterOpened().subscribe(spy);
@@ -136,7 +132,7 @@ describe('HcDialog', () => {
   }));
 
   it('should use injector from viewContainerRef for DialogInjector', () => {
-    const dialogRef = dialog.open(PizzaMsg, {
+    const dialogRef = dialog.open(PizzaMsgComponent, {
       viewContainerRef: testViewContainerRef
     });
 
@@ -145,18 +141,18 @@ describe('HcDialog', () => {
     const dialogInjector = dialogRef.componentInstance.dialogInjector;
 
     expect(dialogRef.componentInstance.dialogRef).toBe(dialogRef);
-    expect(dialogInjector.get<DirectiveWithViewContainer>(DirectiveWithViewContainer)).toBeTruthy(
+    expect(dialogInjector.get<DirectiveWithViewContainerDirective>(DirectiveWithViewContainerDirective)).toBeTruthy(
       'Expected the dialog component to be created with the injector from the viewContainerRef.'
     );
   });
 
   it('should open a dialog with a component and no ViewContainerRef', () => {
-    const dialogRef = dialog.open(PizzaMsg);
+    const dialogRef = dialog.open(PizzaMsgComponent);
 
     viewContainerFixture.detectChanges();
 
     expect(overlayContainerElement.textContent).toContain('Pizza');
-    expect(dialogRef.componentInstance instanceof PizzaMsg).toBe(true);
+    expect(dialogRef.componentInstance instanceof PizzaMsgComponent).toBe(true);
     expect(dialogRef.componentInstance.dialogRef).toBe(dialogRef);
 
     viewContainerFixture.detectChanges();
@@ -165,7 +161,7 @@ describe('HcDialog', () => {
   });
 
   it('should apply the configured role to the dialog element', () => {
-    dialog.open(PizzaMsg, { role: 'alertdialog' });
+    dialog.open(PizzaMsgComponent, { role: 'alertdialog' });
 
     viewContainerFixture.detectChanges();
 
@@ -174,7 +170,7 @@ describe('HcDialog', () => {
   });
 
   it('should apply the specified `aria-describedby`', () => {
-    dialog.open(PizzaMsg, { ariaDescribedBy: 'description-element' });
+    dialog.open(PizzaMsgComponent, { ariaDescribedBy: 'description-element' });
 
     viewContainerFixture.detectChanges();
 
@@ -183,7 +179,7 @@ describe('HcDialog', () => {
   });
 
   it('should close a dialog and get back a result', fakeAsync(() => {
-    const dialogRef = dialog.open(PizzaMsg, { viewContainerRef: testViewContainerRef });
+    const dialogRef = dialog.open(PizzaMsgComponent, { viewContainerRef: testViewContainerRef });
     const afterCloseCallback = jasmine.createSpy('afterClose callback');
 
     dialogRef.afterClosed().subscribe(afterCloseCallback);
@@ -197,7 +193,7 @@ describe('HcDialog', () => {
 
   it('should dispatch the beforeClose and afterClose events when the ' +
     'overlay is detached externally', fakeAsync(inject([Overlay], (overlay: Overlay) => {
-      const dialogRef = dialog.open(PizzaMsg, {
+      const dialogRef = dialog.open(PizzaMsgComponent, {
         viewContainerRef: testViewContainerRef,
         scrollStrategy: overlay.scrollStrategies.close()
       });
@@ -216,7 +212,7 @@ describe('HcDialog', () => {
     })));
 
   it('should close a dialog and get back a result before it is closed', fakeAsync(() => {
-    const dialogRef = dialog.open(PizzaMsg, {viewContainerRef: testViewContainerRef});
+    const dialogRef = dialog.open(PizzaMsgComponent, {viewContainerRef: testViewContainerRef});
 
     flush();
     viewContainerFixture.detectChanges();
@@ -237,7 +233,7 @@ describe('HcDialog', () => {
   }));
 
   it('should close a dialog via the escape key', fakeAsync(() => {
-    dialog.open(PizzaMsg, {
+    dialog.open(PizzaMsgComponent, {
       viewContainerRef: testViewContainerRef
     });
 
@@ -253,7 +249,7 @@ describe('HcDialog', () => {
 
     onPushFixture.detectChanges();
 
-    const dialogRef = dialog.open(PizzaMsg, {
+    const dialogRef = dialog.open(PizzaMsgComponent, {
       viewContainerRef: onPushFixture.componentInstance.viewContainerRef
     });
 
@@ -274,7 +270,7 @@ describe('HcDialog', () => {
   }));
 
   it('should close when clicking on the overlay backdrop', fakeAsync(() => {
-    dialog.open(PizzaMsg, {
+    dialog.open(PizzaMsgComponent, {
       viewContainerRef: testViewContainerRef
     });
 
@@ -290,7 +286,7 @@ describe('HcDialog', () => {
   }));
 
   it('should emit the backdropClick stream when clicking on the overlay backdrop', fakeAsync(() => {
-    const dialogRef = dialog.open(PizzaMsg, {
+    const dialogRef = dialog.open(PizzaMsgComponent, {
       viewContainerRef: testViewContainerRef
     });
 
@@ -313,7 +309,7 @@ describe('HcDialog', () => {
   }));
 
   it('should emit the keyboardEvent stream when key events target the overlay', fakeAsync(() => {
-    const dialogRef = dialog.open(PizzaMsg, {viewContainerRef: testViewContainerRef});
+    const dialogRef = dialog.open(PizzaMsgComponent, {viewContainerRef: testViewContainerRef});
 
     const spy = jasmine.createSpy('keyboardEvent spy');
     dialogRef.keydownEvents().subscribe(spy);
@@ -331,15 +327,15 @@ describe('HcDialog', () => {
 
   it('should notify the observers if a dialog has been opened', () => {
     dialog.afterOpened.subscribe(ref => {
-      expect(dialog.open(PizzaMsg, {
+      expect(dialog.open(PizzaMsgComponent, {
         viewContainerRef: testViewContainerRef
       })).toBe(ref);
     });
   });
 
   it('should notify the observers if all open dialogs have finished closing', fakeAsync(() => {
-    const ref1 = dialog.open(PizzaMsg, { viewContainerRef: testViewContainerRef });
-    const ref2 = dialog.open(ContentElementDialog, { viewContainerRef: testViewContainerRef });
+    const ref1 = dialog.open(PizzaMsgComponent, { viewContainerRef: testViewContainerRef });
+    const ref2 = dialog.open(ContentElementDialogComponent, { viewContainerRef: testViewContainerRef });
     const spy = jasmine.createSpy('afterAllClosed spy');
 
     dialog.afterAllClosed.subscribe(spy);
@@ -365,7 +361,7 @@ describe('HcDialog', () => {
   });
 
   it('should override the width of the overlay pane', () => {
-    dialog.open(PizzaMsg, {
+    dialog.open(PizzaMsgComponent, {
       width: '500px'
     });
 
@@ -377,7 +373,7 @@ describe('HcDialog', () => {
   });
 
   it('should override the height of the overlay pane', () => {
-    dialog.open(PizzaMsg, {
+    dialog.open(PizzaMsgComponent, {
       height: '100px'
     });
 
@@ -389,7 +385,7 @@ describe('HcDialog', () => {
   });
 
   it('should override the min-width of the overlay pane', () => {
-    dialog.open(PizzaMsg, {
+    dialog.open(PizzaMsgComponent, {
       minWidth: '500px'
     });
 
@@ -401,7 +397,7 @@ describe('HcDialog', () => {
   });
 
   it('should override the max-width of the overlay pane', fakeAsync(() => {
-    let dialogRef = dialog.open(PizzaMsg);
+    let dialogRef = dialog.open(PizzaMsgComponent);
 
     viewContainerFixture.detectChanges();
 
@@ -416,7 +412,7 @@ describe('HcDialog', () => {
     viewContainerFixture.detectChanges();
     flushMicrotasks();
 
-    dialogRef = dialog.open(PizzaMsg, {
+    dialogRef = dialog.open(PizzaMsgComponent, {
       maxWidth: '100px'
     });
 
@@ -428,7 +424,7 @@ describe('HcDialog', () => {
   }));
 
   it('should override the min-height of the overlay pane', () => {
-    dialog.open(PizzaMsg, {
+    dialog.open(PizzaMsgComponent, {
       minHeight: '300px'
     });
 
@@ -440,7 +436,7 @@ describe('HcDialog', () => {
   });
 
   it('should override the max-height of the overlay pane', () => {
-    dialog.open(PizzaMsg, {
+    dialog.open(PizzaMsgComponent, {
       maxHeight: '100px'
     });
 
@@ -452,7 +448,7 @@ describe('HcDialog', () => {
   });
 
   it('should override the top offset of the overlay pane', () => {
-    dialog.open(PizzaMsg, {
+    dialog.open(PizzaMsgComponent, {
       position: {
         top: '100px'
       }
@@ -466,7 +462,7 @@ describe('HcDialog', () => {
   });
 
   it('should override the bottom offset of the overlay pane', () => {
-    dialog.open(PizzaMsg, {
+    dialog.open(PizzaMsgComponent, {
       position: {
         bottom: '200px'
       }
@@ -480,7 +476,7 @@ describe('HcDialog', () => {
   });
 
   it('should override the left offset of the overlay pane', () => {
-    dialog.open(PizzaMsg, {
+    dialog.open(PizzaMsgComponent, {
       position: {
         left: '250px'
       }
@@ -494,7 +490,7 @@ describe('HcDialog', () => {
   });
 
   it('should override the right offset of the overlay pane', () => {
-    dialog.open(PizzaMsg, {
+    dialog.open(PizzaMsgComponent, {
       position: {
         right: '125px'
       }
@@ -508,7 +504,7 @@ describe('HcDialog', () => {
   });
 
   it('should allow for the position to be updated', () => {
-    const dialogRef = dialog.open(PizzaMsg, {
+    const dialogRef = dialog.open(PizzaMsgComponent, {
       position: {
         left: '250px'
       }
@@ -526,7 +522,7 @@ describe('HcDialog', () => {
   });
 
   it('should allow for the dimensions to be updated', () => {
-    const dialogRef = dialog.open(PizzaMsg, { width: '100px' });
+    const dialogRef = dialog.open(PizzaMsgComponent, { width: '100px' });
 
     viewContainerFixture.detectChanges();
 
@@ -540,7 +536,7 @@ describe('HcDialog', () => {
   });
 
   it('should reset the overlay dimensions to their initial size', () => {
-    const dialogRef = dialog.open(PizzaMsg);
+    const dialogRef = dialog.open(PizzaMsgComponent);
 
     viewContainerFixture.detectChanges();
 
@@ -561,7 +557,7 @@ describe('HcDialog', () => {
   });
 
   it('should allow setting the layout direction', () => {
-    dialog.open(PizzaMsg, { direction: 'rtl' });
+    dialog.open(PizzaMsgComponent, { direction: 'rtl' });
 
     viewContainerFixture.detectChanges();
 
@@ -571,7 +567,7 @@ describe('HcDialog', () => {
   });
 
   it('should inject the correct layout direction in the component instance', () => {
-    const dialogRef = dialog.open(PizzaMsg, { direction: 'rtl' });
+    const dialogRef = dialog.open(PizzaMsgComponent, { direction: 'rtl' });
 
     viewContainerFixture.detectChanges();
 
@@ -579,7 +575,7 @@ describe('HcDialog', () => {
   });
 
   it('should fall back to injecting the global direction if none is passed by the config', () => {
-    const dialogRef = dialog.open(PizzaMsg, {});
+    const dialogRef = dialog.open(PizzaMsgComponent, {});
 
     viewContainerFixture.detectChanges();
 
@@ -587,9 +583,9 @@ describe('HcDialog', () => {
   });
 
   it('should close all of the dialogs', fakeAsync(() => {
-    dialog.open(PizzaMsg);
-    dialog.open(PizzaMsg);
-    dialog.open(PizzaMsg);
+    dialog.open(PizzaMsgComponent);
+    dialog.open(PizzaMsgComponent);
+    dialog.open(PizzaMsgComponent);
 
     expect(overlayContainerElement.querySelectorAll('hc-dialog-container').length).toBe(3);
 
@@ -601,9 +597,9 @@ describe('HcDialog', () => {
   }));
 
   it('should set the proper animation states', () => {
-    const dialogRef = dialog.open(PizzaMsg, { viewContainerRef: testViewContainerRef });
-    const dialogContainer: HcDialogContainer =
-        viewContainerFixture.debugElement.query(By.directive(HcDialogContainer)).componentInstance;
+    const dialogRef = dialog.open(PizzaMsgComponent, { viewContainerRef: testViewContainerRef });
+    const dialogContainer: DialogContainerComponent =
+        viewContainerFixture.debugElement.query(By.directive(DialogContainerComponent)).componentInstance;
 
     expect(dialogContainer._state).toBe('enter');
 
@@ -614,8 +610,8 @@ describe('HcDialog', () => {
 
   // skipping test because I am not sure we are properly simulating a navigation event
   xit('should close all dialogs when the user goes forwards/backwards in history', fakeAsync(() => {
-    dialog.open(PizzaMsg);
-    dialog.open(PizzaMsg);
+    dialog.open(PizzaMsgComponent);
+    dialog.open(PizzaMsgComponent);
 
     expect(overlayContainerElement.querySelectorAll('hc-dialog-container').length).toBe(2);
 
@@ -628,8 +624,8 @@ describe('HcDialog', () => {
 
   // skipping test because I am not sure we are properly simulating a navigation event
   xit('should close all open dialogs when the location hash changes', fakeAsync(() => {
-    dialog.open(PizzaMsg);
-    dialog.open(PizzaMsg);
+    dialog.open(PizzaMsgComponent);
+    dialog.open(PizzaMsgComponent);
 
     expect(overlayContainerElement.querySelectorAll('hc-dialog-container').length).toBe(2);
 
@@ -641,9 +637,9 @@ describe('HcDialog', () => {
   }));
 
   it('should close all of the dialogs when the injectable is destroyed', fakeAsync(() => {
-    dialog.open(PizzaMsg);
-    dialog.open(PizzaMsg);
-    dialog.open(PizzaMsg);
+    dialog.open(PizzaMsgComponent);
+    dialog.open(PizzaMsgComponent);
+    dialog.open(PizzaMsgComponent);
 
     expect(overlayContainerElement.querySelectorAll('hc-dialog-container').length).toBe(3);
 
@@ -673,8 +669,8 @@ describe('HcDialog', () => {
 
   // skipping test because I am not sure we are properly simulating a navigation event
   xit('should allow the consumer to disable closing a dialog on navigation', fakeAsync(() => {
-    dialog.open(PizzaMsg);
-    dialog.open(PizzaMsg, {closeOnNavigation: false});
+    dialog.open(PizzaMsgComponent);
+    dialog.open(PizzaMsgComponent, {closeOnNavigation: false});
 
     expect(overlayContainerElement.querySelectorAll('hc-dialog-container').length).toBe(2);
 
@@ -686,7 +682,7 @@ describe('HcDialog', () => {
   }));
 
   it('should have the componentInstance available in the afterClosed callback', fakeAsync(() => {
-    const dialogRef = dialog.open(PizzaMsg);
+    const dialogRef = dialog.open(PizzaMsgComponent);
     const spy = jasmine.createSpy('afterClosed spy');
 
     flushMicrotasks();
@@ -715,7 +711,7 @@ describe('HcDialog', () => {
       disable: () => {}
     };
 
-    dialog.open(PizzaMsg, {scrollStrategy});
+    dialog.open(PizzaMsgComponent, {scrollStrategy});
     expect(scrollStrategy.enable).toHaveBeenCalled();
   }));
 
@@ -728,7 +724,7 @@ describe('HcDialog', () => {
         }
       };
 
-      const instance = dialog.open(DialogWithInjectedData, config).componentInstance;
+      const instance = dialog.open(DialogWithInjectedDataComponent, config).componentInstance;
 
       expect(instance.data.stringParam).toBe(config.data.stringParam);
       expect(instance.data.dateParam).toBe(config.data.dateParam);
@@ -736,14 +732,14 @@ describe('HcDialog', () => {
 
     it('should default to null if no data is passed', () => {
       expect(() => {
-        const dialogRef = dialog.open(DialogWithInjectedData);
+        const dialogRef = dialog.open(DialogWithInjectedDataComponent);
         expect(dialogRef.componentInstance.data).toBeNull();
       }).not.toThrow();
     });
   });
 
   it('should not keep a reference to the component after the dialog is closed', fakeAsync(() => {
-    const dialogRef = dialog.open(PizzaMsg);
+    const dialogRef = dialog.open(PizzaMsgComponent);
 
     expect(dialogRef.componentInstance).toBeTruthy();
 
@@ -755,8 +751,8 @@ describe('HcDialog', () => {
   }));
 
   it('should assign a unique id to each dialog', () => {
-    const one = dialog.open(PizzaMsg);
-    const two = dialog.open(PizzaMsg);
+    const one = dialog.open(PizzaMsgComponent);
+    const two = dialog.open(PizzaMsgComponent);
 
     expect(one.id).toBeTruthy();
     expect(two.id).toBeTruthy();
@@ -764,17 +760,17 @@ describe('HcDialog', () => {
   });
 
   it('should allow for the id to be overwritten', () => {
-    const dialogRef = dialog.open(PizzaMsg, { id: 'pizza' });
+    const dialogRef = dialog.open(PizzaMsgComponent, { id: 'pizza' });
     expect(dialogRef.id).toBe('pizza');
   });
 
   it('should throw when trying to open a dialog with the same id as another dialog', () => {
-    dialog.open(PizzaMsg, { id: 'pizza' });
-    expect(() => dialog.open(PizzaMsg, { id: 'pizza' })).toThrowError(/must be unique/g);
+    dialog.open(PizzaMsgComponent, { id: 'pizza' });
+    expect(() => dialog.open(PizzaMsgComponent, { id: 'pizza' })).toThrowError(/must be unique/g);
   });
 
   it('should be able to find a dialog by id', () => {
-    const dialogRef = dialog.open(PizzaMsg, { id: 'pizza' });
+    const dialogRef = dialog.open(PizzaMsgComponent, { id: 'pizza' });
     expect(dialog.getDialogById('pizza')).toBe(dialogRef);
   });
 
@@ -782,7 +778,7 @@ describe('HcDialog', () => {
     const sibling = document.createElement('div');
     overlayContainerElement.parentNode!.appendChild(sibling);
 
-    const dialogRef = dialog.open(PizzaMsg, {viewContainerRef: testViewContainerRef});
+    const dialogRef = dialog.open(PizzaMsgComponent, {viewContainerRef: testViewContainerRef});
     viewContainerFixture.detectChanges();
     flush();
 
@@ -805,7 +801,7 @@ describe('HcDialog', () => {
     sibling.setAttribute('aria-hidden', 'true');
     overlayContainerElement.parentNode!.appendChild(sibling);
 
-    const dialogRef = dialog.open(PizzaMsg, {viewContainerRef: testViewContainerRef});
+    const dialogRef = dialog.open(PizzaMsgComponent, {viewContainerRef: testViewContainerRef});
     viewContainerFixture.detectChanges();
     flush();
 
@@ -825,7 +821,7 @@ describe('HcDialog', () => {
     sibling.setAttribute('aria-live', 'polite');
     overlayContainerElement.parentNode!.appendChild(sibling);
 
-    dialog.open(PizzaMsg, {viewContainerRef: testViewContainerRef});
+    dialog.open(PizzaMsgComponent, {viewContainerRef: testViewContainerRef});
     viewContainerFixture.detectChanges();
     flush();
 
@@ -836,7 +832,7 @@ describe('HcDialog', () => {
 
   describe('disableClose option', () => {
     it('should prevent closing via clicks on the backdrop', fakeAsync(() => {
-      dialog.open(PizzaMsg, {
+      dialog.open(PizzaMsgComponent, {
         disableClose: true,
         viewContainerRef: testViewContainerRef
       });
@@ -852,7 +848,7 @@ describe('HcDialog', () => {
     }));
 
     it('should prevent closing via the escape key', fakeAsync(() => {
-      dialog.open(PizzaMsg, {
+      dialog.open(PizzaMsgComponent, {
         disableClose: true,
         viewContainerRef: testViewContainerRef
       });
@@ -866,7 +862,7 @@ describe('HcDialog', () => {
     }));
 
     it('should allow for the disableClose option to be updated while open', fakeAsync(() => {
-      const dialogRef = dialog.open(PizzaMsg, {
+      const dialogRef = dialog.open(PizzaMsgComponent, {
         disableClose: true,
         viewContainerRef: testViewContainerRef
       });
@@ -889,7 +885,7 @@ describe('HcDialog', () => {
 
   describe('hasBackdrop option', () => {
     it('should have a backdrop', () => {
-      dialog.open(PizzaMsg, {
+      dialog.open(PizzaMsgComponent, {
         hasBackdrop: true,
         viewContainerRef: testViewContainerRef
       });
@@ -900,7 +896,7 @@ describe('HcDialog', () => {
     });
 
     it('should not have a backdrop', () => {
-      dialog.open(PizzaMsg, {
+      dialog.open(PizzaMsgComponent, {
         hasBackdrop: false,
         viewContainerRef: testViewContainerRef
       });
@@ -913,7 +909,7 @@ describe('HcDialog', () => {
 
   describe('panelClass option', () => {
     it('should have custom panel class', () => {
-      dialog.open(PizzaMsg, {
+      dialog.open(PizzaMsgComponent, {
         panelClass: 'custom-panel-class',
         viewContainerRef: testViewContainerRef
       });
@@ -926,7 +922,7 @@ describe('HcDialog', () => {
 
   describe('backdropClass option', () => {
     it('should have default backdrop class', () => {
-      dialog.open(PizzaMsg, {
+      dialog.open(PizzaMsgComponent, {
         backdropClass: '',
         viewContainerRef: testViewContainerRef
       });
@@ -937,7 +933,7 @@ describe('HcDialog', () => {
     });
 
     it('should have custom backdrop class', () => {
-      dialog.open(PizzaMsg, {
+      dialog.open(PizzaMsgComponent, {
         backdropClass: 'custom-backdrop-class',
         viewContainerRef: testViewContainerRef
       });
@@ -954,7 +950,7 @@ describe('HcDialog', () => {
     afterEach(() => document.body.removeChild(overlayContainerElement));
 
     it('should focus the first tabbable element of the dialog on open', fakeAsync(() => {
-      dialog.open(PizzaMsg, {
+      dialog.open(PizzaMsgComponent, {
         viewContainerRef: testViewContainerRef
       });
 
@@ -966,7 +962,7 @@ describe('HcDialog', () => {
     }));
 
     it('should allow disabling focus of the first tabbable element', fakeAsync(() => {
-      dialog.open(PizzaMsg, {
+      dialog.open(PizzaMsgComponent, {
         viewContainerRef: testViewContainerRef,
         autoFocus: false
       });
@@ -984,7 +980,7 @@ describe('HcDialog', () => {
       document.body.appendChild(button);
       button.focus();
 
-      const dialogRef = dialog.open(PizzaMsg, { viewContainerRef: testViewContainerRef });
+      const dialogRef = dialog.open(PizzaMsgComponent, { viewContainerRef: testViewContainerRef });
 
       flushMicrotasks();
       viewContainerFixture.detectChanges();
@@ -1019,7 +1015,7 @@ describe('HcDialog', () => {
       document.body.appendChild(input);
       button.focus();
 
-      const dialogRef = dialog.open(PizzaMsg, { viewContainerRef: testViewContainerRef });
+      const dialogRef = dialog.open(PizzaMsgComponent, { viewContainerRef: testViewContainerRef });
 
       tick(500);
       viewContainerFixture.detectChanges();
@@ -1040,7 +1036,7 @@ describe('HcDialog', () => {
 
     it('should move focus to the container if there are no focusable elements in the dialog',
       fakeAsync(() => {
-        dialog.open(DialogWithoutFocusableElements);
+        dialog.open(DialogWithoutFocusableElementsComponent);
 
         viewContainerFixture.detectChanges();
         flushMicrotasks();
@@ -1056,7 +1052,7 @@ describe('HcDialog', () => {
       document.body.appendChild(button);
       button.focus();
 
-      const dialogRef = dialog.open(PizzaMsg, {
+      const dialogRef = dialog.open(PizzaMsgComponent, {
         viewContainerRef: testViewContainerRef,
         restoreFocus: false
       });
@@ -1087,7 +1083,7 @@ describe('HcDialog', () => {
 
     describe('inside component dialog', () => {
       beforeEach(fakeAsync(() => {
-        dialogRef = dialog.open(ContentElementDialog, {viewContainerRef: testViewContainerRef});
+        dialogRef = dialog.open(ContentElementDialogComponent, {viewContainerRef: testViewContainerRef});
         viewContainerFixture.detectChanges();
         flush();
       }));
@@ -1097,7 +1093,7 @@ describe('HcDialog', () => {
 
     describe('inside template portal', () => {
       beforeEach(fakeAsync(() => {
-        const fixture = TestBed.createComponent(ComponentWithContentElementTemplateRef);
+        const fixture = TestBed.createComponent(ComponentWithContentElementTemplateRefComponent);
         fixture.detectChanges();
 
         dialogRef = dialog.open(fixture.componentInstance.templateRef, {
@@ -1169,7 +1165,7 @@ describe('HcDialog', () => {
 
   describe('aria-label', () => {
     it('should be able to set a custom aria-label', () => {
-      dialog.open(PizzaMsg, {
+      dialog.open(PizzaMsgComponent, {
         ariaLabel: 'Hello there',
         viewContainerRef: testViewContainerRef
       });
@@ -1180,7 +1176,7 @@ describe('HcDialog', () => {
     });
 
     it('should not set the aria-labelledby automatically if it has an aria-label', fakeAsync(() => {
-      dialog.open(ContentElementDialog, {
+      dialog.open(ContentElementDialogComponent, {
         ariaLabel: 'Hello there',
         viewContainerRef: testViewContainerRef
       });
@@ -1195,16 +1191,16 @@ describe('HcDialog', () => {
 
 });
 
-describe('HcDialog with a parent HcDialog', () => {
-  let parentDialog: HcDialog;
-  let childDialog: HcDialog;
+describe('DialogService with a parent DialogService', () => {
+  let parentDialog: DialogService;
+  let childDialog: DialogService;
   let overlayContainerElement: HTMLElement;
-  let fixture: ComponentFixture<ComponentThatProvidesHcDialog>;
+  let fixture: ComponentFixture<ComponentThatProvidesHcDialogComponent>;
 
   beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
-      imports: [HcDialogModule, DialogTestModule],
-      declarations: [ComponentThatProvidesHcDialog],
+      imports: [DialogModule, DialogTestModule],
+      declarations: [ComponentThatProvidesHcDialogComponent],
       providers: [
         {provide: OverlayContainer, useFactory: () => {
           overlayContainerElement = document.createElement('div');
@@ -1217,10 +1213,10 @@ describe('HcDialog with a parent HcDialog', () => {
     TestBed.compileComponents();
   }));
 
-  beforeEach(inject([HcDialog], (d: HcDialog) => {
+  beforeEach(inject([DialogService], (d: DialogService) => {
     parentDialog = d;
 
-    fixture = TestBed.createComponent(ComponentThatProvidesHcDialog);
+    fixture = TestBed.createComponent(ComponentThatProvidesHcDialogComponent);
     childDialog = fixture.componentInstance.dialog;
     fixture.detectChanges();
   }));
@@ -1229,9 +1225,9 @@ describe('HcDialog with a parent HcDialog', () => {
     overlayContainerElement.innerHTML = '';
   });
 
-  it('should close dialogs opened by a parent when calling closeAll on a child HcDialog',
+  it('should close dialogs opened by a parent when calling closeAll on a child DialogService',
     fakeAsync(() => {
-      parentDialog.open(PizzaMsg);
+      parentDialog.open(PizzaMsgComponent);
       fixture.detectChanges();
       flush();
 
@@ -1243,12 +1239,12 @@ describe('HcDialog with a parent HcDialog', () => {
       flush();
 
       expect(overlayContainerElement.textContent!.trim())
-          .toBe('', 'Expected closeAll on child HcDialog to close dialog opened by parent');
+          .toBe('', 'Expected closeAll on child DialogService to close dialog opened by parent');
     }));
 
-  it('should close dialogs opened by a child when calling closeAll on a parent HcDialog',
+  it('should close dialogs opened by a child when calling closeAll on a parent DialogService',
     fakeAsync(() => {
-      childDialog.open(PizzaMsg);
+      childDialog.open(PizzaMsgComponent);
       fixture.detectChanges();
 
       expect(overlayContainerElement.textContent)
@@ -1259,11 +1255,11 @@ describe('HcDialog with a parent HcDialog', () => {
       flush();
 
       expect(overlayContainerElement.textContent!.trim())
-          .toBe('', 'Expected closeAll on parent HcDialog to close dialog opened by child');
+          .toBe('', 'Expected closeAll on parent DialogService to close dialog opened by child');
     }));
 
   it('should close the top dialog via the escape key', fakeAsync(() => {
-    childDialog.open(PizzaMsg);
+    childDialog.open(PizzaMsgComponent);
 
     dispatchKeyboardEvent(document.body, 'keydown', ESCAPE);
     fixture.detectChanges();
@@ -1273,7 +1269,7 @@ describe('HcDialog with a parent HcDialog', () => {
   }));
 
   it('should not close the parent dialogs when a child is destroyed', fakeAsync(() => {
-    parentDialog.open(PizzaMsg);
+    parentDialog.open(PizzaMsgComponent);
     fixture.detectChanges();
     flush();
 
@@ -1289,13 +1285,13 @@ describe('HcDialog with a parent HcDialog', () => {
   }));
 });
 
-describe('HcDialog with default options', () => {
-  let dialog: HcDialog;
+describe('DialogService with default options', () => {
+  let dialog: DialogService;
   let overlayContainer: OverlayContainer;
   let overlayContainerElement: HTMLElement;
 
   let testViewContainerRef: ViewContainerRef;
-  let viewContainerFixture: ComponentFixture<ComponentWithChildViewContainer>;
+  let viewContainerFixture: ComponentFixture<ComponentWithChildViewContainerComponent>;
 
   beforeEach(fakeAsync(() => {
     const defaultConfig = {
@@ -1311,7 +1307,7 @@ describe('HcDialog with default options', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [HcDialogModule, DialogTestModule],
+      imports: [DialogModule, DialogTestModule],
       providers: [
         {provide: HC_DIALOG_DEFAULT_OPTIONS, useValue: defaultConfig},
       ],
@@ -1320,8 +1316,8 @@ describe('HcDialog with default options', () => {
     TestBed.compileComponents();
   }));
 
-  beforeEach(inject([HcDialog, OverlayContainer],
-    (d: HcDialog, oc: OverlayContainer) => {
+  beforeEach(inject([DialogService, OverlayContainer],
+    (d: DialogService, oc: OverlayContainer) => {
       dialog = d;
       overlayContainer = oc;
       overlayContainerElement = oc.getContainerElement();
@@ -1332,14 +1328,14 @@ describe('HcDialog with default options', () => {
   });
 
   beforeEach(() => {
-    viewContainerFixture = TestBed.createComponent(ComponentWithChildViewContainer);
+    viewContainerFixture = TestBed.createComponent(ComponentWithChildViewContainerComponent);
 
     viewContainerFixture.detectChanges();
     testViewContainerRef = viewContainerFixture.componentInstance.childViewContainer;
   });
 
   it('should use the provided defaults', () => {
-    dialog.open(PizzaMsg, {viewContainerRef: testViewContainerRef});
+    dialog.open(PizzaMsgComponent, {viewContainerRef: testViewContainerRef});
 
     viewContainerFixture.detectChanges();
 
@@ -1360,7 +1356,7 @@ describe('HcDialog with default options', () => {
   });
 
   it('should be overridable by open() options', fakeAsync(() => {
-    dialog.open(PizzaMsg, {
+    dialog.open(PizzaMsgComponent, {
       hasBackdrop: true,
       disableClose: false,
       viewContainerRef: testViewContainerRef
@@ -1380,7 +1376,7 @@ describe('HcDialog with default options', () => {
 
 
 @Directive({selector: 'dir-with-view-container'})
-class DirectiveWithViewContainer {
+class DirectiveWithViewContainerDirective {
   constructor(public viewContainerRef: ViewContainerRef) { }
 }
 
@@ -1396,8 +1392,8 @@ class ComponentWithOnPushViewContainer {
   selector: 'arbitrary-component',
   template: `<dir-with-view-container></dir-with-view-container>`,
 })
-class ComponentWithChildViewContainer {
-  @ViewChild(DirectiveWithViewContainer) childWithViewContainer: DirectiveWithViewContainer;
+class ComponentWithChildViewContainerComponent {
+  @ViewChild(DirectiveWithViewContainerDirective) childWithViewContainer: DirectiveWithViewContainerDirective;
 
   get childViewContainer() {
     return this.childWithViewContainer.viewContainerRef;
@@ -1409,7 +1405,7 @@ class ComponentWithChildViewContainer {
   template: `<ng-template let-data let-dialogRef="dialogRef">
       Cheese {{localValue}} {{data?.value}}{{setDialogRef(dialogRef)}}</ng-template>`,
 })
-class ComponentWithTemplateRef {
+class ComponentWithTemplateRefComponent {
   localValue: string;
   dialogRef: HcDialogRef<any>;
 
@@ -1423,8 +1419,8 @@ class ComponentWithTemplateRef {
 
 /** Simple component for testing ComponentPortal. */
 @Component({template: '<p>Pizza</p> <input> <button>Close</button>'})
-class PizzaMsg {
-  constructor(public dialogRef: HcDialogRef<PizzaMsg>,
+class PizzaMsgComponent {
+  constructor(public dialogRef: HcDialogRef<PizzaMsgComponent>,
               public dialogInjector: Injector,
               public directionality: Directionality) {}
 }
@@ -1444,7 +1440,7 @@ class PizzaMsg {
     </hc-dialog-actions>
   `
 })
-class ContentElementDialog {}
+class ContentElementDialogComponent {}
 
 @Component({
   template: `
@@ -1463,52 +1459,52 @@ class ContentElementDialog {}
     </ng-template>
   `
 })
-class ComponentWithContentElementTemplateRef {
+class ComponentWithContentElementTemplateRefComponent {
   @ViewChild(TemplateRef) templateRef: TemplateRef<any>;
 }
 
 @Component({
   template: '',
-  providers: [HcDialog]
+  providers: [DialogService]
 })
-class ComponentThatProvidesHcDialog {
-  constructor(public dialog: HcDialog) {}
+class ComponentThatProvidesHcDialogComponent {
+  constructor(public dialog: DialogService) {}
 }
 
 /** Simple component for testing ComponentPortal. */
 @Component({template: ''})
-class DialogWithInjectedData {
+class DialogWithInjectedDataComponent {
   constructor(@Inject(HC_DIALOG_DATA) public data: any) { }
 }
 
 @Component({template: '<p>Pasta</p>'})
-class DialogWithoutFocusableElements {}
+class DialogWithoutFocusableElementsComponent {}
 
 // Create a real (non-test) NgModule as a workaround for
 // https://github.com/angular/angular/issues/10760
 const TEST_DIRECTIVES = [
-  ComponentWithChildViewContainer,
-  ComponentWithTemplateRef,
-  PizzaMsg,
-  DirectiveWithViewContainer,
+  ComponentWithChildViewContainerComponent,
+  ComponentWithTemplateRefComponent,
+  PizzaMsgComponent,
+  DirectiveWithViewContainerDirective,
   ComponentWithOnPushViewContainer,
-  ContentElementDialog,
-  DialogWithInjectedData,
-  DialogWithoutFocusableElements,
-  ComponentWithContentElementTemplateRef,
+  ContentElementDialogComponent,
+  DialogWithInjectedDataComponent,
+  DialogWithoutFocusableElementsComponent,
+  ComponentWithContentElementTemplateRefComponent,
 ];
 
 @NgModule({
-  imports: [HcDialogModule, NoopAnimationsModule],
+  imports: [DialogModule, NoopAnimationsModule],
   exports: TEST_DIRECTIVES,
   declarations: TEST_DIRECTIVES,
   entryComponents: [
-    ComponentWithChildViewContainer,
-    ComponentWithTemplateRef,
-    PizzaMsg,
-    ContentElementDialog,
-    DialogWithInjectedData,
-    DialogWithoutFocusableElements,
+    ComponentWithChildViewContainerComponent,
+    ComponentWithTemplateRefComponent,
+    PizzaMsgComponent,
+    ContentElementDialogComponent,
+    DialogWithInjectedDataComponent,
+    DialogWithoutFocusableElementsComponent,
   ],
 })
 class DialogTestModule { }

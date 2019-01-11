@@ -48,8 +48,8 @@ export function throwHcDialogContentAlreadyAttachedError() {
  */
 @Component({
   selector: 'hc-dialog-container',
-  templateUrl: 'dialog-container.html',
-  styleUrls: ['dialog.scss'],
+  templateUrl: 'dialog-container.component.html',
+  styleUrls: ['dialog-container.component.scss'],
   encapsulation: ViewEncapsulation.None,
   // Using OnPush for dialogs caused some G3 sync issues. Disabled until we can track them down.
   // tslint:disable-next-line:validate-decorators
@@ -69,7 +69,7 @@ export function throwHcDialogContentAlreadyAttachedError() {
     '(@dialogContainer.done)': '_onAnimationDone($event)',
   },
 })
-export class HcDialogContainer extends BasePortalOutlet {
+export class DialogContainerComponent extends BasePortalOutlet {
   /** The portal outlet inside of this container into which the dialog content will be loaded. */
   @ViewChild(CdkPortalOutlet) _portalOutlet: CdkPortalOutlet;
 

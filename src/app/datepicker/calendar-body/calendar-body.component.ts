@@ -50,7 +50,7 @@ export class HcCalendarCell {
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HcCalendarBody implements OnChanges {
+export class CalendarBodyComponent implements OnChanges {
     /** The label for the table. (e.g. "Jan 2017"). */
     @Input() label: string;
 

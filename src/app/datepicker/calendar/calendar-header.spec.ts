@@ -3,9 +3,9 @@ import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { HcNativeDateModule } from '../datetime/datetime.module';
-import { HcDatepickerModule } from '../hc-datepicker.module';
+import { DatepickerModule } from '../datepicker.module';
 import { HcDatepickerIntl } from '../datepicker-intl';
-import { HcCalendar } from './calendar.component';
+import { CalendarComponent } from './calendar.component';
 import { JAN, FEB, DEC } from '../utils/month-constants';
 import { yearsPerPage } from '../multi-year-view/multi-year-view.component';
 
@@ -14,7 +14,7 @@ import { yearsPerPage } from '../multi-year-view/multi-year-view.component';
 describe('HcCalendarHeader', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [HcNativeDateModule, HcDatepickerModule],
+            imports: [HcNativeDateModule, DatepickerModule],
             declarations: [
                 // Test components.
                 StandardCalendar
@@ -32,13 +32,13 @@ describe('HcCalendarHeader', () => {
         let periodButton: HTMLElement;
         let prevButton: HTMLElement;
         let nextButton: HTMLElement;
-        let calendarInstance: HcCalendar;
+        let calendarInstance: CalendarComponent;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(StandardCalendar);
             fixture.detectChanges();
 
-            const calendarDebugElement = fixture.debugElement.query(By.directive(HcCalendar));
+            const calendarDebugElement = fixture.debugElement.query(By.directive(CalendarComponent));
             calendarElement = calendarDebugElement.nativeElement;
             periodButton = calendarElement.querySelector('.hc-calendar-period-button') as HTMLElement;
             prevButton = calendarElement.querySelector('.hc-calendar-previous-button') as HTMLElement;

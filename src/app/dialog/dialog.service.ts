@@ -29,7 +29,7 @@ import {
 import {defer, Observable, of as observableOf, Subject} from 'rxjs';
 import {startWith} from 'rxjs/operators';
 import {HcDialogConfig} from './dialog-config';
-import {HcDialogContainer} from './dialog-container';
+import {DialogContainerComponent} from './dialog-container.component';
 import {HcDialogRef} from './dialog-ref';
 
 
@@ -67,7 +67,7 @@ export const HC_DIALOG_SCROLL_STRATEGY_PROVIDER = {
  * Service to open Material Design modal dialogs.
  */
 @Injectable()
-export class HcDialog implements OnDestroy {
+export class DialogService implements OnDestroy {
   private _openDialogsAtThisLevel: HcDialogRef<any>[] = [];
   private readonly _afterAllClosedAtThisLevel = new Subject<void>();
   private readonly _afterOpenedAtThisLevel = new Subject<HcDialogRef<any>>();
@@ -112,7 +112,7 @@ export class HcDialog implements OnDestroy {
       @Optional() private _location: Location,
       @Optional() @Inject(HC_DIALOG_DEFAULT_OPTIONS) private _defaultOptions: HcDialogConfig,
       @Inject(HC_DIALOG_SCROLL_STRATEGY) scrollStrategy: any,
-      @Optional() @SkipSelf() private _parentDialog: HcDialog,
+      @Optional() @SkipSelf() private _parentDialog: DialogService,
       private _overlayContainer: OverlayContainer) {
     this._scrollStrategy = scrollStrategy;
   }
@@ -217,14 +217,14 @@ export class HcDialog implements OnDestroy {
    * @param config The dialog configuration.
    * @returns A promise resolving to a ComponentRef for the attached container.
    */
-  private _attachDialogContainer(overlay: OverlayRef, config: HcDialogConfig): HcDialogContainer {
+  private _attachDialogContainer(overlay: OverlayRef, config: HcDialogConfig): DialogContainerComponent {
     const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
     const injector = new PortalInjector(userInjector || this._injector, new WeakMap([
       [HcDialogConfig, config]
     ]));
     const containerPortal =
-        new ComponentPortal(HcDialogContainer, config.viewContainerRef, injector);
-    const containerRef = overlay.attach<HcDialogContainer>(containerPortal);
+        new ComponentPortal(DialogContainerComponent, config.viewContainerRef, injector);
+    const containerRef = overlay.attach<DialogContainerComponent>(containerPortal);
 
     return containerRef.instance;
   }
@@ -240,7 +240,7 @@ export class HcDialog implements OnDestroy {
    */
   private _attachDialogContent<T, R>(
       componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
-      dialogContainer: HcDialogContainer,
+      dialogContainer: DialogContainerComponent,
       overlayRef: OverlayRef,
       config: HcDialogConfig): HcDialogRef<T, R> {
 
@@ -287,7 +287,7 @@ export class HcDialog implements OnDestroy {
   private _createInjector<T>(
       config: HcDialogConfig,
       dialogRef: HcDialogRef<T>,
-      dialogContainer: HcDialogContainer): PortalInjector {
+      dialogContainer: DialogContainerComponent): PortalInjector {
 
     const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
 
@@ -296,7 +296,7 @@ export class HcDialog implements OnDestroy {
     // purposes. To allow the hierarchy that is expected, the HcDialogContainer is explicitly
     // added to the injection tokens.
     const injectionTokens = new WeakMap<any, any>([
-      [HcDialogContainer, dialogContainer],
+      [DialogContainerComponent, dialogContainer],
       [HC_DIALOG_DATA, config.data],
       [HcDialogRef, dialogRef]
     ]);

@@ -6,14 +6,13 @@ import { CashmereModule } from './cashmere.module';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CalendarExampleComponent } from './calendar-example/calendar-example.component';
-import { HcDatepickerModule } from './datepicker/hc-datepicker.module';
-import { HcDialogModule } from './dialog';
+import { DatepickerModule } from './datepicker/datepicker.module';
 import { DialogExampleComponent, DialogOverviewExampleDialog } from './dialog-example/dialog-example.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HcNativeDateModule } from './datepicker/datetime/datetime.module';
 import { SugarDateModule } from './sugar-date.module';
 import { DateRangeExampleComponent } from './date-range-example/date-range-example.component';
-import { DateRangeModule } from './date-range/hc-date-range.module';
+import { DateRangeModule } from './date-range/date-range.module';
+import { DialogModule } from './dialog/dialog-module';
 
 @NgModule({
   declarations: [
@@ -27,10 +26,10 @@ import { DateRangeModule } from './date-range/hc-date-range.module';
     BrowserModule,
     BrowserAnimationsModule,
     CashmereModule,
-    HcDatepickerModule,
+    DatepickerModule,
     DateRangeModule,
     SugarDateModule,
-    HcDialogModule,
+    DialogModule,
     FormsModule,
     RouterModule.forRoot(
       [

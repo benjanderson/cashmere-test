@@ -11,7 +11,7 @@ import {
     Optional,
     Inject
 } from '@angular/core';
-import { HcCalendarCellCssClasses, HcCalendarBody, HcCalendarCell } from '../calendar-body/calendar-body.component';
+import { HcCalendarCellCssClasses, CalendarBodyComponent, HcCalendarCell } from '../calendar-body/calendar-body.component';
 import { Directionality } from '@angular/cdk/bidi';
 import { createMissingDateImplError } from '../datetime/datepicker-errors';
 import { LEFT_ARROW, RIGHT_ARROW, UP_ARROW, DOWN_ARROW, HOME, END, PAGE_UP, PAGE_DOWN, ENTER, SPACE } from '@angular/cdk/keycodes';
@@ -32,7 +32,7 @@ const DAYS_PER_WEEK = 7;
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HcMonthView implements AfterContentInit {
+export class MonthViewComponent implements AfterContentInit {
     /**
      * The date to display in this month view (everything other than the month and year is ignored).
      */
@@ -97,7 +97,7 @@ export class HcMonthView implements AfterContentInit {
     @Output() readonly activeDateChange: EventEmitter<D> = new EventEmitter<D>();
 
     /** The body of calendar table */
-    @ViewChild(HcCalendarBody) _hcCalendarBody: HcCalendarBody;
+    @ViewChild(CalendarBodyComponent) _hcCalendarBody: CalendarBodyComponent;
 
     /** The label for this month (e.g. "January 2017"). */
     _monthLabel: string;

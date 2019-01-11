@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { HC_DIALOG_DATA, HcDialog } from '../dialog/dialog';
+import { HC_DIALOG_DATA, DialogService } from '../dialog/dialog.service';
 import { HcDialogRef } from '../dialog/dialog-ref';
 
 export interface DialogData {
@@ -16,7 +16,7 @@ export class DialogExampleComponent implements OnInit {
     animal: string;
     name: string;
 
-    constructor(public dialog: HcDialog) {}
+    constructor(public dialog: DialogService) {}
 
     ngOnInit() {}
 

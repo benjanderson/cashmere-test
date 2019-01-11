@@ -11,7 +11,7 @@ import {
     SimpleChanges
 } from '@angular/core';
 import { ConfigStoreService } from '../services/config-store.service';
-import { HcCalendar } from 'src/app/datepicker/calendar/calendar.component';
+import { CalendarComponent } from 'src/app/datepicker/calendar/calendar.component';
 import { DatepickerInputDirective, HcDatepickerInputEvent } from 'src/app/datepicker/datepicker-input/datepicker-input.directive';
 import { D } from 'src/app/datepicker/datetime/date-formats';
 
@@ -23,8 +23,8 @@ import { D } from 'src/app/datepicker/datetime/date-formats';
     encapsulation: ViewEncapsulation.None
 })
 export class CalendarWrapperComponent implements OnInit, OnChanges {
-    @ViewChild(HcCalendar)
-    hcCalendar: HcCalendar;
+    @ViewChild(CalendarComponent)
+    hcCalendar: CalendarComponent;
 
     @ViewChild(DatepickerInputDirective)
     datePickerInput: DatepickerInputDirective;

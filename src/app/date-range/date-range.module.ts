@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DateRangeDirective } from './date-range/hc-date-range.component';
+import { DateRangeDirective } from './date-range/date-range.component';
 import { PickerOverlayComponent } from './picker-overlay/picker-overlay.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CalendarWrapperComponent } from './calendar-wrapper/calendar-wrapper.component';
@@ -8,13 +8,13 @@ import { DATE } from './services/range-store.service';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule, InputModule, FormFieldModule, RadioButtonModule } from '@healthcatalyst/cashmere';
 import { HcNativeDateModule } from '../datepicker/datetime/datetime.module';
-import { HcDatepickerModule } from '../datepicker/hc-datepicker.module';
+import { DatepickerModule } from '../datepicker/datepicker.module';
 
 @NgModule({
     imports: [
         CommonModule,
         FormFieldModule,
-        HcDatepickerModule,
+        DatepickerModule,
         HcNativeDateModule,
         InputModule,
         ButtonModule,

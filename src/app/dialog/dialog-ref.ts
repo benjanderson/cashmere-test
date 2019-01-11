@@ -12,7 +12,7 @@ import {Location} from '@angular/common';
 import {Observable, Subject} from 'rxjs';
 import {filter, take} from 'rxjs/operators';
 import {DialogPosition} from './dialog-config';
-import {HcDialogContainer} from './dialog-container';
+import {DialogContainerComponent} from './dialog-container.component';
 
 
 // TODO(jelbourn): resizing
@@ -44,7 +44,7 @@ export class HcDialogRef<T, R = any> {
 
   constructor(
     private _overlayRef: OverlayRef,
-    public _containerInstance: HcDialogContainer,
+    public _containerInstance: DialogContainerComponent,
     // @breaking-change 8.0.0 `_location` parameter to be removed.
     _location?: Location,
     readonly id: string = `hc-dialog-${uniqueId++}`) {

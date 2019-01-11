@@ -4,7 +4,7 @@ import { CalendarOverlayService } from '../services/calendar-overlay.service';
 import { RangeStoreService, DATE } from '../services/range-store.service';
 import { ConfigStoreService } from '../services/config-store.service';
 import { DatePipe } from '@angular/common';
-import { DateRangeDirective } from './hc-date-range.component';
+import { DateRangeDirective } from './date-range.component';
 import { DateRangeOptions } from '../model/model';
 import { By } from '@angular/platform-browser';
 

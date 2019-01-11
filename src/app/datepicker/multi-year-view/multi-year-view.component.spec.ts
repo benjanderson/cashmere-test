@@ -13,10 +13,10 @@ import {Component, ViewChild} from '@angular/core';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import { HcNativeDateModule } from '../datetime/datetime.module';
-import { HcCalendarBody, HcMultiYearView } from '..';
-import { yearsPerPage, yearsPerRow } from './multi-year-view.component';
+import { yearsPerPage, yearsPerRow, MultiYearViewComponent } from './multi-year-view.component';
 import { JAN } from '../utils/month-constants';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from '../utils/dispatch-events';
+import { CalendarBodyComponent } from '../calendar-body/calendar-body.component';
 
 // tslint:disable:no-non-null-assertion
 // tslint:disable:component-class-suffix
@@ -29,8 +29,8 @@ describe('HcMultiYearView', () => {
         HcNativeDateModule,
       ],
       declarations: [
-        HcCalendarBody,
-        HcMultiYearView,
+        CalendarBodyComponent,
+        MultiYearViewComponent,
 
         // Test components.
         StandardMultiYearView,
@@ -53,7 +53,7 @@ describe('HcMultiYearView', () => {
       fixture = TestBed.createComponent(StandardMultiYearView);
       fixture.detectChanges();
 
-      const multiYearViewDebugElement = fixture.debugElement.query(By.directive(HcMultiYearView));
+      const multiYearViewDebugElement = fixture.debugElement.query(By.directive(MultiYearViewComponent));
       multiYearViewNativeElement = multiYearViewDebugElement.nativeElement;
       testComponent = fixture.componentInstance;
     });
@@ -234,7 +234,7 @@ describe('HcMultiYearView', () => {
       fixture = TestBed.createComponent(MultiYearViewWithDateFilter);
       fixture.detectChanges();
 
-      const multiYearViewDebugElement = fixture.debugElement.query(By.directive(HcMultiYearView));
+      const multiYearViewDebugElement = fixture.debugElement.query(By.directive(MultiYearViewComponent));
       multiYearViewNativeElement = multiYearViewDebugElement.nativeElement;
     });
 
@@ -257,7 +257,7 @@ class StandardMultiYearView {
   selected = new Date(2020, JAN, 1);
   selectedYear: Date;
 
-  @ViewChild(HcMultiYearView) multiYearView: HcMultiYearView;
+  @ViewChild(MultiYearViewComponent) multiYearView: MultiYearViewComponent;
 }
 
 @Component({

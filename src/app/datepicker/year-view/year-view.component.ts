@@ -12,7 +12,7 @@ import {
     Optional,
     Inject
 } from '@angular/core';
-import { HcCalendarBody, HcCalendarCell } from '../calendar-body/calendar-body.component';
+import { CalendarBodyComponent, HcCalendarCell } from '../calendar-body/calendar-body.component';
 import { Directionality } from '@angular/cdk/bidi';
 import { createMissingDateImplError } from '../datetime/datepicker-errors';
 import { LEFT_ARROW, RIGHT_ARROW, UP_ARROW, DOWN_ARROW, HOME, END, PAGE_UP, PAGE_DOWN, ENTER, SPACE } from '@angular/cdk/keycodes';
@@ -31,7 +31,7 @@ import { DateAdapter } from '../datetime/date-adapter';
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HcYearView implements AfterContentInit {
+export class YearViewComponent implements AfterContentInit {
     /** The date to display in this year view (everything other than the year is ignored). */
     @Input()
     get activeDate(): D {
@@ -91,7 +91,7 @@ export class HcYearView implements AfterContentInit {
     @Output() readonly activeDateChange: EventEmitter<D> = new EventEmitter<D>();
 
     /** The body of calendar table */
-    @ViewChild(HcCalendarBody) _hcCalendarBody: HcCalendarBody;
+    @ViewChild(CalendarBodyComponent) _hcCalendarBody: CalendarBodyComponent;
 
     /** Grid of calendar cells representing the months of the year. */
     _months: HcCalendarCell[][];

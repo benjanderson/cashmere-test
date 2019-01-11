@@ -4,9 +4,10 @@ import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { HcNativeDateModule } from '../datetime/datetime.module';
-import { HcCalendarBody, HcMonthView } from '..';
 import { MAR, JAN, DEC, NOV, FEB } from '../utils/month-constants';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from '../utils/dispatch-events';
+import { CalendarBodyComponent } from '../calendar-body/calendar-body.component';
+import { MonthViewComponent } from './month-view.component';
 
 // tslint:disable:no-non-null-assertion
 // tslint:disable:component-class-suffix
@@ -17,8 +18,8 @@ describe('HcMonthView', () => {
         TestBed.configureTestingModule({
             imports: [HcNativeDateModule],
             declarations: [
-                HcCalendarBody,
-                HcMonthView,
+                CalendarBodyComponent,
+                MonthViewComponent,
 
                 // Test components.
                 StandardMonthView,
@@ -40,7 +41,7 @@ describe('HcMonthView', () => {
             fixture = TestBed.createComponent(StandardMonthView);
             fixture.detectChanges();
 
-            const monthViewDebugElement = fixture.debugElement.query(By.directive(HcMonthView));
+            const monthViewDebugElement = fixture.debugElement.query(By.directive(MonthViewComponent));
             monthViewNativeElement = monthViewDebugElement.nativeElement;
             testComponent = fixture.componentInstance;
         });
@@ -267,7 +268,7 @@ describe('HcMonthView', () => {
             fixture = TestBed.createComponent(MonthViewWithDateFilter);
             fixture.detectChanges();
 
-            const monthViewDebugElement = fixture.debugElement.query(By.directive(HcMonthView));
+            const monthViewDebugElement = fixture.debugElement.query(By.directive(MonthViewComponent));
             monthViewNativeElement = monthViewDebugElement.nativeElement;
         });
 
@@ -286,7 +287,7 @@ describe('HcMonthView', () => {
             fixture = TestBed.createComponent(MonthViewWithDateClass);
             fixture.detectChanges();
 
-            const monthViewDebugElement = fixture.debugElement.query(By.directive(HcMonthView));
+            const monthViewDebugElement = fixture.debugElement.query(By.directive(MonthViewComponent));
             monthViewNativeElement = monthViewDebugElement.nativeElement;
         });
 

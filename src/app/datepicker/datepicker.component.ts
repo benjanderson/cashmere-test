@@ -22,10 +22,10 @@ import { ScrollStrategy, Overlay, ComponentType, OverlayRef, OverlayConfig, Posi
 import { coerceBooleanProperty } from './utils/boolean-property';
 import { HcCalendarCellCssClasses } from './calendar-body/calendar-body.component';
 import { HcDialogRef } from '../dialog/dialog-ref';
-import { HcDatepickerContent } from './datepicker-content/datepicker-content.component';
+import { DatepickerContentComponent } from './datepicker-content/datepicker-content.component';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { DatepickerInputDirective } from './datepicker-input/datepicker-input.directive';
-import { HcDialog } from '../dialog/dialog';
+import { DialogService } from '../dialog/dialog.service';
 import { Directionality } from '@angular/cdk/bidi';
 import { DOCUMENT } from '@angular/platform-browser';
 import { take, filter } from 'rxjs/operators';
@@ -63,11 +63,11 @@ export class HcDatepickerContentBase {
     selector: 'hc-datepicker',
     template: '',
     exportAs: 'hcDatepicker',
-    styleUrls: ['hc-datepicker.component.scss'],
+    styleUrls: ['datepicker.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class HcDatepicker implements OnDestroy {
+export class DatepickerComponent implements OnDestroy {
     private _scrollStrategy: () => ScrollStrategy;
 
     /** An input indicating the type of the custom header component for the calendar, if set. */
@@ -180,13 +180,13 @@ export class HcDatepicker implements OnDestroy {
     _popupRef: OverlayRef;
 
     /** A reference to the dialog when the calendar is opened as a dialog. */
-    private _dialogRef: HcDialogRef<HcDatepickerContent> | null;
+    private _dialogRef: HcDialogRef<DatepickerContentComponent> | null;
 
     /** A portal containing the calendar for this datepicker. */
-    private _calendarPortal: ComponentPortal<HcDatepickerContent>;
+    private _calendarPortal: ComponentPortal<DatepickerContentComponent>;
 
     /** Reference to the component instantiated in popup mode. */
-    private _popupComponentRef: ComponentRef<HcDatepickerContent> | null;
+    private _popupComponentRef: ComponentRef<DatepickerContentComponent> | null;
 
     /** The element that was focused before the datepicker was opened. */
     private _focusedElementBeforeOpen: HTMLElement | null = null;
@@ -204,7 +204,7 @@ export class HcDatepicker implements OnDestroy {
     readonly _selectedChanged = new Subject<D>();
 
     constructor(
-        private _dialog: HcDialog,
+        private _dialog: DialogService,
         private _overlay: Overlay,
         private _ngZone: NgZone,
         private _viewContainerRef: ViewContainerRef,
@@ -328,7 +328,7 @@ export class HcDatepicker implements OnDestroy {
             this._dialogRef.close();
         }
 
-        this._dialogRef = this._dialog.open<HcDatepickerContent>(HcDatepickerContent, {
+        this._dialogRef = this._dialog.open<DatepickerContentComponent>(DatepickerContentComponent, {
             direction: this._dir ? this._dir.value : 'ltr',
             viewContainerRef: this._viewContainerRef,
             panelClass: 'hc-datepicker-dialog'
@@ -341,7 +341,7 @@ export class HcDatepicker implements OnDestroy {
     /** Open the calendar as a popup. */
     private _openAsPopup(): void {
         if (!this._calendarPortal) {
-            this._calendarPortal = new ComponentPortal<HcDatepickerContent>(HcDatepickerContent, this._viewContainerRef);
+            this._calendarPortal = new ComponentPortal<DatepickerContentComponent>(DatepickerContentComponent, this._viewContainerRef);
         }
 
         if (!this._popupRef) {

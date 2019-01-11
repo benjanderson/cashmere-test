@@ -22,16 +22,16 @@ import { createMissingDateImplError } from '../datetime/datepicker-errors';
 import { HC_DATE_FORMATS, HcDateFormats, D } from '../datetime/date-formats';
 import { DateAdapter } from '../datetime/date-adapter';
 import { Subject, Subscription } from 'rxjs';
-import { yearsPerPage, HcMultiYearView } from '../multi-year-view/multi-year-view.component';
+import { yearsPerPage, MultiYearViewComponent } from '../multi-year-view/multi-year-view.component';
 import { HcCalendarCellCssClasses } from '../calendar-body/calendar-body.component';
-import { HcMonthView } from '../month-view/month-view.component';
-import { HcYearView } from '../year-view/year-view.component';
+import { MonthViewComponent } from '../month-view/month-view.component';
+import { YearViewComponent } from '../year-view/year-view.component';
 
 /**
  * Possible views for the calendar.
  * @docs-private
  */
-export type HcCalendarView = 'month' | 'year' | 'multi-year';
+export type CalendarViewComponent = 'month' | 'year' | 'multi-year';
 
 /** Default header for hcCalendar */
 @Component({
@@ -42,10 +42,10 @@ export type HcCalendarView = 'month' | 'year' | 'multi-year';
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HcCalendarHeader {
+export class CalendarHeaderComponent {
     constructor(
         private _intl: HcDatepickerIntl,
-        @Inject(forwardRef(() => HcCalendar)) public calendar: HcCalendar,
+        @Inject(forwardRef(() => CalendarComponent)) public calendar: CalendarComponent,
         @Optional() private _dateAdapter: DateAdapter<D>,
         @Optional() @Inject(HC_DATE_FORMATS) private _dateFormats: HcDateFormats,
         changeDetectorRef: ChangeDetectorRef
@@ -163,7 +163,7 @@ export class HcCalendarHeader {
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HcCalendar implements AfterContentInit, AfterViewChecked, OnDestroy, OnChanges {
+export class CalendarComponent implements AfterContentInit, AfterViewChecked, OnDestroy, OnChanges {
     /** An input indicating the type of the header component, if set. */
     @Input() headerComponent: ComponentType<any>;
 
@@ -190,7 +190,7 @@ export class HcCalendar implements AfterContentInit, AfterViewChecked, OnDestroy
     private _startAt: D | null;
 
     /** Whether the calendar should be started in month or year view. */
-    @Input() startView: HcCalendarView = 'month';
+    @Input() startView: CalendarViewComponent = 'month';
 
     /** The currently selected date. */
     @Input()
@@ -247,13 +247,13 @@ export class HcCalendar implements AfterContentInit, AfterViewChecked, OnDestroy
     @Output() readonly _userSelection: EventEmitter<void> = new EventEmitter<void>();
 
     /** Reference to the current month view component. */
-    @ViewChild(HcMonthView) monthView: HcMonthView;
+    @ViewChild(MonthViewComponent) monthView: MonthViewComponent;
 
     /** Reference to the current year view component. */
-    @ViewChild(HcYearView) yearView: HcYearView;
+    @ViewChild(YearViewComponent) yearView: YearViewComponent;
 
     /** Reference to the current multi-year view component. */
-    @ViewChild(HcMultiYearView) multiYearView: HcMultiYearView;
+    @ViewChild(MultiYearViewComponent) multiYearView: MultiYearViewComponent;
 
     /**
      * The current active date. This determines which time period is shown and which date is
@@ -269,14 +269,14 @@ export class HcCalendar implements AfterContentInit, AfterViewChecked, OnDestroy
     private _clampedActiveDate: D;
 
     /** Whether the calendar is in month view. */
-    get currentView(): HcCalendarView {
+    get currentView(): CalendarViewComponent {
         return this._currentView;
     }
-    set currentView(value: HcCalendarView) {
+    set currentView(value: CalendarViewComponent) {
         this._currentView = value;
         this._moveFocusOnNextTick = true;
     }
-    private _currentView: HcCalendarView;
+    private _currentView: CalendarViewComponent;
 
     /**
      * Emits whenever there is a state change that the header may need to respond to.
@@ -304,7 +304,7 @@ export class HcCalendar implements AfterContentInit, AfterViewChecked, OnDestroy
     }
 
     ngAfterContentInit() {
-        this._calendarHeaderPortal = new ComponentPortal(this.headerComponent || HcCalendarHeader);
+        this._calendarHeaderPortal = new ComponentPortal(this.headerComponent || CalendarHeaderComponent);
         this.activeDate = this.startAt || this._dateAdapter.today();
 
         // Assign to the private property since we don't want to move focus on init.

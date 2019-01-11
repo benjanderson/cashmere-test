@@ -11,7 +11,7 @@ import {
 } from '@angular/forms';
 import { HcFormControlComponent, HcFormFieldComponent } from '@healthcatalyst/cashmere';
 import { createMissingDateImplError } from '../datetime/datepicker-errors';
-import { HcDatepicker } from '../hc-datepicker.component';
+import { DatepickerComponent } from '../datepicker.component';
 import { coerceBooleanProperty } from '../utils/boolean-property';
 import { Subscription } from 'rxjs';
 import { DOWN_ARROW } from '@angular/cdk/keycodes';
@@ -74,7 +74,7 @@ export class HcDatepickerInputEvent {
 export class DatepickerInputDirective implements ControlValueAccessor, OnDestroy, Validator {
     /** The datepicker that this input is associated with. */
     @Input()
-    set hcDatepicker(value: HcDatepicker) {
+    set hcDatepicker(value: DatepickerComponent) {
         if (!value) {
             return;
         }
@@ -87,7 +87,7 @@ export class DatepickerInputDirective implements ControlValueAccessor, OnDestroy
             this.setDate(selected);
         });
     }
-    _datepicker: HcDatepicker;
+    _datepicker: DatepickerComponent;
 
     /** Function that can be used to filter out dates within the datepicker. */
     @Input()

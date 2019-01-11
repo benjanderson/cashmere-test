@@ -15,7 +15,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { createMissingDateImplError } from '../datetime/datepicker-errors';
 import { LEFT_ARROW, RIGHT_ARROW, UP_ARROW, DOWN_ARROW, HOME, END, PAGE_UP, PAGE_DOWN, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { D } from '../datetime/date-formats';
-import { HcCalendarBody, HcCalendarCell } from '../calendar-body/calendar-body.component';
+import { CalendarBodyComponent, HcCalendarCell } from '../calendar-body/calendar-body.component';
 
 export const yearsPerPage = 24;
 
@@ -29,7 +29,7 @@ export const yearsPerRow = 4;
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HcMultiYearView implements AfterContentInit {
+export class MultiYearViewComponent implements AfterContentInit {
     /** The date to display in this multi-year view (everything other than the year is ignored). */
     @Input()
     get activeDate(): D {
@@ -92,7 +92,7 @@ export class HcMultiYearView implements AfterContentInit {
     @Output() readonly activeDateChange: EventEmitter<D> = new EventEmitter<D>();
 
     /** The body of calendar table */
-    @ViewChild(HcCalendarBody) _hcCalendarBody: HcCalendarBody;
+    @ViewChild(CalendarBodyComponent) _hcCalendarBody: CalendarBodyComponent;
 
     /** Grid of calendar cells representing the currently displayed years. */
     _years: HcCalendarCell[][];

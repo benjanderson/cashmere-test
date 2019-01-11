@@ -17,13 +17,13 @@ import { ButtonComponent } from '@healthcatalyst/cashmere';
 import { merge, Subscription, of as observableOf } from 'rxjs';
 import { coerceBooleanProperty } from '../utils/boolean-property';
 import { HcDatepickerIntl } from '../datepicker-intl';
-import { HcDatepicker } from '../hc-datepicker.component';
+import { DatepickerComponent } from '../datepicker.component';
 
 /** Can be used to override the icon of a `hcDatepickerToggle`. */
 @Directive({
     selector: '[hcDatepickerToggleIcon]'
 })
-export class hcDatepickerToggleIcon {}
+export class DatepickerToggleIconDirective {}
 
 @Component({
     // moduleId: module.id,
@@ -44,11 +44,11 @@ export class hcDatepickerToggleIcon {}
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HcDatepickerToggle implements AfterContentInit, OnChanges, OnDestroy {
+export class DatepickerToggleComponent implements AfterContentInit, OnChanges, OnDestroy {
     private _stateChanges = Subscription.EMPTY;
 
     /** Datepicker instance that the button will toggle. */
-    @Input('for') datepicker: HcDatepicker;
+    @Input('for') datepicker: DatepickerComponent;
 
     /** Tabindex for the toggle. */
     @Input() tabIndex: number | null;
@@ -64,7 +64,7 @@ export class HcDatepickerToggle implements AfterContentInit, OnChanges, OnDestro
     private _disabled: boolean;
 
     /** Custom icon set by the consumer. */
-    @ContentChild(hcDatepickerToggleIcon) _customIcon: hcDatepickerToggleIcon;
+    @ContentChild(DatepickerToggleIconDirective) _customIcon: DatepickerToggleIconDirective;
 
     /** Underlying button element. */
     @ViewChild('button') _button: ButtonComponent;

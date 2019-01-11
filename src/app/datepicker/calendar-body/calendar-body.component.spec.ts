@@ -1,16 +1,16 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {Component} from '@angular/core';
 import {By} from '@angular/platform-browser';
-import { HcCalendarBody } from '..';
+import { CalendarBodyComponent } from '..';
 import { HcCalendarCellCssClasses, HcCalendarCell } from './calendar-body.component';
 
 // tslint:disable:no-non-null-assertion
 // tslint:disable:component-class-suffix
-describe('HcCalendarBody', () => {
+describe('CalendarBodyComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        HcCalendarBody,
+        CalendarBodyComponent,
 
         // Test components.
         StandardCalendarBody,
@@ -38,7 +38,7 @@ describe('HcCalendarBody', () => {
       fixture = TestBed.createComponent(StandardCalendarBody);
       fixture.detectChanges();
 
-      const calendarBodyDebugElement = fixture.debugElement.query(By.directive(HcCalendarBody));
+      const calendarBodyDebugElement = fixture.debugElement.query(By.directive(CalendarBodyComponent));
       calendarBodyNativeElement = calendarBodyDebugElement.nativeElement;
       testComponent = fixture.componentInstance;
 

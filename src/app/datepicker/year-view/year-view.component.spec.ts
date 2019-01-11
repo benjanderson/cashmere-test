@@ -13,9 +13,10 @@ import {Component, ViewChild} from '@angular/core';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import { HcNativeDateModule } from '../datetime/datetime.module';
-import { HcCalendarBody, HcYearView } from '..';
 import { MAR, JUL, JUN, JAN, DEC, NOV, FEB, SEP, AUG, MAY, OCT } from '../utils/month-constants';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from '../utils/dispatch-events';
+import { CalendarBodyComponent } from '../calendar-body/calendar-body.component';
+import { YearViewComponent } from './year-view.component';
 
 // tslint:disable:component-class-suffix
 // tslint:disable:no-non-null-assertion
@@ -28,8 +29,8 @@ describe('HcYearView', () => {
         HcNativeDateModule,
       ],
       declarations: [
-        HcCalendarBody,
-        HcYearView,
+        CalendarBodyComponent,
+        YearViewComponent,
 
         // Test components.
         StandardYearView,
@@ -52,7 +53,7 @@ describe('HcYearView', () => {
       fixture = TestBed.createComponent(StandardYearView);
       fixture.detectChanges();
 
-      const yearViewDebugElement = fixture.debugElement.query(By.directive(HcYearView));
+      const yearViewDebugElement = fixture.debugElement.query(By.directive(YearViewComponent));
       yearViewNativeElement = yearViewDebugElement.nativeElement;
       testComponent = fixture.componentInstance;
     });
@@ -300,7 +301,7 @@ describe('HcYearView', () => {
       fixture = TestBed.createComponent(YearViewWithDateFilter);
       fixture.detectChanges();
 
-      const yearViewDebugElement = fixture.debugElement.query(By.directive(HcYearView));
+      const yearViewDebugElement = fixture.debugElement.query(By.directive(YearViewComponent));
       yearViewNativeElement = yearViewDebugElement.nativeElement;
     });
 
@@ -323,7 +324,7 @@ class StandardYearView {
   selected = new Date(2017, MAR, 10);
   selectedMonth: Date;
 
-  @ViewChild(HcYearView) yearView: HcYearView;
+  @ViewChild(YearViewComponent) yearView: YearViewComponent;
 }
 
 
