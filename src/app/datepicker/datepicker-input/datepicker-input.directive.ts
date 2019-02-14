@@ -266,6 +266,11 @@ export class DatepickerInputDirective implements ControlValueAccessor, OnDestroy
         return this._formField ? this._formField.getConnectedOverlayOrigin() : this._elementRef;
     }
 
+    /** Sets the focus on the input element */
+    focus(): void {
+        this._elementRef.nativeElement.focus();
+    }
+
     // Implemented as part of ControlValueAccessor.
     writeValue(value: D): void {
         this.value = value;

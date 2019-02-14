@@ -1,97 +1,94 @@
-import { Component, OnInit, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
-import { PresetItem } from '../model/model';
-import { RangeStoreService } from '../services/range-store.service';
+import { Component, OnInit, ViewEncapsulation, ChangeDetectorRef, AfterViewInit, ViewChildren, QueryList } from '@angular/core';
+import { PresetItem, DateRangeOptions } from '../model/model';
 import { OverlayRef } from '@angular/cdk/overlay';
 import { ConfigStoreService } from '../services/config-store.service';
-import { RadioButtonChangeEvent } from '@healthcatalyst/cashmere';
 import { DateRange } from '../model/model';
-import { D } from 'src/app/datepicker/datetime/date-formats';
+import { D } from '../../datepicker/datetime/date-formats';
+import { CalendarWrapperComponent } from '../calendar-wrapper/calendar-wrapper.component';
+import { RadioButtonChangeEvent } from '@healthcatalyst/cashmere';
+import { Observable } from 'rxjs';
 
+// ** Date range wrapper component */
 @Component({
     selector: 'hc-date-range-picker-overlay',
     templateUrl: './picker-overlay.component.html',
     styleUrls: ['./picker-overlay.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class PickerOverlayComponent implements OnInit {
-    fromDate: Date;
-    toDate: Date;
-    fromMinDate: Date;
-    fromMaxDate: Date;
-    toMinDate: Date;
-    toMaxDate: Date;
-    presets: Array<PresetItem> = [];
-    startDatePrefix: string;
-    endDatePrefix: string;
-    applyLabel: string;
-    cancelLabel: string;
-    shouldAnimate: string;
-    selectedPreset: DateRange | null;
+export class PickerOverlayComponent implements OnInit, AfterViewInit {
+    options$: Observable<DateRangeOptions>;
+    _fromDate: D;
+    _toDate: D;
     _disabled: boolean;
+    _selectedPreset: DateRange | null;
 
-    constructor(
-        private rangeStoreService: RangeStoreService,
-        private configStoreService: ConfigStoreService,
-        private overlayRef: OverlayRef,
-        private cd: ChangeDetectorRef
-    ) {}
+    @ViewChildren(CalendarWrapperComponent)
+    calendarWrappers: QueryList<CalendarWrapperComponent>;
+
+    constructor(public configStoreService: ConfigStoreService, private overlayRef: OverlayRef, private cd: ChangeDetectorRef) {
+        this.options$ = configStoreService.dateRangeOptions$;
+    }
 
     ngOnInit() {
-        this.fromDate = this.rangeStoreService.fromDate;
-        this.toDate = this.rangeStoreService.toDate;
-        this.startDatePrefix = this.configStoreService.DateRangeOptions.startDatePrefix || 'Start Date';
-        this.endDatePrefix = this.configStoreService.DateRangeOptions.endDatePrefix || 'End Date';
-        this.applyLabel = this.configStoreService.DateRangeOptions.applyLabel || 'Apply';
-        this.cancelLabel = this.configStoreService.DateRangeOptions.cancelLabel || 'Cancel';
-        this.presets = this.configStoreService.DateRangeOptions.presets;
-        ({ fromDate: this.fromMinDate, toDate: this.fromMaxDate } = this.configStoreService.DateRangeOptions.fromMinMax);
-        ({ fromDate: this.toMinDate, toDate: this.toMaxDate } = this.configStoreService.DateRangeOptions.toMinMax);
         this._setValidity();
+        this.configStoreService.rangeUpdate$.subscribe((dateRange: DateRange) => {
+            if (dateRange) {
+                this._fromDate = dateRange.fromDate;
+                this._toDate = dateRange.toDate;
+            } else {
+                this._fromDate = undefined;
+                this._toDate = undefined;
+            }
+        });
     }
 
-    updateFromDate(date: D | null) {
-        this.fromDate = date;
+    ngAfterViewInit(): void {
+        if (this.calendarWrappers.first) {
+            this.calendarWrappers.first.focusInput();
+        }
+    }
 
-        if (this.selectedPreset && this.selectedPreset.fromDate !== date) {
+    _updateFromDate(date?: D) {
+        this._fromDate = date;
+        if (this._selectedPreset && this._selectedPreset.fromDate !== date) {
             setTimeout(() => {
-                this.selectedPreset = null;
+                this._selectedPreset = null;
                 this.cd.detectChanges();
             });
         }
         this._setValidity();
     }
 
-    updateToDate(date: D | null) {
-        this.toDate = date;
-
-        if (this.selectedPreset && this.selectedPreset.toDate !== date) {
+    _updateToDate(date?: D) {
+        this._toDate = date;
+        if (this._selectedPreset && this._selectedPreset.toDate !== date) {
             setTimeout(() => {
-                this.selectedPreset = null;
+                this._selectedPreset = null;
                 this.cd.detectChanges();
             });
         }
         this._setValidity();
     }
 
-    updateRangeByPreset(presetItem: RadioButtonChangeEvent) {
+    _updateRangeByPreset(presetItem: RadioButtonChangeEvent) {
         const range: DateRange = presetItem.value;
-        this.fromDate = range.fromDate;
-        this.toDate = range.toDate;
+        this._fromDate = range.fromDate;
+        this._toDate = range.toDate;
         this._setValidity();
     }
 
-    applyNewDates() {
-        if (!!this.toDate && !!this.fromDate) {
-            this.rangeStoreService.updateRange(this.fromDate, this.toDate);
+    _applyNewDates() {
+        if (!!this._toDate && !!this._fromDate) {
+            this.configStoreService.updateRange({ fromDate: this._fromDate, toDate: this._toDate });
         }
         this.overlayRef.dispose();
     }
 
-    discardNewDates(e) {
+    _discardNewDates(e) {
         this.overlayRef.dispose();
     }
 
     _setValidity() {
-        this._disabled = !this.toDate || !this.fromDate;
+        this._disabled = !this._toDate || !this._fromDate;
     }
 }

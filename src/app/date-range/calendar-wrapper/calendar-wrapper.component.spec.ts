@@ -1,15 +1,21 @@
-import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed, fakeAsync} from '@angular/core/testing';
 
-import { CalendarWrapperComponent } from './calendar-wrapper.component';
-import { ConfigStoreService } from '../services/config-store.service';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { HcDatepickerInputEvent } from 'src/app/datepicker/datepicker-input/datepicker-input.directive';
+import {CalendarWrapperComponent} from './calendar-wrapper.component';
+import {ConfigStoreService} from '../services/config-store.service';
+import {NO_ERRORS_SCHEMA} from '@angular/core';
+import {HcDatepickerInputEvent} from '../../datepicker/datepicker-input/datepicker-input.directive';
+import { DateRangeOptions } from '../model/model';
 import { InputModule, FormFieldModule } from '@healthcatalyst/cashmere';
 
 describe('CalendarWrapperComponent', () => {
     let component: CalendarWrapperComponent;
     let fixture: ComponentFixture<CalendarWrapperComponent>;
     let configStoreService: ConfigStoreService;
+    const newOptions: DateRangeOptions = {
+        presets: [],
+        format: 'mediumDate',
+        applyLabel: 'Submit'
+    };
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -22,12 +28,7 @@ describe('CalendarWrapperComponent', () => {
 
     beforeEach(() => {
         configStoreService = TestBed.get(ConfigStoreService);
-        configStoreService.DateRangeOptions = {
-            presets: [],
-            format: 'mediumDate',
-            range: { fromDate: new Date(), toDate: new Date() },
-            applyLabel: 'Submit'
-        };
+        configStoreService.updateDateRangeOptions(newOptions);
         fixture = TestBed.createComponent(CalendarWrapperComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
@@ -37,20 +38,11 @@ describe('CalendarWrapperComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should set date format from options', () => {
-        expect(component._dateFormat).toEqual(configStoreService.DateRangeOptions.format);
-    });
-
-    it('should setup weekend filter', () => {
-        configStoreService.DateRangeOptions.excludeWeekends = true;
-        expect(component.weekendFilter).toBeDefined();
-    });
-
     it('should emit calendar date selection change', () => {
         component.selectedDateChange.subscribe(val => {
             expect(val instanceof Date).toBeTruthy();
         });
-        component.onCalendarChange(new Date());
+        component._onCalendarChange(new Date());
     });
 
     it('should emit input date selection change', fakeAsync(() => {
@@ -58,7 +50,7 @@ describe('CalendarWrapperComponent', () => {
             expect(val instanceof Date).toBeTruthy();
         });
         component.datePickerInput = <any>{value: new Date()};
-        const change: HcDatepickerInputEvent = new HcDatepickerInputEvent(component.datePickerInput, null);
-        component.onInputChange(change);
+        const change: HcDatepickerInputEvent = new HcDatepickerInputEvent(component.datePickerInput, <any>null);
+        component._onInputChange(change);
     }));
 });

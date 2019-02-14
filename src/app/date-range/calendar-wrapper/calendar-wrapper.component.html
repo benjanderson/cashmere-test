@@ -1,8 +1,8 @@
 <div class="form-container">
     <hc-form-field class="hc-calendar-wrapper-form-field">
         <hc-label [innerText]="prefixLabel"></hc-label>
-        <input hcInput hcDatepicker [(ngModel)]="selectedDate" required (dateChange)="onInputChange($event)"/>
-        <hc-error>Please enter valid date</hc-error>
+        <input hcInput hcDatepicker [(ngModel)]="selectedDate" required (dateChange)="_onInputChange($event)"/>
+        <hc-error [innerText]="invalidDateLabel"></hc-error>
     </hc-form-field>
 </div>
 <hc-calendar
@@ -10,7 +10,7 @@
     [selected]="selectedDate"
     [minDate]="minDate"
     [maxDate]="maxDate"
-    (selectedChange)="onCalendarChange($event)"
-    [dateFilter]="weekendFilter"
+    (selectedChange)="_onCalendarChange($event)"
+    [dateFilter]="configStore.weekendFilter"
 >
 </hc-calendar>

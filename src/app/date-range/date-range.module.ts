@@ -1,14 +1,13 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { DateRangeDirective } from './date-range/date-range.component';
-import { PickerOverlayComponent } from './picker-overlay/picker-overlay.component';
-import { OverlayModule } from '@angular/cdk/overlay';
-import { CalendarWrapperComponent } from './calendar-wrapper/calendar-wrapper.component';
-import { DATE } from './services/range-store.service';
-import { FormsModule } from '@angular/forms';
-import { ButtonModule, InputModule, FormFieldModule, RadioButtonModule } from '@healthcatalyst/cashmere';
-import { HcNativeDateModule } from '../datepicker/datetime/datetime.module';
-import { DatepickerModule } from '../datepicker/datepicker.module';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {DateRangeDirective} from './date-range/date-range.directive';
+import {PickerOverlayComponent} from './picker-overlay/picker-overlay.component';
+import {OverlayModule} from '@angular/cdk/overlay';
+import {CalendarWrapperComponent} from './calendar-wrapper/calendar-wrapper.component';
+import {FormsModule} from '@angular/forms';
+import {HcNativeDateModule} from '../datepicker/datetime/datetime.module';
+import {DatepickerModule} from '../datepicker/datepicker.module';
+import { FormFieldModule, InputModule, ButtonModule, RadioButtonModule } from '@healthcatalyst/cashmere';
 
 @NgModule({
     imports: [
@@ -23,7 +22,6 @@ import { DatepickerModule } from '../datepicker/datepicker.module';
         FormsModule
     ],
     declarations: [DateRangeDirective, CalendarWrapperComponent, PickerOverlayComponent],
-    providers: [{ provide: DATE, useValue: new Date() }],
     entryComponents: [PickerOverlayComponent],
     exports: [DateRangeDirective]
 })

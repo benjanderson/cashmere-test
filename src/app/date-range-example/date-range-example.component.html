@@ -1,10 +1,11 @@
 <div class="demo-box">
     <button
         hc-button
-        hc-date-range
+        hcDateRange
         title="Date Range"
         buttonStyle="link"
         popperPlacement="bottom"
+        [selectedDate]="range"
         (selectedDateRangeChanged)="updateRange($event)"
         [options]="options"
         #pickerOne

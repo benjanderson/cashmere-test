@@ -1,35 +1,41 @@
-<div class="hc-date-range-calendar-container">
+<div class="hc-date-range-calendar-container" *ngIf="(options$ | async) as options">
     <div class="hc-date-range-calendar-item">
         <hc-calendar-wrapper
-            [prefixLabel]="startDatePrefix"
-            [selectedDate]="fromDate"
-            [minDate]="fromMinDate"
-            [maxDate]="fromMaxDate"
-            (selectedDateChange)="updateFromDate($event)"
+            [prefixLabel]="options.startDatePrefix"
+            [selectedDate]="_fromDate"
+            [minDate]="options.fromMinDate"
+            [maxDate]="options.fromMaxDate"
+            (selectedDateChange)="_updateFromDate($event)"
+            [excludeWeekends]="options.excludeWeekends"
+            [dateFormat]="options.dateFormat"
+            [invalidDateLabel]="options.invalidDateLabel"
         >
         </hc-calendar-wrapper>
     </div>
     <div class="hc-date-range-calendar-item">
         <hc-calendar-wrapper
-            [prefixLabel]="endDatePrefix"
-            [selectedDate]="toDate"
-            [minDate]="toMinDate"
-            [maxDate]="toMaxDate"
-            (selectedDateChange)="updateToDate($event)"
+            [prefixLabel]="options.endDatePrefix"
+            [selectedDate]="_toDate"
+            [minDate]="options.toMinDate"
+            [maxDate]="options.toMaxDate"
+            (selectedDateChange)="_updateToDate($event)"
+            [excludeWeekends]="options.excludeWeekends"
+            [dateFormat]="options.dateFormat"
+            [invalidDateLabel]="options.invalidDateLabel"
         >
         </hc-calendar-wrapper>
     </div>
     <div class="hc-date-range-calendar-item">
         <div class="hc-date-range-menu">
-            <hc-radio-group (change)="updateRangeByPreset($event)" [(ngModel)]="selectedPreset">
-                <hc-radio-button *ngFor="let p of presets" [value]="p.range">{{p.presetLabel}}</hc-radio-button>
+            <hc-radio-group class="presets" (change)="_updateRangeByPreset($event)" [(ngModel)]="_selectedPreset">
+                <hc-radio-button *ngFor="let p of options.presets" [value]="p.range">{{ p.presetLabel }}</hc-radio-button>
             </hc-radio-group>
             <div class="hc-date-range-controls">
-                <button hc-button buttonStyle="link" type="button" (click)="discardNewDates($event)">
-                    {{ cancelLabel }}
+                <button hc-button buttonStyle="link" type="button" (click)="_discardNewDates($event)">
+                    {{ options.cancelLabel }}
                 </button>
-                <button hc-button buttonStyle="primary" type="button" [disabled]="_disabled" (click)="applyNewDates()">
-                    {{ applyLabel }}
+                <button hc-button buttonStyle="primary" type="button" [disabled]="_disabled" (click)="_applyNewDates()">
+                    {{ options.applyLabel }}
                 </button>
             </div>
         </div>
