@@ -7,6 +7,8 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./calendar-example.component.scss']
 })
 export class CalendarExampleComponent implements OnInit {
+  min = new Date(2009, 0, 1);
+  max = new Date(2011, 0, 1);
 
   constructor() { }
 
