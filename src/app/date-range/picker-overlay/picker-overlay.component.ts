@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewEncapsulation, ChangeDetectorRef, AfterViewInit, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ChangeDetectorRef, AfterViewInit, ViewChildren, QueryList, ViewChild } from '@angular/core';
 import { PresetItem, DateRangeOptions } from '../model/model';
 import { OverlayRef } from '@angular/cdk/overlay';
 import { ConfigStoreService } from '../services/config-store.service';
 import { DateRange } from '../model/model';
 import { D } from '../../datepicker/datetime/date-formats';
 import { CalendarWrapperComponent } from '../calendar-wrapper/calendar-wrapper.component';
-import { RadioButtonChangeEvent } from '@healthcatalyst/cashmere';
+import { RadioButtonChangeEvent, RadioGroupDirective } from '@healthcatalyst/cashmere';
 import { Observable } from 'rxjs';
 
 // ** Date range wrapper component */
@@ -17,13 +17,15 @@ import { Observable } from 'rxjs';
 })
 export class PickerOverlayComponent implements OnInit, AfterViewInit {
     options$: Observable<DateRangeOptions>;
-    _fromDate: D;
-    _toDate: D;
+    _fromDate: D | undefined;
+    _toDate: D | undefined;
     _disabled: boolean;
     _selectedPreset: DateRange | null;
 
     @ViewChildren(CalendarWrapperComponent)
     calendarWrappers: QueryList<CalendarWrapperComponent>;
+
+    @ViewChild(RadioGroupDirective) presets !: RadioGroupDirective;
 
     constructor(public configStoreService: ConfigStoreService, private overlayRef: OverlayRef, private cd: ChangeDetectorRef) {
         this.options$ = configStoreService.dateRangeOptions$;
@@ -70,8 +72,7 @@ export class PickerOverlayComponent implements OnInit, AfterViewInit {
         this._setValidity();
     }
 
-    _updateRangeByPreset(presetItem: RadioButtonChangeEvent) {
-        const range: DateRange = presetItem.value;
+    _updateRangeByPreset(range: DateRange) {
         this._fromDate = range.fromDate;
         this._toDate = range.toDate;
         this._setValidity();
