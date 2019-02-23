@@ -4,7 +4,7 @@
             [prefixLabel]="options.startDatePrefix"
             [selectedDate]="_fromDate"
             [minDate]="options.fromMinMax?.fromDate"
-            [maxDate]="options.fromMinMax?.toDate"
+            [maxDate]="options.fromMinMax?.toDate > _toDate ? _toDate : options.fromMinMax?.toDate"
             (selectedDateChange)="_updateFromDate($event)"
             [excludeWeekends]="options.excludeWeekends"
             [dateFormat]="options.dateFormat"
@@ -16,7 +16,7 @@
         <hc-calendar-wrapper
             [prefixLabel]="options.endDatePrefix"
             [selectedDate]="_toDate"
-            [minDate]="options.toMinMax?.fromDate"
+            [minDate]="options.toMinMax?.fromDate > _fromDate ? options.toMinMax?.fromDate : _fromDate"
             [maxDate]="options.toMinMax?.toDate"
             (selectedDateChange)="_updateToDate($event)"
             [excludeWeekends]="options.excludeWeekends"

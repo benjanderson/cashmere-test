@@ -1,11 +1,11 @@
-import {Component, OnInit, ViewEncapsulation, ChangeDetectorRef, AfterViewInit, ViewChildren, QueryList, ViewChild} from '@angular/core';
-import {DateRangeOptions} from '../model/model';
-import {OverlayRef} from '@angular/cdk/overlay';
-import {ConfigStoreService} from '../services/config-store.service';
-import {DateRange} from '../model/model';
-import {D} from '../../datepicker/datetime/date-formats';
-import {CalendarWrapperComponent} from '../calendar-wrapper/calendar-wrapper.component';
-import {Observable} from 'rxjs';
+import { Component, OnInit, ViewEncapsulation, ChangeDetectorRef, AfterViewInit, ViewChildren, QueryList, ViewChild } from '@angular/core';
+import { DateRangeOptions } from '../model/model';
+import { OverlayRef } from '@angular/cdk/overlay';
+import { ConfigStoreService } from '../services/config-store.service';
+import { DateRange } from '../model/model';
+import { D } from '../../datepicker/datetime/date-formats';
+import { CalendarWrapperComponent } from '../calendar-wrapper/calendar-wrapper.component';
+import { Observable } from 'rxjs';
 
 // ** Date range wrapper component */
 @Component({
@@ -77,12 +77,12 @@ export class PickerOverlayComponent implements OnInit, AfterViewInit {
 
     _applyNewDates() {
         if (!!this._toDate && !!this._fromDate) {
-            this.configStoreService.updateRange({fromDate: this._fromDate, toDate: this._toDate});
+            this.configStoreService.updateRange({ fromDate: this._fromDate, toDate: this._toDate });
         }
         this.overlayRef.dispose();
     }
 
-    _discardNewDates(e) {
+    _discardNewDates() {
         this.overlayRef.dispose();
     }
 

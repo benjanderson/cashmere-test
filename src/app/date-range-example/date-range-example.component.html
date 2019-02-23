@@ -13,4 +13,6 @@
         <span class="label">Date Range:</span> <span class="value"> {{ range.fromDate | date:'MM/dd/yyyy' }} - {{ range.toDate | date:'MM/dd/yyyy' }} </span>
         <hc-icon fontSet="fa" fontIcon="fa-chevron-down" class="icon-right" hcIconSm></hc-icon>
     </button>
+    fromRange: {{ options.fromMinMax.fromDate | date:'MM/dd/yyyy' }} - {{ options.fromMinMax.toDate | date:'MM/dd/yyyy' }}<br>
+    toRange: {{ options.toMinMax.fromDate | date:'MM/dd/yyyy' }} - {{ options.toMinMax.toDate | date:'MM/dd/yyyy' }}
 </div>

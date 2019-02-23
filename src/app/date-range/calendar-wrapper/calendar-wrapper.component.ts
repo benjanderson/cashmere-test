@@ -7,7 +7,8 @@ import {
     Output,
     EventEmitter,
     OnChanges,
-    SimpleChanges} from '@angular/core';
+    SimpleChanges
+} from '@angular/core';
 import { ConfigStoreService } from '../services/config-store.service';
 import { CalendarComponent } from '../../datepicker/calendar/calendar.component';
 import { DatepickerInputDirective, HcDatepickerInputEvent } from '../../datepicker/datepicker-input/datepicker-input.directive';
@@ -58,16 +59,17 @@ export class CalendarWrapperComponent implements OnChanges {
     maxDate: D;
     weekendFilter = () => true;
 
-    constructor(public configStore: ConfigStoreService) {
-    }
+    constructor(public configStore: ConfigStoreService) {}
 
     ngOnChanges(changes: SimpleChanges) {
         // Necessary to force view refresh
-        const date: D = changes.selectedDate.currentValue;
-        if (date) {
-            this.hcCalendar.activeDate = date;
-            this.datePickerInput.setDate(date);
-            this.selectedDateChange.emit(date);
+        if (changes.selectedDate) {
+            const date: D = changes.selectedDate.currentValue;
+            if (date) {
+                this.hcCalendar.activeDate = date;
+                this.datePickerInput.setDate(date);
+                this.selectedDateChange.emit(date);
+            }
         }
     }
 
@@ -76,7 +78,12 @@ export class CalendarWrapperComponent implements OnChanges {
     }
 
     _onInputChange(event: HcDatepickerInputEvent) {
-        this.selectedDateChange.emit(event.value || undefined);
+        if (event.value && (event.value < this.minDate || event.value > this.maxDate)) {
+            this.selectedDate = undefined;
+            this.selectedDateChange.emit(undefined);
+        } else {
+            this.selectedDateChange.emit(event.value || undefined);
+        }
     }
 
     /** Focus inner input */
