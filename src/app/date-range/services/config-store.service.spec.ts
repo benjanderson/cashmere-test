@@ -13,13 +13,15 @@ describe('ConfigStoreService', () => {
         expect(service).toBeTruthy();
     }));
 
-    it('should setup default options', async(inject([ConfigStoreService], (service: ConfigStoreService) => {
-        service.updateDateRangeOptions({
-            presets: [],
-            format: 'mediumDate',
-        });
-        service.dateRangeOptions$.subscribe((options) => {
-            expect(Object.keys(options)).toContain('excludeWeekends');
-        });
-    })));
+    it('should setup default options', async(
+        inject([ConfigStoreService], (service: ConfigStoreService) => {
+            service.updateDateRangeOptions({
+                presets: [],
+                format: 'mediumDate'
+            });
+            service.dateRangeOptions$.subscribe(options => {
+                expect(Object.keys(options)).toContain('excludeWeekends');
+            });
+        })
+    ));
 });

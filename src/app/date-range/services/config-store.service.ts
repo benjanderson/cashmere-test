@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { DateRangeOptions, DateRange } from '../model/model';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { D } from '../../datepicker';
-import { map, tap } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {DateRangeOptions, DateRange} from '../model/model';
+import {Observable, BehaviorSubject} from 'rxjs';
+import {D} from '../../datepicker';
+import {map, tap} from 'rxjs/operators';
 
 @Injectable()
 export class ConfigStoreService {

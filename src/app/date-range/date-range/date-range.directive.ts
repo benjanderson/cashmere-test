@@ -25,7 +25,7 @@ export class DateRangeDirective implements OnInit, OnDestroy, OnChanges {
     @Output()
     readonly selectedDateRangeChanged: EventEmitter<DateRange> = new EventEmitter<DateRange>();
 
-    /** Configuration to setup behavior of component. */
+    /** Selected date range. */
     @Input()
     selectedDate: DateRange;
 
@@ -56,7 +56,6 @@ export class DateRangeDirective implements OnInit, OnDestroy, OnChanges {
     ngOnChanges(changes: SimpleChanges): void {
         if (changes['options']) {
             const options: DateRangeOptions = changes['options'].currentValue;
-            console.log(options);
             this.configStoreService.updateDateRangeOptions(options);
         }
         if (changes['selectedDate']) {

@@ -44,10 +44,7 @@ describe('DateRangeDirective', () => {
         })
             .overrideComponent(DateRangeDirective, {
                 set: {
-                    providers: [
-                        {provide: CalendarOverlayService, useValue: overlay},
-                        ConfigStoreService
-                    ]
+                    providers: [{provide: CalendarOverlayService, useValue: overlay}, ConfigStoreService]
                 }
             })
             .compileComponents();

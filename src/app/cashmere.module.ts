@@ -37,7 +37,6 @@ const applications: IDiscoveryRequest = {
             Version: 1,
             DiscoveryServiceId: 1,
             ServiceUrl: 'http://example.com/',
-            Heartbeat: null,
             DiscoveryType: 'Application',
             IsHidden: false,
             Icon: '',
